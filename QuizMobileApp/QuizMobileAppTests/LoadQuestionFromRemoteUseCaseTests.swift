@@ -23,10 +23,10 @@ class RemoteQuestionLoader {
 }
 
 class HTTPClientSpy {
-    var requestedURLsCallCount = 0
+    var requestedURLs = [URL]()
     
     func get(from url: URL) {
-        requestedURLsCallCount += 1
+        requestedURLs.append(url)
     }
 }
 
@@ -35,7 +35,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     func test_init_doesNotRequestDataFromURL() {
         let (_, store) = makeSUT()
         
-        XCTAssertEqual(store.requestedURLsCallCount, 0)
+        XCTAssertTrue(store.requestedURLs.isEmpty)
     }
     
     func test_load_requestsDataFromURL() {
@@ -44,7 +44,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         
         sut.load()
         
-        XCTAssertEqual(store.requestedURLsCallCount, 1)
+        XCTAssertEqual(store.requestedURLs, [url])
     }
     
     func test_loadTwice_requestsDataFromURLTwice() {
@@ -54,7 +54,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         sut.load()
         sut.load()
         
-        XCTAssertEqual(store.requestedURLsCallCount, 2)
+        XCTAssertEqual(store.requestedURLs, [url, url])
     }
     
     // MARK: - Helpers
