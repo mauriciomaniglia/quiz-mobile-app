@@ -157,3 +157,8 @@ Given the customer has not finished answering all guesses and the timer ends
 
 #### Counter ends before course (sad path):
 1. System delivers ops message with only correct user answer count.
+
+
+## Architecture
+
+![Quiz Game Feature](quiz_diagram.jpg)
