@@ -162,3 +162,68 @@ Given the customer has not finished answering all guesses and the timer ends
 ## Architecture
 
 ![Quiz Game Feature](quiz_diagram.jpg)
+
+
+### Payload contract
+
+```
+GET *url* 
+
+200 RESPONSE
+
+{
+  "question": "What are all the java keywords?",
+  "answer": [
+    "abstract",
+    "assert",
+    "boolean",
+    "break",
+    "byte",
+    "case",
+    "catch",
+    "char",
+    "class",
+    "const",
+    "continue",
+    "default",
+    "do",
+    "double",
+    "else",
+    "enum",
+    "extends",
+    "final",
+    "finally",
+    "float",
+    "for",
+    "goto",
+    "if",
+    "implements",
+    "import",
+    "instanceof",
+    "int",
+    "interface",
+    "long",
+    "native",
+    "new",
+    "package",
+    "private",
+    "protected",
+    "public",
+    "return",
+    "short",
+    "static",
+    "strictfp",
+    "super",
+    "switch",
+    "synchronized",
+    "this",
+    "throw",
+    "throws",
+    "transient",
+    "try",
+    "void",
+    "volatile",
+    "while"
+  ]
+}
+```
