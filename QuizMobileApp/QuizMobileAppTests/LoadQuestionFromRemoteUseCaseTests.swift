@@ -39,7 +39,8 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     }
     
     func test_load_requestsDataFromURL() {
-        let (sut, store) = makeSUT()
+        let url = URL(fileURLWithPath: "http://a-given-http-url.com")
+        let (sut, store) = makeSUT(url: url)
         
         sut.load()
         
@@ -47,7 +48,8 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     }
     
     func test_loadTwice_requestsDataFromURLTwice() {
-        let (sut, store) = makeSUT()
+        let url = URL(fileURLWithPath: "http://a-given-http-url.com")
+        let (sut, store) = makeSUT(url: url)
         
         sut.load()
         sut.load()
