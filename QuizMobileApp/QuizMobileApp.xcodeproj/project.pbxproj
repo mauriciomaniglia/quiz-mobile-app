@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		2B3762432340061800E7CA6F /* QuizMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; };
 		2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B376253234006F500E7CA6F /* QuestionItem.swift */; };
+		2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3762552340087000E7CA6F /* QuestionLoader.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -27,6 +28,7 @@
 		2B3762422340061800E7CA6F /* QuizMobileAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizMobileAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B3762492340061800E7CA6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B376253234006F500E7CA6F /* QuestionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionItem.swift; sourceTree = "<group>"; };
+		2B3762552340087000E7CA6F /* QuestionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionLoader.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -71,6 +73,7 @@
 			children = (
 				2B37623D2340061800E7CA6F /* Info.plist */,
 				2B376253234006F500E7CA6F /* QuestionItem.swift */,
+				2B3762552340087000E7CA6F /* QuestionLoader.swift */,
 			);
 			path = QuizMobileApp;
 			sourceTree = "<group>";
@@ -192,6 +195,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */,
 				2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
