@@ -71,9 +71,8 @@
 		2B37623B2340061800E7CA6F /* QuizMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				2B3762572340092400E7CA6F /* Question Feature */,
 				2B37623D2340061800E7CA6F /* Info.plist */,
-				2B376253234006F500E7CA6F /* QuestionItem.swift */,
-				2B3762552340087000E7CA6F /* QuestionLoader.swift */,
 			);
 			path = QuizMobileApp;
 			sourceTree = "<group>";
@@ -84,6 +83,15 @@
 				2B3762492340061800E7CA6F /* Info.plist */,
 			);
 			path = QuizMobileAppTests;
+			sourceTree = "<group>";
+		};
+		2B3762572340092400E7CA6F /* Question Feature */ = {
+			isa = PBXGroup;
+			children = (
+				2B376253234006F500E7CA6F /* QuestionItem.swift */,
+				2B3762552340087000E7CA6F /* QuestionLoader.swift */,
+			);
+			path = "Question Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
