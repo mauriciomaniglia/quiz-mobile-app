@@ -33,19 +33,26 @@ class HTTPClientSpy {
 class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
-        let store = HTTPClientSpy()
-        _ = RemoteQuestionLoader(url: URL(fileURLWithPath: "http://a-given-http-url.com"), store: store)
+        let (_, store) = makeSUT()
         
         XCTAssertEqual(store.requestedURLsCallCount, 0)
     }
     
     func test_load_requestsDataFromURL() {
-        let store = HTTPClientSpy()
-        let sut = RemoteQuestionLoader(url: URL(fileURLWithPath: "http://a-given-http-url.com"), store: store)
+        let (sut, store) = makeSUT()
         
         sut.load()
         
         XCTAssertEqual(store.requestedURLsCallCount, 1)
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com")) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
+        let store = HTTPClientSpy()
+        let sut = RemoteQuestionLoader(url: url, store: store)
+        
+        return (sut, store)
     }
 
 }
