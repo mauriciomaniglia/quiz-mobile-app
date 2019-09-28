@@ -19,6 +19,7 @@ Given the customer has connectivity
  When the customer requests to load the game
  Then the app should display the question from remote
   And the game should be ready to start
+```
 
 ### Narrative #2
 
@@ -57,7 +58,7 @@ Given the customer has already requested to start the game
   And the timer ends
  Then the app should display a message indicate the time is over and how many answers the customer hit
   And the option to try another round
-
+```
 
 ### Narrative #3
 
@@ -65,7 +66,7 @@ Given the customer has already requested to start the game
 As an online customer
 I want to restart the game
 So I can start another round
-
+```
 
 #### Scenarios (Acceptance criteria)
 
@@ -84,5 +85,5 @@ Given the customer has not finished answering all guesses and the timer ends
  When the customer request to try another round from the message shown by the app
  Then the timer should stop and reset 
   And all previous answers should be deleted
-
+```
 
