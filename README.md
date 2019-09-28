@@ -87,3 +87,73 @@ Given the customer has not finished answering all guesses and the timer ends
   And all previous answers should be deleted
 ```
 
+## Use Cases
+
+### Load Question From Remote Use Case
+
+#### Data:
+- URL
+
+#### Primary course (happy path):
+1. Execute "Load Question" command with above data.
+2. System downloads data from the URL.
+3. System validates downloaded data.
+4. System creates question from valid data.
+5. System delivers question.
+
+#### Invalid data – error course (sad path):
+1. System delivers invalid data error.
+
+#### No connectivity – error course (sad path):
+1. System delivers connectivity error.
+
+### Start Game Use Case
+
+#### Data:
+- Time
+
+#### Primary course:
+1. Execute "Start Game" command with the above data.
+2. System starts the counter.
+3. System delivers counter current value.
+3. System enables inserting guesses.
+
+### Restart Game Use Case
+
+#### Primary course:
+1. Execute "Restart Game" command.
+2. System deletes old answers.
+3. System deletes old answers count.
+4. System creates new answers count.
+5. System stops the counter.
+6. System resets the counter.
+7. System disable inserting guesses.
+
+### Add Answer Use Case
+
+#### Data:
+- String
+
+#### Primary course:
+1. Execute "Add Answer" command with the above data.
+2. System validates answer is not empty.
+3. System removes extra spaces from answer.
+4. System saves new answer.
+5. System delivers all answers count from previous answers.
+
+#### Invalid data course (sad path):
+1. System do not save empty answer.
+
+### Validate Counter Use Case
+
+#### Primary course:
+1. Execute "Validate Counter" command with the above data.
+2. System valides if all save answers is equal to the total correct answers from the question model.
+3. System stop the counter.
+4. System delivers success message.
+
+#### Answers incorrect course (sad path):
+1. System delivers ops message with only correct user answer count.
+
+#### Counter ends before course (sad path):
+1. System delivers ops message with only correct user answer count.
