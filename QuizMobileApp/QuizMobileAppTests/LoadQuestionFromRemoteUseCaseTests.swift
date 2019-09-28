@@ -46,6 +46,15 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         XCTAssertEqual(store.requestedURLsCallCount, 1)
     }
     
+    func test_loadTwice_requestsDataFromURLTwice() {
+        let (sut, store) = makeSUT()
+        
+        sut.load()
+        sut.load()
+        
+        XCTAssertEqual(store.requestedURLsCallCount, 2)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com")) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
