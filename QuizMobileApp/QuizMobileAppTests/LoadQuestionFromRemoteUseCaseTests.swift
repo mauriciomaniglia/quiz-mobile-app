@@ -9,41 +9,6 @@
 import XCTest
 import QuizMobileApp
 
-class RemoteQuestionLoader {
-    private let store: HTTPClient
-    private let url: URL
-    
-    enum Error: Swift.Error {
-        case connectivity
-        case invalidData
-    }
-    
-    enum Result: Equatable {
-        case success([QuestionItem])
-        case failure(Error)
-    }
-    
-    init(url: URL, store: HTTPClient) {
-        self.url = url
-        self.store = store
-    }
-    
-    func load(completion: @escaping (Result) -> Void) {
-        store.get(from: url) { result in
-            switch result {
-            case let .success(data, _):
-                if let question = try? JSONDecoder().decode(QuestionItem.self, from: data) {
-                    completion(.success([question]))
-                } else {
-                    completion(.failure(Error.invalidData))
-                }
-            case .failure:
-                completion(.failure(Error.connectivity))
-            }
-        }
-    }
-}
-
 class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
 
     func test_init_doesNotRequestDataFromURL() {
