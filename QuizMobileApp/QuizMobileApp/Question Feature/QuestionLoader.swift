@@ -8,11 +8,11 @@
 
 import Foundation
 
-enum QuestionLoaderResult {
+public enum QuestionLoaderResult {
     case success([QuestionItem])
     case failure(Error)
 }
 
-protocol QuestionLoader {
+public protocol QuestionLoader {
     func load(completion: @escaping (QuestionLoaderResult) -> Void)
 }

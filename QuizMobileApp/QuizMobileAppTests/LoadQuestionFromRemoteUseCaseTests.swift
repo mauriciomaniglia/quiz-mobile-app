@@ -18,45 +18,60 @@ class RemoteQuestionLoader {
         case invalidData
     }
     
+    enum Result: Equatable {
+        case success([QuestionItem])
+        case failure(Error)
+    }
+    
     init(url: URL, store: HTTPClientSpy) {
         self.url = url
         self.store = store
     }
     
-    func load(completion: @escaping (Error) -> Void) {
-        store.get(from: url) { error, response in
-            if response != nil {
-                completion(.invalidData)
-            } else {
-                completion(.connectivity)
+    func load(completion: @escaping (Result) -> Void) {
+        store.get(from: url) { result in
+            switch result {
+            case let .success(data, _):
+                if let _ = try? JSONSerialization.jsonObject(with: data) {
+                    completion(.success([]))
+                } else {
+                    completion(.failure(Error.invalidData))
+                }
+            case .failure:
+                completion(.failure(Error.connectivity))
             }
         }
     }
 }
 
+enum HTTPClientResult {
+    case success(Data, HTTPURLResponse)
+    case failure(Error)
+}
+
 class HTTPClientSpy {
-    var messages = [(url: URL, completion: (Error?, HTTPURLResponse?) -> Void)]()
+    var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
     
     var requestedURLs: [URL] {
         return messages.map { $0.url }
     }
     
-    func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
+    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
         messages.append((url, completion))
     }
     
     func complete(with error: Error, at index: Int = 0) {
-        messages[index].completion(error, nil)
+        messages[index].completion(.failure(error))
     }
     
-    func complete(withStatusCode code: Int, at index: Int = 0) {
+    func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
         let response = HTTPURLResponse(
             url: requestedURLs[index],
             statusCode: code,
             httpVersion: nil,
             headerFields: nil
             )!
-        messages[index].completion(nil, response)
+        messages[index].completion(.success(data, response))
     }
 }
 
@@ -92,13 +107,13 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let (sut, store) = makeSUT(url: url)
         let clientError = NSError(domain: "Test", code: 0, userInfo: nil)
             
-        var captureError = [RemoteQuestionLoader.Error]()
+        var captureError = [RemoteQuestionLoader.Result]()
         sut.load { error in
             captureError.append(error)
         }
         store.complete(with: clientError)
         
-        XCTAssertEqual(captureError, [.connectivity])
+        XCTAssertEqual(captureError, [.failure(.connectivity)])
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
@@ -107,13 +122,13 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let samples =  [199, 201, 300, 400, 500]
          
         samples.enumerated().forEach { index, code in
-            var captureError = [RemoteQuestionLoader.Error]()
+            var captureError = [RemoteQuestionLoader.Result]()
             sut.load { error in
-                captureError.append(error)
+                captureError.append(.failure(.invalidData))
             }
             store.complete(withStatusCode: code, at: index)
             
-            XCTAssertEqual(captureError, [.invalidData])
+            XCTAssertEqual(captureError, [.failure(.invalidData)])
         }
     }
     

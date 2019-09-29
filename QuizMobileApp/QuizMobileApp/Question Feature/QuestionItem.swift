@@ -8,7 +8,7 @@
 
 import Foundation
 
-struct QuestionItem {
+public struct QuestionItem: Equatable {
     let id: UUID
     let question: String
     let answer: [String]
