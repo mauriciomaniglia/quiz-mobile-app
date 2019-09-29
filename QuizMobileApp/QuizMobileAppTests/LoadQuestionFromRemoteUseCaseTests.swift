@@ -132,6 +132,20 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         }
     }
     
+    func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
+        let url = URL(fileURLWithPath: "http://a-given-http-url.com")
+        let (sut, store) = makeSUT(url: url)
+        let invalidJSON = Data("invalid json".utf8)
+
+        var captureError = [RemoteQuestionLoader.Result]()
+        sut.load { error in
+            captureError.append(error)
+        }
+        store.complete(withStatusCode: 200, data: invalidJSON)
+
+        XCTAssertEqual(captureError, [.failure(.invalidData)])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com")) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
