@@ -10,7 +10,7 @@ import XCTest
 import QuizMobileApp
 
 class RemoteQuestionLoader {
-    private let store: HTTPClientSpy
+    private let store: HTTPClient
     private let url: URL
     
     enum Error: Swift.Error {
@@ -23,7 +23,7 @@ class RemoteQuestionLoader {
         case failure(Error)
     }
     
-    init(url: URL, store: HTTPClientSpy) {
+    init(url: URL, store: HTTPClient) {
         self.url = url
         self.store = store
     }
@@ -41,37 +41,6 @@ class RemoteQuestionLoader {
                 completion(.failure(Error.connectivity))
             }
         }
-    }
-}
-
-enum HTTPClientResult {
-    case success(Data, HTTPURLResponse)
-    case failure(Error)
-}
-
-class HTTPClientSpy {
-    var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
-    
-    var requestedURLs: [URL] {
-        return messages.map { $0.url }
-    }
-    
-    func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
-        messages.append((url, completion))
-    }
-    
-    func complete(with error: Error, at index: Int = 0) {
-        messages[index].completion(.failure(error))
-    }
-    
-    func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
-        let response = HTTPURLResponse(
-            url: requestedURLs[index],
-            statusCode: code,
-            httpVersion: nil,
-            headerFields: nil
-            )!
-        messages[index].completion(.success(data, response))
     }
 }
 
@@ -192,6 +161,32 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     
     private func makeItemJson(question: String, answer: [String]) -> [String: Any] {
         return [ "question": question, "answer": answer ] as [String : Any]
+    }
+    
+    private class HTTPClientSpy: HTTPClient {
+        var messages = [(url: URL, completion: (HTTPClientResult) -> Void)]()
+        
+        var requestedURLs: [URL] {
+            return messages.map { $0.url }
+        }
+        
+        func get(from url: URL, completion: @escaping (HTTPClientResult) -> Void) {
+            messages.append((url, completion))
+        }
+        
+        func complete(with error: Error, at index: Int = 0) {
+            messages[index].completion(.failure(error))
+        }
+        
+        func complete(withStatusCode code: Int, data: Data = Data(), at index: Int = 0) {
+            let response = HTTPURLResponse(
+                url: requestedURLs[index],
+                statusCode: code,
+                httpVersion: nil,
+                headerFields: nil
+                )!
+            messages[index].completion(.success(data, response))
+        }
     }
 
 }
