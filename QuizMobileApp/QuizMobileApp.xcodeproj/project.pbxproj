@@ -13,6 +13,7 @@
 		2B37625923401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37625823401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift */; };
 		2B37625B23411E4000E7CA6F /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37625A23411E4000E7CA6F /* HTTPClient.swift */; };
 		2B37625D2341202400E7CA6F /* RemoteQuestionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37625C2341202400E7CA6F /* RemoteQuestionLoader.swift */; };
+		2B376260234123FD00E7CA6F /* QuestionItemMapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37625F234123FD00E7CA6F /* QuestionItemMapper.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -35,6 +36,7 @@
 		2B37625823401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadQuestionFromRemoteUseCaseTests.swift; sourceTree = "<group>"; };
 		2B37625A23411E4000E7CA6F /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		2B37625C2341202400E7CA6F /* RemoteQuestionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RemoteQuestionLoader.swift; sourceTree = "<group>"; };
+		2B37625F234123FD00E7CA6F /* QuestionItemMapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionItemMapper.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -107,6 +109,7 @@
 			children = (
 				2B37625C2341202400E7CA6F /* RemoteQuestionLoader.swift */,
 				2B37625A23411E4000E7CA6F /* HTTPClient.swift */,
+				2B37625F234123FD00E7CA6F /* QuestionItemMapper.swift */,
 			);
 			path = "Question API";
 			sourceTree = "<group>";
@@ -222,6 +225,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				2B37625D2341202400E7CA6F /* RemoteQuestionLoader.swift in Sources */,
+				2B376260234123FD00E7CA6F /* QuestionItemMapper.swift in Sources */,
 				2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */,
 				2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */,
 				2B37625B23411E4000E7CA6F /* HTTPClient.swift in Sources */,

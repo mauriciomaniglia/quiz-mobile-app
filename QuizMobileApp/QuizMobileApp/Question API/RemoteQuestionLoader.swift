@@ -27,15 +27,20 @@ public class RemoteQuestionLoader: QuestionLoader {
     public func load(completion: @escaping (Result) -> Void) {
         store.get(from: url) { result in
             switch result {
-            case let .success(data, _):
-                if let question = try? JSONDecoder().decode(QuestionItem.self, from: data) {
-                    completion(.success([question]))
-                } else {
-                    completion(.failure(Error.invalidData))
-                }
+            case let .success(data, response):
+                completion(RemoteQuestionLoader.map(data, from:response))
             case .failure:
                 completion(.failure(Error.connectivity))
             }
+        }
+    }
+    
+    private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
+        do {
+            let items = try QuestionItemMapper.map(data, from: response)
+            return .success(items)
+        } catch {
+            return .failure(error)
         }
     }
 }
