@@ -160,6 +160,24 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         XCTAssertEqual(captureError, [.failure(.invalidData)])
     }
     
+    func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
+        let url = URL(fileURLWithPath: "http://a-given-http-u rl.com")
+        let (sut, store) = makeSUT(url: url)
+        let answer = ["abstract", "assert", "boolean"]
+        let json = [ "question": "What are all the java keywords?",
+                    "answer": answer ] as [String : Any]
+        let data = try! JSONSerialization.data(withJSONObject: json)
+        let questionItem = QuestionItem(question: "What are all the java keywords?", answer: answer)
+
+        var captureError = [RemoteQuestionLoader.Result]()
+        sut.load { error in
+            captureError.append(error)
+        }
+        store.complete(withStatusCode: 200, data: data)
+
+        XCTAssertEqual(captureError, [.success([questionItem])])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com")) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
