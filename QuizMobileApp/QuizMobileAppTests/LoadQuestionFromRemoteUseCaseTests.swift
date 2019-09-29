@@ -147,13 +147,10 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
         let url = URL(fileURLWithPath: "http://a-given-http-u rl.com")
         let (sut, store) = makeSUT(url: url)
-        let answer = ["abstract", "assert", "boolean"]
-        let json = [ "question": "What are all the java keywords?",
-                    "answer": answer ] as [String : Any]
-        let questionItem = QuestionItem(question: "What are all the java keywords?", answer: answer)
+        let item = makeItem(question: "Question", answer: ["answer1", "answer2"])
         
-        expect(sut, toCompleteWith: .success([questionItem]), when: {
-            let data = try! JSONSerialization.data(withJSONObject: json)
+        expect(sut, toCompleteWith: .success([item.model]), when: {
+            let data = try! JSONSerialization.data(withJSONObject: item.json)
             store.complete(withStatusCode: 200, data: data)
         })
     }
@@ -185,6 +182,16 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         action()
         
         wait(for: [exp], timeout: 1.0)
+    }
+    
+    private func makeItem(question: String, answer: [String]) -> (model: QuestionItem, json: [String: Any]) {
+        let questionItem = QuestionItem(question: question, answer: answer)
+        let questionJson = makeItemJson(question: question, answer: answer)
+        return (questionItem, questionJson)
+    }
+    
+    private func makeItemJson(question: String, answer: [String]) -> [String: Any] {
+        return [ "question": question, "answer": answer ] as [String : Any]
     }
 
 }
