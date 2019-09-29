@@ -105,15 +105,11 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     func test_load_deliversErrorOnClientError() {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
-        let clientError = NSError(domain: "Test", code: 0, userInfo: nil)
-            
-        var captureError = [RemoteQuestionLoader.Result]()
-        sut.load { error in
-            captureError.append(error)
-        }
-        store.complete(with: clientError)
         
-        XCTAssertEqual(captureError, [.failure(.connectivity)])
+        expect(sut, toCompleteWith: .failure(.connectivity), when: {
+            let clientError = NSError(domain: "Test", code: 0, userInfo: nil)
+            store.complete(with: clientError)
+        })
     }
     
     func test_load_deliversErrorOnNon200HTTPResponse() {
@@ -122,42 +118,30 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let samples =  [199, 201, 300, 400, 500]
          
         samples.enumerated().forEach { index, code in
-            var captureError = [RemoteQuestionLoader.Result]()
-            sut.load { error in
-                captureError.append(.failure(.invalidData))
-            }
-            store.complete(withStatusCode: code, at: index)
-            
-            XCTAssertEqual(captureError, [.failure(.invalidData)])
+            expect(sut, toCompleteWith: .failure(.invalidData), when: {
+                store.complete(withStatusCode: code, at: index)
+            })
         }
     }
     
     func test_load_deliversErrorOn200HTTPResponseWithInvalidJSON() {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
-        let invalidJSON = Data("invalid json".utf8)
-
-        var captureError = [RemoteQuestionLoader.Result]()
-        sut.load { error in
-            captureError.append(error)
-        }
-        store.complete(withStatusCode: 200, data: invalidJSON)
-
-        XCTAssertEqual(captureError, [.failure(.invalidData)])
+        
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            let invalidJSON = Data("invalid json".utf8)
+            store.complete(withStatusCode: 200, data: invalidJSON)
+        })
     }
     
     func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
-        let emptyData = Data("{}".utf8)
-
-        var captureError = [RemoteQuestionLoader.Result]()
-        sut.load { error in
-            captureError.append(error)
-        }
-        store.complete(withStatusCode: 200, data: emptyData)
-
-        XCTAssertEqual(captureError, [.failure(.invalidData)])
+        
+        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            let emptyData = Data("{}".utf8)
+            store.complete(withStatusCode: 200, data: emptyData)
+        })
     }
     
     func test_load_deliversItemsOn200HTTPResponseWithJSONItems() {
@@ -166,16 +150,12 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let answer = ["abstract", "assert", "boolean"]
         let json = [ "question": "What are all the java keywords?",
                     "answer": answer ] as [String : Any]
-        let data = try! JSONSerialization.data(withJSONObject: json)
         let questionItem = QuestionItem(question: "What are all the java keywords?", answer: answer)
-
-        var captureError = [RemoteQuestionLoader.Result]()
-        sut.load { error in
-            captureError.append(error)
-        }
-        store.complete(withStatusCode: 200, data: data)
-
-        XCTAssertEqual(captureError, [.success([questionItem])])
+        
+        expect(sut, toCompleteWith: .success([questionItem]), when: {
+            let data = try! JSONSerialization.data(withJSONObject: json)
+            store.complete(withStatusCode: 200, data: data)
+        })
     }
     
     // MARK: - Helpers
@@ -185,6 +165,26 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let sut = RemoteQuestionLoader(url: url, store: store)
         
         return (sut, store)
+    }
+    
+    private func expect(_ sut: RemoteQuestionLoader, toCompleteWith expectedResult: RemoteQuestionLoader.Result, when action: () -> Void, file: StaticString = #file, line: UInt = #line) {
+        let exp = expectation(description: "Wait for load completion")
+        
+        sut.load { receivedResult in
+            switch (receivedResult, expectedResult) {
+            case let (.success(receivedItems), .success(expectedItems)):
+                XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
+            case let (.failure(receivedError), .failure(expectedError)):
+                XCTAssertEqual(receivedError, expectedError, file: file, line: line)
+            default:
+                XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
+            }
+            exp.fulfill()
+        }
+        
+        action()
+        
+        wait(for: [exp], timeout: 1.0)
     }
 
 }
