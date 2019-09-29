@@ -7,10 +7,16 @@
 //
 
 import XCTest
+import QuizMobileApp
 
 class RemoteQuestionLoader {
     private let store: HTTPClientSpy
     private let url: URL
+    
+    enum Error: Swift.Error {
+        case connectivity
+        case invalidData
+    }
     
     init(url: URL, store: HTTPClientSpy) {
         self.url = url
@@ -18,23 +24,37 @@ class RemoteQuestionLoader {
     }
     
     func load(completion: @escaping (Error) -> Void) {
-        store.get(from: url) { error in
-            completion(error)
+        store.get(from: url) { error, response in
+            if response != nil {
+                completion(.invalidData)
+            } else {
+                completion(.connectivity)
+            }
         }
     }
 }
 
 class HTTPClientSpy {
     var requestedURLs = [URL]()
-    var messages = [(Error) -> Void]()
+    var messages = [(Error?, HTTPURLResponse?) -> Void]()
     
-    func get(from url: URL, completion: @escaping (Error) -> Void) {
+    func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
         messages.append(completion)
         requestedURLs.append(url)
     }
     
     func complete(with error: Error, at index: Int = 0) {
-        messages[index](error)
+        messages[index](error, nil)
+    }
+    
+    func complete(withStatusCode code: Int, at index: Int = 0) {
+        let response = HTTPURLResponse(
+            url: requestedURLs[index],
+            statusCode: code,
+            httpVersion: nil,
+            headerFields: nil
+            )!
+        messages[index](nil, response)
     }
 }
 
@@ -69,14 +89,30 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
         let clientError = NSError(domain: "Test", code: 0, userInfo: nil)
-        
-        var receivedError: Error?
+            
+        var captureError = [RemoteQuestionLoader.Error]()
         sut.load { error in
-            receivedError = error
+            captureError.append(error)
         }
         store.complete(with: clientError)
         
-        XCTAssertEqual(receivedError as NSError?, clientError)
+        XCTAssertEqual(captureError, [.connectivity])
+    }
+    
+    func test_load_deliversErrorOnNon200HTTPResponse() {
+        let url = URL(fileURLWithPath: "http://a-given-http-url.com")
+        let (sut, store) = makeSUT(url: url)
+        let samples =  [199, 201, 300, 400, 500]
+         
+        samples.enumerated().forEach { index, code in
+            var captureError = [RemoteQuestionLoader.Error]()
+            sut.load { error in
+                captureError.append(error)
+            }
+            store.complete(withStatusCode: code, at: index)
+            
+            XCTAssertEqual(captureError, [.invalidData])
+        }
     }
     
     // MARK: - Helpers
