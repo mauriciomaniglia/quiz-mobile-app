@@ -1,14 +1,14 @@
 //
-//  QuestionItem.swift
+//  RemoteQuestionItem.swift
 //  QuizMobileApp
 //
-//  Created by Mauricio Cesar Maniglia Junior on 28/09/19.
+//  Created by Mauricio Cesar Maniglia Junior on 29/09/19.
 //  Copyright © 2019 Mauricio Cesar Maniglia Junior. All rights reserved.
 //
 
 import Foundation
 
-public struct QuestionItem: Equatable {    
+public struct RemoteQuestionItem: Equatable, Decodable {
     let question: String
     let answer: [String]
     

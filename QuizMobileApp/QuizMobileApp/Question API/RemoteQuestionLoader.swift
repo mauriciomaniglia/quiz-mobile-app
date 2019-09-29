@@ -38,9 +38,15 @@ public class RemoteQuestionLoader: QuestionLoader {
     private static func map(_ data: Data, from response: HTTPURLResponse) -> Result {
         do {
             let items = try QuestionItemMapper.map(data, from: response)
-            return .success(items)
+            return .success(items.toModels())
         } catch {
             return .failure(error)
         }
+    }
+}
+
+private extension Array where Element == RemoteQuestionItem {
+    func toModels() -> [QuestionItem] {
+        return map { QuestionItem(question: $0.question, answer: $0.answer) }
     }
 }
