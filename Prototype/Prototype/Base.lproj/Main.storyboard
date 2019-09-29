@@ -17,7 +17,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Uxl-at-eJ6">
-                                <rect key="frame" x="16" y="200.5" width="343" height="343.5"/>
+                                <rect key="frame" x="16" y="200.5" width="343" height="336.5"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                             </tableView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="What are all the java keywords ?" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="qwu-pG-4CF">
@@ -58,7 +58,7 @@
                                 </userDefinedRuntimeAttributes>
                             </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaD-aZ-2ps" userLabel="footer_container">
-                                <rect key="frame" x="0.0" y="544" width="375" height="123"/>
+                                <rect key="frame" x="0.0" y="537" width="375" height="130"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="05:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="vlh-J2-FpC">
                                         <rect key="frame" x="259.5" y="16" width="99.5" height="41"/>
@@ -120,7 +120,17 @@
                                     <constraint firstAttribute="trailing" secondItem="vlh-J2-FpC" secondAttribute="trailing" constant="16" id="lsd-Wm-dUw"/>
                                     <constraint firstItem="vlh-J2-FpC" firstAttribute="top" secondItem="qaD-aZ-2ps" secondAttribute="top" constant="16" id="zdb-Jf-Cj7"/>
                                 </constraints>
+                                <variation key="default">
+                                    <mask key="constraints">
+                                        <exclude reference="K6V-eK-cll"/>
+                                    </mask>
+                                </variation>
                                 <variation key="heightClass=compact-widthClass=compact">
+                                    <mask key="constraints">
+                                        <include reference="K6V-eK-cll"/>
+                                    </mask>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=regular">
                                     <mask key="constraints">
                                         <include reference="K6V-eK-cll"/>
                                     </mask>
@@ -149,6 +159,7 @@
                             <constraint firstItem="qaD-aZ-2ps" firstAttribute="top" secondItem="Uxl-at-eJ6" secondAttribute="bottom" id="bQH-wV-Wsw"/>
                             <constraint firstItem="qaD-aZ-2ps" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="m2U-FP-ATN"/>
                             <constraint firstItem="Uxl-at-eJ6" firstAttribute="top" secondItem="Dl6-Tb-PTD" secondAttribute="bottom" constant="16" id="qAV-4X-oYY"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="uDz-7Z-RJ4" secondAttribute="bottom" constant="16" id="smH-YX-h0z"/>
                             <constraint firstItem="qaD-aZ-2ps" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="tLH-4y-zqC"/>
                             <constraint firstItem="qaD-aZ-2ps" firstAttribute="leading" secondItem="Dl6-Tb-PTD" secondAttribute="trailing" constant="10" id="vsc-jo-0cu"/>
                             <constraint firstAttribute="bottom" secondItem="Uxl-at-eJ6" secondAttribute="bottom" constant="16" id="yTd-pC-Xi2"/>
@@ -156,11 +167,11 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <variation key="default">
                             <mask key="constraints">
+                                <exclude reference="0LS-bM-E9t"/>
                                 <exclude reference="2ev-z0-fNE"/>
                                 <exclude reference="AYk-kV-htY"/>
                                 <exclude reference="BnB-ac-mA7"/>
                                 <exclude reference="yTd-pC-Xi2"/>
-                                <exclude reference="0LS-bM-E9t"/>
                                 <exclude reference="Adz-wj-eyX"/>
                                 <exclude reference="O32-wN-pWc"/>
                                 <exclude reference="vsc-jo-0cu"/>
@@ -168,6 +179,7 @@
                         </variation>
                         <variation key="heightClass=compact-widthClass=compact">
                             <mask key="constraints">
+                                <include reference="0LS-bM-E9t"/>
                                 <exclude reference="Pcw-HE-lid"/>
                                 <exclude reference="RVo-52-1rt"/>
                                 <include reference="2ev-z0-fNE"/>
@@ -176,7 +188,6 @@
                                 <exclude reference="Wcf-mE-NS4"/>
                                 <exclude reference="qAV-4X-oYY"/>
                                 <include reference="yTd-pC-Xi2"/>
-                                <include reference="0LS-bM-E9t"/>
                                 <include reference="Adz-wj-eyX"/>
                                 <include reference="O32-wN-pWc"/>
                                 <exclude reference="Oz7-ia-LCM"/>
@@ -184,10 +195,12 @@
                                 <exclude reference="m2U-FP-ATN"/>
                                 <exclude reference="tLH-4y-zqC"/>
                                 <include reference="vsc-jo-0cu"/>
+                                <exclude reference="smH-YX-h0z"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
                             <mask key="constraints">
+                                <include reference="0LS-bM-E9t"/>
                                 <exclude reference="Pcw-HE-lid"/>
                                 <exclude reference="RVo-52-1rt"/>
                                 <include reference="2ev-z0-fNE"/>
@@ -196,7 +209,6 @@
                                 <exclude reference="Wcf-mE-NS4"/>
                                 <exclude reference="qAV-4X-oYY"/>
                                 <include reference="yTd-pC-Xi2"/>
-                                <include reference="0LS-bM-E9t"/>
                                 <include reference="Adz-wj-eyX"/>
                                 <include reference="O32-wN-pWc"/>
                                 <exclude reference="Oz7-ia-LCM"/>
@@ -204,10 +216,12 @@
                                 <exclude reference="m2U-FP-ATN"/>
                                 <exclude reference="tLH-4y-zqC"/>
                                 <include reference="vsc-jo-0cu"/>
+                                <exclude reference="smH-YX-h0z"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
+                        <outlet property="buttonBottomConstraint" destination="smH-YX-h0z" id="GZ4-gU-o57"/>
                         <outlet property="footerContainerBottomConstraint" destination="Oz7-ia-LCM" id="SOT-gD-cPm"/>
                         <outlet property="timerLabel" destination="vlh-J2-FpC" id="2o1-7d-RyA"/>
                     </connections>

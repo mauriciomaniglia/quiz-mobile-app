@@ -11,6 +11,7 @@ import UIKit
 class ViewController: UIViewController {
     
     @IBOutlet var footerContainerBottomConstraint: NSLayoutConstraint!
+    @IBOutlet var buttonBottomConstraint: NSLayoutConstraint!
     @IBOutlet var timerLabel: UILabel!
     @IBOutlet var textfield: UITextField!
     
@@ -103,6 +104,7 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 2.0, animations: {
             self.isKeyboardVisible = true
             self.footerContainerBottomConstraint.constant += self.keyboardHeight(notification) ?? 0
+            self.buttonBottomConstraint.constant += self.keyboardHeight(notification) ?? 0
         })
     }
      
@@ -110,6 +112,7 @@ class ViewController: UIViewController {
         UIView.animate(withDuration: 2.0, animations: {
             self.isKeyboardVisible = false
             self.footerContainerBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0
+            self.buttonBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0
         })
     }
     
