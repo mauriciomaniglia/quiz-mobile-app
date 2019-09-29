@@ -32,8 +32,8 @@ class RemoteQuestionLoader {
         store.get(from: url) { result in
             switch result {
             case let .success(data, _):
-                if let _ = try? JSONSerialization.jsonObject(with: data) {
-                    completion(.success([]))
+                if let question = try? JSONDecoder().decode(QuestionItem.self, from: data) {
+                    completion(.success([question]))
                 } else {
                     completion(.failure(Error.invalidData))
                 }
@@ -157,7 +157,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         }
         store.complete(withStatusCode: 200, data: emptyData)
 
-        XCTAssertEqual(captureError, [.success([])])
+        XCTAssertEqual(captureError, [.failure(.invalidData)])
     }
     
     // MARK: - Helpers
