@@ -146,6 +146,20 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         XCTAssertEqual(captureError, [.failure(.invalidData)])
     }
     
+    func test_load_deliversNoItemsOn200HTTPResponseWithEmptyJSONList() {
+        let url = URL(fileURLWithPath: "http://a-given-http-url.com")
+        let (sut, store) = makeSUT(url: url)
+        let emptyData = Data("{}".utf8)
+
+        var captureError = [RemoteQuestionLoader.Result]()
+        sut.load { error in
+            captureError.append(error)
+        }
+        store.complete(withStatusCode: 200, data: emptyData)
+
+        XCTAssertEqual(captureError, [.success([])])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com")) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
