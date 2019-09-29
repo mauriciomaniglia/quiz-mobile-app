@@ -25,7 +25,9 @@ public class RemoteQuestionLoader: QuestionLoader {
     }
     
     public func load(completion: @escaping (Result) -> Void) {
-        store.get(from: url) { result in
+        store.get(from: url) { [weak self] result in
+            guard self != nil else { return }            
+            
             switch result {
             case let .success(data, response):
                 completion(RemoteQuestionLoader.map(data, from:response))

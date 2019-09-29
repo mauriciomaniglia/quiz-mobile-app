@@ -89,12 +89,28 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         })
     }
     
+    func test_load_doesNotDeliverAfterSUTInstanceHasBeenDeallocated() {
+        let url = URL(string: "http://any-url.com")!
+        let client = HTTPClientSpy()
+        let item = makeItem(question: "Question", answer: ["answer1", "answer2"])
+        let data = try! JSONSerialization.data(withJSONObject: item.json)
+        var sut: RemoteQuestionLoader? = RemoteQuestionLoader(url: url, store: client)
+        
+        var capturedResults = [RemoteQuestionLoader.Result]()
+        sut?.load { capturedResults.append($0)}
+        
+        sut = nil
+        client.complete(withStatusCode: 200, data: data)
+        
+        XCTAssertTrue(capturedResults.isEmpty)
+    }
+    
     // MARK: - Helpers
     
-    private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com")) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
+    private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com"), file: StaticString = #file, line: UInt = #line) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
         let store = HTTPClientSpy()
         let sut = RemoteQuestionLoader(url: url, store: store)
-        
+        trackForMemoryLeak(sut, file: file, line: line)
         return (sut, store)
     }
     
