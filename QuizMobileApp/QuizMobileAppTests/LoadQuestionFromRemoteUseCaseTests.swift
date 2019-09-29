@@ -35,16 +35,18 @@ class RemoteQuestionLoader {
 }
 
 class HTTPClientSpy {
-    var requestedURLs = [URL]()
-    var messages = [(Error?, HTTPURLResponse?) -> Void]()
+    var messages = [(url: URL, completion: (Error?, HTTPURLResponse?) -> Void)]()
+    
+    var requestedURLs: [URL] {
+        return messages.map { $0.url }
+    }
     
     func get(from url: URL, completion: @escaping (Error?, HTTPURLResponse?) -> Void) {
-        messages.append(completion)
-        requestedURLs.append(url)
+        messages.append((url, completion))
     }
     
     func complete(with error: Error, at index: Int = 0) {
-        messages[index](error, nil)
+        messages[index].completion(error, nil)
     }
     
     func complete(withStatusCode code: Int, at index: Int = 0) {
@@ -54,7 +56,7 @@ class HTTPClientSpy {
             httpVersion: nil,
             headerFields: nil
             )!
-        messages[index](nil, response)
+        messages[index].completion(nil, response)
     }
 }
 
