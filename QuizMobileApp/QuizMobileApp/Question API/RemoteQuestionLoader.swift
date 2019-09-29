@@ -8,18 +8,15 @@
 
 import Foundation
 
-public class RemoteQuestionLoader {
+public class RemoteQuestionLoader: QuestionLoader {
     private let store: HTTPClient
     private let url: URL
+    
+    public typealias Result = QuestionLoaderResult
     
     public enum Error: Swift.Error {
         case connectivity
         case invalidData
-    }
-    
-    public enum Result: Equatable {
-        case success([QuestionItem])
-        case failure(Error)
     }
     
     public init(url: URL, store: HTTPClient) {

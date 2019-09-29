@@ -40,7 +40,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
         
-        expect(sut, toCompleteWith: .failure(.connectivity), when: {
+        expect(sut, toCompleteWith: .failure(RemoteQuestionLoader.Error.connectivity), when: {
             let clientError = NSError(domain: "Test", code: 0, userInfo: nil)
             store.complete(with: clientError)
         })
@@ -52,7 +52,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let samples =  [199, 201, 300, 400, 500]
          
         samples.enumerated().forEach { index, code in
-            expect(sut, toCompleteWith: .failure(.invalidData), when: {
+            expect(sut, toCompleteWith: failure(.invalidData), when: {
                 store.complete(withStatusCode: code, at: index)
             })
         }
@@ -62,7 +62,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
         
-        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+        expect(sut, toCompleteWith: failure(.invalidData), when: {
             let invalidJSON = Data("invalid json".utf8)
             store.complete(withStatusCode: 200, data: invalidJSON)
         })
@@ -72,7 +72,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let url = URL(fileURLWithPath: "http://a-given-http-url.com")
         let (sut, store) = makeSUT(url: url)
         
-        expect(sut, toCompleteWith: .failure(.invalidData), when: {
+        expect(sut, toCompleteWith: failure(.invalidData), when: {
             let emptyData = Data("{}".utf8)
             store.complete(withStatusCode: 200, data: emptyData)
         })
@@ -105,7 +105,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
             switch (receivedResult, expectedResult) {
             case let (.success(receivedItems), .success(expectedItems)):
                 XCTAssertEqual(receivedItems, expectedItems, file: file, line: line)
-            case let (.failure(receivedError), .failure(expectedError)):
+            case let (.failure(receivedError as RemoteQuestionLoader.Error), .failure(expectedError as RemoteQuestionLoader.Error)):
                 XCTAssertEqual(receivedError, expectedError, file: file, line: line)
             default:
                 XCTFail("Expected result \(expectedResult) got \(receivedResult) instead", file: file, line: line)
@@ -152,6 +152,10 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
                 )!
             messages[index].completion(.success(data, response))
         }
+    }
+    
+    private func failure(_ error: RemoteQuestionLoader.Error) -> RemoteQuestionLoader.Result {
+        return .failure(error)
     }
 
 }
