@@ -11,15 +11,13 @@ import XCTest
 class StartGameUseCaseTests: XCTestCase {
 
     func test_init_doesNotRequestToStartTheCounter() {
-        let counter = CounterSpy(seconds: 1)
-        _ = QuizGameEngine(counter: counter)
+        let (_, counter) = makeSUT()
         
         XCTAssertEqual(counter.startCounterCallCount, 0)
     }
     
     func test_startGame_requestToStartTheCounter() {
-        let counter = CounterSpy(seconds: 1)
-        let sut = QuizGameEngine(counter: counter)
+        let (sut, counter) = makeSUT()
         
         sut.startGame { }
         
@@ -27,8 +25,7 @@ class StartGameUseCaseTests: XCTestCase {
     }
     
     func test_startGame_deliversCounterStartMessageWhenSecondsIsGreaterThanZero() {
-        let counter = CounterSpy(seconds: 1)
-        let sut = QuizGameEngine(counter: counter)
+        let (sut, counter) = makeSUT()
         
         var counterStartMessage = 0
         sut.startGame {
@@ -38,6 +35,15 @@ class StartGameUseCaseTests: XCTestCase {
         counter.startGameMessage()
         
         XCTAssertEqual(counterStartMessage, 1)
+    }
+    
+    // MARK: - Helpers
+    
+    private func makeSUT() -> (sut: QuizGameEngine, counter: CounterSpy) {
+        let counter = CounterSpy(seconds: 1)
+        let sut = QuizGameEngine(counter: counter)
+        
+        return (sut, counter)
     }
 
 }
