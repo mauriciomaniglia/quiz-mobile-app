@@ -70,10 +70,6 @@ class ViewController: UIViewController {
     }
     
     
-    
-    
-    
-    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -86,6 +82,10 @@ class ViewController: UIViewController {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
             self.present(self.loadingViewController(), animated: true)
         })
+        
+        let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 43))
+        textfield.leftView = paddingView
+        textfield.leftViewMode = .always
     }
     
     override func viewWillDisappear(_ animated: Bool) {

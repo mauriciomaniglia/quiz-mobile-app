@@ -43,20 +43,6 @@
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 </variation>
                             </label>
-                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Word" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dl6-Tb-PTD">
-                                <rect key="frame" x="16" y="141.5" width="343" height="43"/>
-                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
-                                <constraints>
-                                    <constraint firstAttribute="height" constant="43" id="oL9-7f-qfN"/>
-                                </constraints>
-                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
-                                <textInputTraits key="textInputTraits"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="5"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </textField>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="qaD-aZ-2ps" userLabel="footer_container">
                                 <rect key="frame" x="0.0" y="537" width="375" height="130"/>
                                 <subviews>
@@ -136,6 +122,20 @@
                                     </mask>
                                 </variation>
                             </view>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Word" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Dl6-Tb-PTD">
+                                <rect key="frame" x="16" y="141" width="343" height="43"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="oL9-7f-qfN"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </textField>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
@@ -182,6 +182,7 @@
                                 <include reference="0LS-bM-E9t"/>
                                 <exclude reference="Pcw-HE-lid"/>
                                 <exclude reference="RVo-52-1rt"/>
+                                <exclude reference="smH-YX-h0z"/>
                                 <include reference="2ev-z0-fNE"/>
                                 <include reference="AYk-kV-htY"/>
                                 <include reference="BnB-ac-mA7"/>
@@ -195,7 +196,6 @@
                                 <exclude reference="m2U-FP-ATN"/>
                                 <exclude reference="tLH-4y-zqC"/>
                                 <include reference="vsc-jo-0cu"/>
-                                <exclude reference="smH-YX-h0z"/>
                             </mask>
                         </variation>
                         <variation key="heightClass=compact-widthClass=regular">
@@ -203,6 +203,7 @@
                                 <include reference="0LS-bM-E9t"/>
                                 <exclude reference="Pcw-HE-lid"/>
                                 <exclude reference="RVo-52-1rt"/>
+                                <exclude reference="smH-YX-h0z"/>
                                 <include reference="2ev-z0-fNE"/>
                                 <include reference="AYk-kV-htY"/>
                                 <include reference="BnB-ac-mA7"/>
@@ -216,13 +217,13 @@
                                 <exclude reference="m2U-FP-ATN"/>
                                 <exclude reference="tLH-4y-zqC"/>
                                 <include reference="vsc-jo-0cu"/>
-                                <exclude reference="smH-YX-h0z"/>
                             </mask>
                         </variation>
                     </view>
                     <connections>
                         <outlet property="buttonBottomConstraint" destination="smH-YX-h0z" id="GZ4-gU-o57"/>
                         <outlet property="footerContainerBottomConstraint" destination="Oz7-ia-LCM" id="SOT-gD-cPm"/>
+                        <outlet property="textfield" destination="Dl6-Tb-PTD" id="dWz-w8-jwN"/>
                         <outlet property="timerLabel" destination="vlh-J2-FpC" id="2o1-7d-RyA"/>
                     </connections>
                 </viewController>
