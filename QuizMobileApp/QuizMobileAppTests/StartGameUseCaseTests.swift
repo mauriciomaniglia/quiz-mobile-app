@@ -13,7 +13,7 @@ class StartGameUseCaseTests: XCTestCase {
     func test_init_doesNotRequestToStartTheCounter() {
         let (_, counter) = makeSUT()
         
-        XCTAssertEqual(counter.startCounterCallCount, 0)
+        XCTAssertEqual(counter.messages.count, 0)
     }
     
     func test_startGame_requestToStartTheCounter() {
@@ -21,90 +21,80 @@ class StartGameUseCaseTests: XCTestCase {
         
         sut.startGame { _ in }
         
-        XCTAssertEqual(counter.startCounterCallCount, 1)
+        XCTAssertEqual(counter.messages, [.start, .currentSecond(1)])
     }
     
     func test_startGame_deliversCounterStartMessageWhenSecondsIsGreaterThanZero() {
         let (sut, counter) = makeSUT()
         
-        var counterStartMessage = 0
+        var messages = [QuizGameEngine.QuizGameEngineResult]()
         sut.startGame { gameResult in
             switch gameResult {
             case .gameStarted:
-                counterStartMessage += 1
+                messages.append(.gameStarted)
             case .updateSecond:
-                XCTFail("Expected game start message, got \(gameResult) instead")
+                messages.append(.updateSecond(1))
             }
         }
         
         counter.startGameMessage()
         
-        XCTAssertEqual(counterStartMessage, 1)
+        XCTAssertEqual(messages, [.gameStarted])
     }
     
     func test_startGame_doNotDeliversCounterStartMessageTwiceWhenSecondsIsGreaterThanOne() {
         let counter = CounterSpy(seconds: 2)
         let sut = QuizGameEngine(counter: counter)
         
-        var counterStartMessage = 0
-        sut.startGame { gameResult in
-            switch gameResult {
-            case .gameStarted:
-                counterStartMessage += 1
-            case .updateSecond:
-                XCTFail("Expected game start message, got \(gameResult) instead")
-            }
-        }
+         var messages = [QuizGameEngine.QuizGameEngineResult]()
+         sut.startGame { gameResult in
+             switch gameResult {
+             case .gameStarted:
+                 messages.append(.gameStarted)
+             case .updateSecond:
+                 messages.append(.updateSecond(1))
+             }
+         }
         
         counter.startGameMessage()
         
-        XCTAssertEqual(counterStartMessage, 1)
+        XCTAssertEqual(messages, [.gameStarted])
     }
     
     func test_startGame_doNotDeliversCounterStartMessageWithZeroSeconds() {
         let counter = CounterSpy(seconds: 0)
         let sut = QuizGameEngine(counter: counter)
         
-        var counterStartMessage = 0
+        var messages = [QuizGameEngine.QuizGameEngineResult]()
         sut.startGame { gameResult in
             switch gameResult {
             case .gameStarted:
-                counterStartMessage += 1
+                messages.append(.gameStarted)
             case .updateSecond:
-                XCTFail("Expected game start message, got \(gameResult) instead")
+                messages.append(.updateSecond(1))
             }
         }
         
         counter.startGameMessage()
         
-        XCTAssertEqual(counterStartMessage, 0)
+        XCTAssertEqual(messages, [])
     }
     
-    func test_startGame_deliversCounterCurrentSecondWhenSecondsIsGreaterThanZero() {
+    func test_startGame_requestsCounterCurrentSecondWhenSecondsIsGreaterThanZero() {
         let (sut, counter) = makeSUT()
-
-        var currentSecondCounterResultCount = 0
-        sut.startGame { gameResult in
-            switch gameResult {
-            case .gameStarted:
-                XCTFail("Expected updateSecond message, got \(gameResult) instead")
-            case .updateSecond:
-                currentSecondCounterResultCount += 1
-            }
-        }
         
-        counter.sendCurrentSecond()
+        sut.startGame { _ in }
 
-        XCTAssertEqual(currentSecondCounterResultCount, 1)
+        XCTAssertEqual(counter.messages, [.start, .currentSecond(1)])
     }
     
-    func test_startGame_deliversCounterCurrentSecondTwiceWhenSecondIsEqualToTwo() {
+    func test_startGame_requestsCounterCurrentSecondTwiceWhenSecondIsEqualToTwo() {
         let counter = CounterSpy(seconds: 2)
         let sut = QuizGameEngine(counter: counter)
         
         sut.startGame { _ in }
 
-        XCTAssertEqual(counter.startCounterCallCount, 2)
+        XCTAssertEqual(counter.messages, [.start, .currentSecond(2), .currentSecond(1)])
     }
     
     // MARK: - Helpers
@@ -121,7 +111,7 @@ class StartGameUseCaseTests: XCTestCase {
 class QuizGameEngine {
     private let counter: CounterSpy
     
-    enum QuizGameEngineResult {
+    enum QuizGameEngineResult: Equatable {
         case gameStarted
         case updateSecond(Int)
     }
@@ -143,11 +133,11 @@ class QuizGameEngine {
 }
 
 class CounterSpy {
-    var startCounterCallCount = 0
+    var messages = [CounterResult]()
     var seconds = 0
-    var messages = [(CounterResult) -> Void]()
+    var startCompletions = [(CounterResult) -> Void]()
     
-    enum CounterResult {
+    enum CounterResult: Equatable {
         case start
         case currentSecond(Int)
     }
@@ -158,24 +148,25 @@ class CounterSpy {
     
     func start(completion: @escaping (CounterResult) -> Void) {
         guard seconds > 0 else { return }
+        messages.append(.start)
         
         while seconds > 0 {
-            startCounterCallCount += 1
-            messages.append(completion)
+            messages.append(.currentSecond(seconds))
+            startCompletions.append(completion)
             
             seconds -= 1
         }
     }
     
     func startGameMessage(at index: Int = 0) {
-        guard messages.count > 0 else { return }
+        guard startCompletions.count > 0 else { return }
         
-        messages[index](.start)
+        startCompletions[index](.start)
     }
     
     func sendCurrentSecond(at index: Int = 0) {
-        guard messages.count > 0 else { return }
+        guard startCompletions.count > 0 else { return }
         
-        messages[index](.currentSecond(seconds))
+        startCompletions[index](.currentSecond(seconds))
     }
 }
