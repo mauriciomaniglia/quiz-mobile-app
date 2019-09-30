@@ -14,6 +14,7 @@ class ViewController: UIViewController {
     @IBOutlet var buttonBottomConstraint: NSLayoutConstraint!
     @IBOutlet var timerLabel: UILabel!
     @IBOutlet var textfield: UITextField!
+    @IBOutlet var startButton: UIButton!
     
     var isKeyboardVisible = false
     
@@ -38,9 +39,11 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame() {
         if self.resumeTapped == false {
-             runTimer()
-             self.resumeTapped = true
+            runTimer()
+            self.resumeTapped = true
+            self.startButton.setTitle("Reset", for: .normal)
         } else {
+            self.startButton.setTitle("Start", for: .normal)
             resetButtonTapped()
             self.resumeTapped = false
         }

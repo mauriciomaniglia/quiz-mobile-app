@@ -223,6 +223,7 @@
                     <connections>
                         <outlet property="buttonBottomConstraint" destination="smH-YX-h0z" id="GZ4-gU-o57"/>
                         <outlet property="footerContainerBottomConstraint" destination="Oz7-ia-LCM" id="SOT-gD-cPm"/>
+                        <outlet property="startButton" destination="uDz-7Z-RJ4" id="jle-ZX-hge"/>
                         <outlet property="textfield" destination="Dl6-Tb-PTD" id="dWz-w8-jwN"/>
                         <outlet property="timerLabel" destination="vlh-J2-FpC" id="2o1-7d-RyA"/>
                     </connections>
