@@ -21,6 +21,7 @@
 		2B3A37D223424C2E0012EE04 /* StartGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A37D123424C2E0012EE04 /* StartGameUseCaseTests.swift */; };
 		2B7EB12F2342B254009D166D /* Counter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB12E2342B254009D166D /* Counter.swift */; };
 		2B7EB1312342B3C4009D166D /* QuizGameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1302342B3C4009D166D /* QuizGameEngine.swift */; };
+		2B7EB1352342B58A009D166D /* AddAnswerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -51,6 +52,7 @@
 		2B3A37D123424C2E0012EE04 /* StartGameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameUseCaseTests.swift; sourceTree = "<group>"; };
 		2B7EB12E2342B254009D166D /* Counter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Counter.swift; sourceTree = "<group>"; };
 		2B7EB1302342B3C4009D166D /* QuizGameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGameEngine.swift; sourceTree = "<group>"; };
+		2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnswerUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +165,7 @@
 			isa = PBXGroup;
 			children = (
 				2B3A37D123424C2E0012EE04 /* StartGameUseCaseTests.swift */,
+				2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */,
 			);
 			path = "Game Engine";
 			sourceTree = "<group>";
@@ -295,6 +298,7 @@
 			files = (
 				2B37625923401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift in Sources */,
 				2B37626623412DBE00E7CA6F /* URLSessionHTTPClientTests.swift in Sources */,
+				2B7EB1352342B58A009D166D /* AddAnswerUseCaseTests.swift in Sources */,
 				2B3A37D223424C2E0012EE04 /* StartGameUseCaseTests.swift in Sources */,
 				2B37626923412F0200E7CA6F /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
