@@ -98,8 +98,7 @@
 			isa = PBXGroup;
 			children = (
 				2B37626723412EE400E7CA6F /* Helpers */,
-				2B37626523412DBE00E7CA6F /* URLSessionHTTPClientTests.swift */,
-				2B37625823401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift */,
+				2B3A37D023424AF90012EE04 /* Question API */,
 				2B3762492340061800E7CA6F /* Info.plist */,
 			);
 			path = QuizMobileAppTests;
@@ -132,6 +131,15 @@
 				2B37626823412F0200E7CA6F /* XCTestCase+MemoryLeakTracking.swift */,
 			);
 			path = Helpers;
+			sourceTree = "<group>";
+		};
+		2B3A37D023424AF90012EE04 /* Question API */ = {
+			isa = PBXGroup;
+			children = (
+				2B37626523412DBE00E7CA6F /* URLSessionHTTPClientTests.swift */,
+				2B37625823401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift */,
+			);
+			path = "Question API";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
