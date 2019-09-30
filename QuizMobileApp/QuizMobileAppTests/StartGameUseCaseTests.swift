@@ -80,6 +80,24 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counterStartMessage, 0)
     }
     
+    func test_startGame_deliversCounterCurrentSecondWhenSecondsIsGreaterThanZero() {
+        let (sut, counter) = makeSUT()
+
+        var currentSecondCounterResultCount = 0
+        sut.startGame { gameResult in
+            switch gameResult {
+            case .gameStarted:
+                XCTFail("Expected updateSecond message, got \(gameResult) instead")
+            case .updateSecond:
+                currentSecondCounterResultCount += 1
+            }
+        }
+        
+        counter.sendCurrentSecond()
+
+        XCTAssertEqual(currentSecondCounterResultCount, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: QuizGameEngine, counter: CounterSpy) {
@@ -140,5 +158,11 @@ class CounterSpy {
         guard messages.count > 0 else { return }
         
         messages[index](.start)
+    }
+    
+    func sendCurrentSecond(at index: Int = 0) {
+        guard messages.count > 0 else { return }
+        
+        messages[index](.currentSecond(seconds))
     }
 }
