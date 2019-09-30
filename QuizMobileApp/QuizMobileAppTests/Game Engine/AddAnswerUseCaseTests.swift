@@ -67,6 +67,15 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
     
+    func test_addAnswer_doNotRemovesSpacesBetweenTwoWordsFromNewAnswer() {
+        let (sut, _) = makeSUT()
+        
+        var newSavedAnswer = [String]()
+        sut.addAnswer("My Answer") { newSavedAnswer = $0 }
+        
+        XCTAssertEqual(newSavedAnswer, ["My Answer"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
