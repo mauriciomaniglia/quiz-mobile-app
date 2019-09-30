@@ -32,4 +32,8 @@ public final class QuizGameEngine {
             }
         }
     }
+    
+    public func addAnswer(_ answer: String, completion: @escaping ([String]) -> Void) {
+        completion([answer])
+    }
 }

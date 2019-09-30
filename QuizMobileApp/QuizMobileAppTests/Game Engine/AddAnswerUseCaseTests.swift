@@ -17,6 +17,17 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(counter.messages.count, 0)
     }
     
+    func test_addAnswer_deliversTheNewAnswerAfterSave() {
+        let (sut, _) = makeSUT()
+        
+        var newSavedAnswer = [String]()
+        sut.addAnswer("Answer1") { answers in
+            newSavedAnswer = answers
+        }
+        
+        XCTAssertEqual(newSavedAnswer, ["Answer1"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
