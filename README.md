@@ -141,6 +141,7 @@ Given the customer has not finished answering all guesses and the timer ends
 3. System removes extra spaces from answer.
 4. System saves new answer.
 5. System delivers all answers count from previous answers.
+6. System delivers all answers already saved
 
 #### Invalid data course (sad path):
 1. System do not save empty answer.
