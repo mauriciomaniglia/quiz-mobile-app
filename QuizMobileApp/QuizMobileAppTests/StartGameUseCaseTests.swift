@@ -51,6 +51,20 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counterStartMessage, 1)
     }
     
+    func test_startGame_doNotDeliversCounterStartMessageWithZeroSeconds() {
+        let counter = CounterSpy(seconds: 0)
+        let sut = QuizGameEngine(counter: counter)
+        
+        var counterStartMessage = 0
+        sut.startGame {
+            counterStartMessage += 1
+        }
+        
+        counter.startGameMessage()
+        
+        XCTAssertEqual(counterStartMessage, 0)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: QuizGameEngine, counter: CounterSpy) {
@@ -84,11 +98,15 @@ class CounterSpy {
     }
     
     func start(completion: @escaping () -> Void) {
-        startCounterCallCount += 1
-        messages.append(completion)
+        if seconds > 0 {
+            startCounterCallCount += 1
+            messages.append(completion)
+        }
     }
     
     func startGameMessage(at index: Int = 0) {
+        guard messages.count > 0 else { return }
+        
         messages[index]()
     }
 }
