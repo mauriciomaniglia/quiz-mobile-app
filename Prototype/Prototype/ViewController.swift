@@ -15,6 +15,7 @@ class ViewController: UIViewController {
     @IBOutlet var timerLabel: UILabel!
     @IBOutlet var textfield: UITextField!
     @IBOutlet var startButton: UIButton!
+    @IBOutlet var tableView: UITableView!
     
     var isKeyboardVisible = false
     
@@ -22,6 +23,8 @@ class ViewController: UIViewController {
     var timer = Timer()
     var isTimerRunning = false
     var resumeTapped = false
+    
+    var data = [String]()
     
     func runTimer() {
          timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
@@ -42,10 +45,14 @@ class ViewController: UIViewController {
             runTimer()
             self.resumeTapped = true
             self.startButton.setTitle("Reset", for: .normal)
+            textfield.isUserInteractionEnabled = true
         } else {
             self.startButton.setTitle("Start", for: .normal)
             resetButtonTapped()
             self.resumeTapped = false
+            textfield.isUserInteractionEnabled = false
+            data = []
+            tableView.reloadData()
         }
     }
     
@@ -63,10 +70,8 @@ class ViewController: UIViewController {
     }
     
     func showAlertController() {
-        let alert = UIAlertController(title: "Time finished", message: "Sorry, time is up!", preferredStyle: .alert)
-        let yesButton = UIAlertAction(title: "Yes, please", style: .default, handler: {(_ action: UIAlertAction) -> Void in
-            print("you pressed Yes, please button")
-        })
+        let alert = UIAlertController(title: "Time finished", message: "Sorry, time is up! You got 32 out of 50 answers.", preferredStyle: .alert)
+        let yesButton = UIAlertAction(title: "Try Again", style: .default, handler: nil)
         alert.addAction(yesButton)
         
         present(alert, animated: true)
@@ -75,6 +80,10 @@ class ViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        textfield.delegate = self
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        textfield.isUserInteractionEnabled = false
         
         let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
         view.addGestureRecognizer(tap)
@@ -134,6 +143,30 @@ class ViewController: UIViewController {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let loadingViewController = storyboard.instantiateViewController(withIdentifier: "LoadingViewController") as! LoadingViewController
         return loadingViewController
+    }
+}
+
+extension ViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        if let text = textField.text, text.isEmpty == false {
+            let trimmedText = text.trimmingCharacters(in: .whitespacesAndNewlines)
+            data.append(trimmedText)
+            tableView.reloadData()
+            textField.text = ""
+        }
+        return true
+    }
+}
+
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return data.count
+    }
+    
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = data[indexPath.row]
+        return cell
     }
 }
 
