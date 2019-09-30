@@ -58,6 +58,15 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, ["Answer1", "Answer2", "Answer3", "Answer4"])
     }
     
+    func test_addAnswer_removesExtraSpacesFromNewAnswers() {
+        let (sut, _) = makeSUT()
+        
+        var newSavedAnswer = [String]()
+        sut.addAnswer("   Answer1 ") { newSavedAnswer = $0 }
+        
+        XCTAssertEqual(newSavedAnswer, ["Answer1"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
