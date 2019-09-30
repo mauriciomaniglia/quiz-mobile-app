@@ -35,9 +35,10 @@ public final class QuizGameEngine {
     }
     
     public func addAnswer(_ answer: String, completion: @escaping ([String]) -> Void) {
-        guard !answer.isEmpty else { return }
         
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
+        
+        guard !trimmedAnswer.isEmpty else { return }
         
         savedAnswers.append(trimmedAnswer)
         

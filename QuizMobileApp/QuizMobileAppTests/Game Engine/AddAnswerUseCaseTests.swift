@@ -76,6 +76,15 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, ["My Answer"])
     }
     
+    func test_addAnswer_doNotSaveAnswerWithOnlySpaces() {
+        let (sut, _) = makeSUT()
+        
+        var newSavedAnswer = [String]()
+        sut.addAnswer("   ") { newSavedAnswer = $0 }
+        
+        XCTAssertEqual(newSavedAnswer, [])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
