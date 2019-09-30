@@ -18,13 +18,24 @@ class ViewController: UIViewController {
     @IBOutlet var tableView: UITableView!
     
     var isKeyboardVisible = false
-    
-    var seconds = 20
+    var seconds = 60
     var timer = Timer()
     var isTimerRunning = false
     var resumeTapped = false
-    
     var data = [String]()
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        simulateLoading()
+        setupDismissKeyboardOnTap()
+        setupTableView()
+        setupTextfield()
+    }
+    
+    override func viewWillDisappear(_ animated: Bool) {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    }
     
     func runTimer() {
          timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(ViewController.updateTimer)), userInfo: nil, repeats: true)
@@ -33,7 +44,7 @@ class ViewController: UIViewController {
     @objc func updateTimer() {
         if seconds < 1 {
              timer.invalidate()
-             showAlertController()
+             showAlert()
         } else {
              seconds -= 1
              timerLabel.text = timeString(time: TimeInterval(seconds))
@@ -42,34 +53,41 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame() {
         if self.resumeTapped == false {
-            runTimer()
-            self.resumeTapped = true
-            self.startButton.setTitle("Reset", for: .normal)
-            textfield.isUserInteractionEnabled = true
+            startGame()
         } else {
-            self.startButton.setTitle("Start", for: .normal)
-            resetButtonTapped()
-            self.resumeTapped = false
-            textfield.isUserInteractionEnabled = false
-            data = []
-            tableView.reloadData()
+            resetGame()
         }
     }
     
-    func resetButtonTapped() {
+    func startGame() {
+        runTimer()
+        self.resumeTapped = true
+        self.startButton.setTitle("Reset", for: .normal)
+        textfield.isUserInteractionEnabled = true
+    }
+    
+    func resetGame() {
+        resetCounter()
+        self.startButton.setTitle("Start", for: .normal)
+        self.resumeTapped = false
+        textfield.isUserInteractionEnabled = false
+        data = []
+        tableView.reloadData()
+    }
+    
+    func resetCounter() {
          timer.invalidate()
          seconds = 60
          timerLabel.text = timeString(time: TimeInterval(seconds))
     }
     
     func timeString(time:TimeInterval) -> String {
-        //let hours = Int(time) / 3600
         let minutes = Int(time) / 60 % 60
         let seconds = Int(time) % 60
         return String(format:"%02i:%02i", minutes, seconds)
     }
     
-    func showAlertController() {
+    func showAlert() {
         let alert = UIAlertController(title: "Time finished", message: "Sorry, time is up! You got 32 out of 50 answers.", preferredStyle: .alert)
         let yesButton = UIAlertAction(title: "Try Again", style: .default, handler: nil)
         alert.addAction(yesButton)
@@ -77,32 +95,31 @@ class ViewController: UIViewController {
         present(alert, animated: true)
     }
     
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
+    func setupTextfield() {
         textfield.delegate = self
-        tableView.dataSource = self
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         textfield.isUserInteractionEnabled = false
-        
-        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
-        view.addGestureRecognizer(tap)
-        
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
-        
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
-            self.present(self.loadingViewController(), animated: true)
-        })
-        
         let paddingView: UIView = UIView(frame: CGRect(x: 0, y: 0, width: 10, height: 43))
         textfield.leftView = paddingView
         textfield.leftViewMode = .always
     }
     
-    override func viewWillDisappear(_ animated: Bool) {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+    func setupTableView() {
+        tableView.dataSource = self
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+    }
+    
+    func simulateLoading() {
+        DispatchQueue.main.asyncAfter(deadline: .now() + 1.0, execute: {
+            self.present(self.loadingViewController(), animated: true)
+        })
+    }
+    
+    func setupDismissKeyboardOnTap() {
+        let tap: UITapGestureRecognizer = UITapGestureRecognizer(target: self, action: #selector(UIInputViewController.dismissKeyboard))
+        view.addGestureRecognizer(tap)
+        
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillShow), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(ViewController.keyboardWillHide), name: UIResponder.keyboardWillHideNotification, object: nil)
     }
     
     @objc func dismissKeyboard() {
@@ -120,7 +137,7 @@ class ViewController: UIViewController {
         })
     }
      
-    @objc func keyboardWillHide(notification:NSNotification) {
+    @objc func keyboardWillHide(notification:NSNotification) {        
         guard isKeyboardVisible == true else { return }
         
         UIView.animate(withDuration: 2.0, animations: {
@@ -135,7 +152,6 @@ class ViewController: UIViewController {
             let keyboardRectangle = keyboardFrame.cgRectValue
             return keyboardRectangle.height
         }
-        
         return nil
     }
     
