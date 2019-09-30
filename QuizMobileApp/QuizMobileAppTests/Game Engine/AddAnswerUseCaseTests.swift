@@ -47,6 +47,19 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, [])
     }
     
+    func test_addAnswer_deliversTheSavedAnswersInTheCorrectOrder() {
+        let (sut, _) = makeSUT()
+        
+        var newSavedAnswer = [String]()
+        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer2") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer3") { newSavedAnswer = $0 }
+        sut.addAnswer("") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer4") { newSavedAnswer = $0 }
+        
+        XCTAssertEqual(newSavedAnswer, ["Answer1", "Answer2", "Answer3", "Answer4"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
