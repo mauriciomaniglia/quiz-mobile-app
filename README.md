@@ -115,8 +115,9 @@ Given the customer has not finished answering all guesses and the timer ends
 #### Primary course:
 1. Execute "Start Game" command with the above data.
 2. System starts the counter.
-3. System delivers counter current value.
-3. System enables inserting guesses.
+3. Counter delivers start message.
+4. Counter delivers current seconds.
+5. System delivers counter current value.
 
 ### Restart Game Use Case
 
