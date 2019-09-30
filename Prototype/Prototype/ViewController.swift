@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         return String(format:"%02i:%02i", minutes, seconds)
     }
     
-    func showAlertController() {
+    func showAlertController() {        
         let alert = UIAlertController(title: "Time finished", message: "Sorry, time is up!", preferredStyle: .alert)
         let yesButton = UIAlertAction(title: "Yes, please", style: .default, handler: {(_ action: UIAlertAction) -> Void in
             print("you pressed Yes, please button")
@@ -109,15 +109,13 @@ class ViewController: UIViewController {
     }
      
     @objc func keyboardWillHide(notification:NSNotification) {
+        guard isKeyboardVisible == true else { return }
+        
         UIView.animate(withDuration: 2.0, animations: {
             self.isKeyboardVisible = false
             self.footerContainerBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0
             self.buttonBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0
         })
-    }
-    
-    func adjustingHeight(show:Bool, notification:NSNotification) {
-       
     }
     
     func keyboardHeight(_ notification: NSNotification) -> CGFloat? {
