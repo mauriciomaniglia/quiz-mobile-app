@@ -97,6 +97,20 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counter.messages, [.start, .currentSecond(2), .currentSecond(1)])
     }
     
+    func test_startGame_doesNotDeliverAfterSUTInstanceHasBeenDeallocated() {
+        let counter = CounterSpy(seconds: 2)
+        var sut: QuizGameEngine? = QuizGameEngine(counter: counter)
+        
+        var capturedResults = [QuizGameEngine.QuizGameEngineResult]()
+        sut?.startGame { capturedResults.append($0)}
+        
+        sut = nil
+        
+        counter.startGameMessage()
+        
+        XCTAssertTrue(capturedResults.isEmpty)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
@@ -124,7 +138,9 @@ class QuizGameEngine {
     }
     
     func startGame(completion: @escaping (QuizGameEngineResult) -> Void) {
-        self.counter.start { counterResult in
+        self.counter.start { [weak self] counterResult in
+            guard self != nil else { return }
+            
             switch counterResult {
             case .start:
                 completion(.gameStarted)
