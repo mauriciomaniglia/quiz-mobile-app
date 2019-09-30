@@ -93,11 +93,10 @@
 		2B37623B2340061800E7CA6F /* QuizMobileApp */ = {
 			isa = PBXGroup;
 			children = (
+				2B7EB1322342B476009D166D /* Game Engine */,
 				2B37625E234120C000E7CA6F /* Question API */,
 				2B3762572340092400E7CA6F /* Question Feature */,
 				2B37623D2340061800E7CA6F /* Info.plist */,
-				2B7EB12E2342B254009D166D /* Counter.swift */,
-				2B7EB1302342B3C4009D166D /* QuizGameEngine.swift */,
 			);
 			path = QuizMobileApp;
 			sourceTree = "<group>";
@@ -149,6 +148,15 @@
 				2B37625823401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift */,
 			);
 			path = "Question API";
+			sourceTree = "<group>";
+		};
+		2B7EB1322342B476009D166D /* Game Engine */ = {
+			isa = PBXGroup;
+			children = (
+				2B7EB12E2342B254009D166D /* Counter.swift */,
+				2B7EB1302342B3C4009D166D /* QuizGameEngine.swift */,
+			);
+			path = "Game Engine";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
