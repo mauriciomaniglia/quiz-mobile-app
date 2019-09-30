@@ -99,9 +99,12 @@ class StartGameUseCaseTests: XCTestCase {
     
     // MARK: - Helpers
     
-    private func makeSUT() -> (sut: QuizGameEngine, counter: CounterSpy) {
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
         let counter = CounterSpy(seconds: 1)
         let sut = QuizGameEngine(counter: counter)
+        
+        trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(counter, file: file, line: line)
         
         return (sut, counter)
     }
