@@ -21,9 +21,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("Answer1") { answers in
-            newSavedAnswer = answers
-        }
+        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
         
         XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
