@@ -38,11 +38,11 @@ class ViewController: UIViewController {
     
     @IBAction func didStartGame() {
         if self.resumeTapped == false {
-             timer.invalidate()
+             runTimer()
              self.resumeTapped = true
         } else {
-             runTimer()
-             self.resumeTapped = false
+            resetButtonTapped()
+            self.resumeTapped = false
         }
     }
     
@@ -59,7 +59,7 @@ class ViewController: UIViewController {
         return String(format:"%02i:%02i", minutes, seconds)
     }
     
-    func showAlertController() {        
+    func showAlertController() {
         let alert = UIAlertController(title: "Time finished", message: "Sorry, time is up!", preferredStyle: .alert)
         let yesButton = UIAlertAction(title: "Yes, please", style: .default, handler: {(_ action: UIAlertAction) -> Void in
             print("you pressed Yes, please button")
