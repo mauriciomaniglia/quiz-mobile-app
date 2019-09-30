@@ -18,6 +18,7 @@
 		2B37626423412D5300E7CA6F /* URLSessionHTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37626323412D5300E7CA6F /* URLSessionHTTPClient.swift */; };
 		2B37626623412DBE00E7CA6F /* URLSessionHTTPClientTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37626523412DBE00E7CA6F /* URLSessionHTTPClientTests.swift */; };
 		2B37626923412F0200E7CA6F /* XCTestCase+MemoryLeakTracking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B37626823412F0200E7CA6F /* XCTestCase+MemoryLeakTracking.swift */; };
+		2B3A37D223424C2E0012EE04 /* StartGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3A37D123424C2E0012EE04 /* StartGameUseCaseTests.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -45,6 +46,7 @@
 		2B37626323412D5300E7CA6F /* URLSessionHTTPClient.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClient.swift; sourceTree = "<group>"; };
 		2B37626523412DBE00E7CA6F /* URLSessionHTTPClientTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = URLSessionHTTPClientTests.swift; sourceTree = "<group>"; };
 		2B37626823412F0200E7CA6F /* XCTestCase+MemoryLeakTracking.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "XCTestCase+MemoryLeakTracking.swift"; sourceTree = "<group>"; };
+		2B3A37D123424C2E0012EE04 /* StartGameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameUseCaseTests.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -100,6 +102,7 @@
 				2B37626723412EE400E7CA6F /* Helpers */,
 				2B3A37D023424AF90012EE04 /* Question API */,
 				2B3762492340061800E7CA6F /* Info.plist */,
+				2B3A37D123424C2E0012EE04 /* StartGameUseCaseTests.swift */,
 			);
 			path = QuizMobileAppTests;
 			sourceTree = "<group>";
@@ -268,6 +271,7 @@
 			files = (
 				2B37625923401DB800E7CA6F /* LoadQuestionFromRemoteUseCaseTests.swift in Sources */,
 				2B37626623412DBE00E7CA6F /* URLSessionHTTPClientTests.swift in Sources */,
+				2B3A37D223424C2E0012EE04 /* StartGameUseCaseTests.swift in Sources */,
 				2B37626923412F0200E7CA6F /* XCTestCase+MemoryLeakTracking.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
