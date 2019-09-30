@@ -28,6 +28,16 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
     
+    func test_addAnswerTwice_deliversTheNewTwoAnswersAfterSave() {
+        let (sut, _) = makeSUT()
+        
+        var newSavedAnswer = [String]()
+        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
+        
+        XCTAssertEqual(newSavedAnswer, ["Answer1", "Answer1"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {

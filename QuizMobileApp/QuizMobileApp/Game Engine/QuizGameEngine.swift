@@ -10,6 +10,7 @@ import Foundation
 
 public final class QuizGameEngine {
     private let counter: Counter
+    private var savedAnswers = [String]()
     
     public enum QuizGameEngineResult: Equatable {
         case gameStarted
@@ -34,6 +35,8 @@ public final class QuizGameEngine {
     }
     
     public func addAnswer(_ answer: String, completion: @escaping ([String]) -> Void) {
-        completion([answer])
+        savedAnswers.append(answer)
+        
+        completion(savedAnswers)
     }
 }
