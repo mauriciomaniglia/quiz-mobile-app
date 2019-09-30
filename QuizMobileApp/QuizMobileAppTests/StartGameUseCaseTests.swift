@@ -19,7 +19,7 @@ class StartGameUseCaseTests: XCTestCase {
     func test_startGame_requestToStartTheCounter() {
         let (sut, counter) = makeSUT()
         
-        sut.startGame { }
+        sut.startGame { _ in }
         
         XCTAssertEqual(counter.startCounterCallCount, 1)
     }
@@ -28,8 +28,13 @@ class StartGameUseCaseTests: XCTestCase {
         let (sut, counter) = makeSUT()
         
         var counterStartMessage = 0
-        sut.startGame {
-            counterStartMessage += 1
+        sut.startGame { gameResult in
+            switch gameResult {
+            case .gameStarted:
+                counterStartMessage += 1
+            case .updateSecond:
+                XCTFail("Expected game start message, got \(gameResult) instead")
+            }
         }
         
         counter.startGameMessage()
@@ -42,8 +47,13 @@ class StartGameUseCaseTests: XCTestCase {
         let sut = QuizGameEngine(counter: counter)
         
         var counterStartMessage = 0
-        sut.startGame {
-            counterStartMessage += 1
+        sut.startGame { gameResult in
+            switch gameResult {
+            case .gameStarted:
+                counterStartMessage += 1
+            case .updateSecond:
+                XCTFail("Expected game start message, got \(gameResult) instead")
+            }
         }
         
         counter.startGameMessage()
@@ -56,8 +66,13 @@ class StartGameUseCaseTests: XCTestCase {
         let sut = QuizGameEngine(counter: counter)
         
         var counterStartMessage = 0
-        sut.startGame {
-            counterStartMessage += 1
+        sut.startGame { gameResult in
+            switch gameResult {
+            case .gameStarted:
+                counterStartMessage += 1
+            case .updateSecond:
+                XCTFail("Expected game start message, got \(gameResult) instead")
+            }
         }
         
         counter.startGameMessage()
@@ -79,25 +94,42 @@ class StartGameUseCaseTests: XCTestCase {
 class QuizGameEngine {
     private let counter: CounterSpy
     
+    enum QuizGameEngineResult {
+        case gameStarted
+        case updateSecond(Int)
+    }
+    
     init(counter: CounterSpy) {
         self.counter = counter
     }
     
-    func startGame(completion: @escaping () -> Void) {
-        self.counter.start(completion: completion)
+    func startGame(completion: @escaping (QuizGameEngineResult) -> Void) {
+        self.counter.start { counterResult in
+            switch counterResult {
+            case .start:
+                completion(.gameStarted)
+            case let .currentSecond(second):
+                completion(.updateSecond(second))
+            }
+        }
     }
 }
 
 class CounterSpy {
     var startCounterCallCount = 0
     var seconds = 0
-    var messages = [() -> Void]()
+    var messages = [(CounterResult) -> Void]()
+    
+    enum CounterResult {
+        case start
+        case currentSecond(Int)
+    }
     
     init(seconds: Int) {
         self.seconds = seconds
     }
     
-    func start(completion: @escaping () -> Void) {
+    func start(completion: @escaping (CounterResult) -> Void) {
         if seconds > 0 {
             startCounterCallCount += 1
             messages.append(completion)
@@ -107,6 +139,6 @@ class CounterSpy {
     func startGameMessage(at index: Int = 0) {
         guard messages.count > 0 else { return }
         
-        messages[index]()
+        messages[index](.start)
     }
 }
