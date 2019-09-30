@@ -126,32 +126,6 @@ class StartGameUseCaseTests: XCTestCase {
 
 }
 
-class QuizGameEngine {
-    private let counter: Counter
-    
-    enum QuizGameEngineResult: Equatable {
-        case gameStarted
-        case updateSecond(Int)
-    }
-    
-    init(counter: CounterSpy) {
-        self.counter = counter
-    }
-    
-    func startGame(completion: @escaping (QuizGameEngineResult) -> Void) {
-        self.counter.start { [weak self] counterResult in
-            guard self != nil else { return }
-            
-            switch counterResult {
-            case .start:
-                completion(.gameStarted)
-            case let .currentSecond(second):
-                completion(.updateSecond(second))
-            }
-        }
-    }
-}
-
 class CounterSpy: Counter {
     var messages = [CounterResult]()
     var seconds = 0
