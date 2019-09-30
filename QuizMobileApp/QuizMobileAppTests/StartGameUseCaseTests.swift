@@ -37,6 +37,20 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counterStartMessage, 1)
     }
     
+    func test_startGame_doNotDeliversCounterStartMessageTwiceWhenSecondsIsGreaterThanOne() {
+        let counter = CounterSpy(seconds: 2)
+        let sut = QuizGameEngine(counter: counter)
+        
+        var counterStartMessage = 0
+        sut.startGame {
+            counterStartMessage += 1
+        }
+        
+        counter.startGameMessage()
+        
+        XCTAssertEqual(counterStartMessage, 1)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT() -> (sut: QuizGameEngine, counter: CounterSpy) {
