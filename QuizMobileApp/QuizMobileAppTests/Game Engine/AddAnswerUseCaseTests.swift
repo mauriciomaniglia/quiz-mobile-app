@@ -85,6 +85,16 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, [])
     }
     
+    func test_addAnswer_deliversTotalNumberOfCorrectAnswers() {
+        let counter = CounterSpy(seconds: 1)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2"])
+        
+        var correctAnswerTotal = 0
+        sut.addAnswer("Answer") { correctAnswerTotal = $0.correctAnswersTotal }
+        
+        XCTAssertEqual(correctAnswerTotal, 2)
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
