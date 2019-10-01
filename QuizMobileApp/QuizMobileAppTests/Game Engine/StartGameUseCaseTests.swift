@@ -38,14 +38,7 @@ class StartGameUseCaseTests: XCTestCase {
         let (sut, counter) = makeSUT()
         
         var messages = [QuizGameEngine.QuizGameEngineResult]()
-        sut.startGame { gameResult in
-            switch gameResult {
-            case .gameStarted:
-                messages.append(.gameStarted)
-            case .updateSecond:
-                messages.append(.updateSecond(1))
-            }
-        }
+        sut.startGame { messages.append($0) }
         
         counter.startGameMessage()
         
@@ -57,14 +50,7 @@ class StartGameUseCaseTests: XCTestCase {
         let sut = QuizGameEngine(counter: counter, correctAnswers: ["CorrectAnswer1", "CorrectAnswer2"])
         
          var messages = [QuizGameEngine.QuizGameEngineResult]()
-         sut.startGame { gameResult in
-             switch gameResult {
-             case .gameStarted:
-                 messages.append(.gameStarted)
-             case .updateSecond:
-                 messages.append(.updateSecond(1))
-             }
-         }
+         sut.startGame { messages.append($0) }
         
         counter.startGameMessage()
         
@@ -76,14 +62,7 @@ class StartGameUseCaseTests: XCTestCase {
         let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
         var messages = [QuizGameEngine.QuizGameEngineResult]()
-        sut.startGame { gameResult in
-            switch gameResult {
-            case .gameStarted:
-                messages.append(.gameStarted)
-            case .updateSecond:
-                messages.append(.updateSecond(1))
-            }
-        }
+        sut.startGame { messages.append($0) }
         
         counter.startGameMessage()
         
