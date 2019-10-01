@@ -158,4 +158,8 @@ class CounterSpy: Counter {
         
         startCompletions[index](.currentSecond(seconds))
     }
+    
+    func reset() {
+        
+    }
 }
