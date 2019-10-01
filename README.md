@@ -144,11 +144,11 @@ Given the customer has not finished answering all guesses and the timer ends
 #### Invalid data course (sad path):
 1. System do not save empty answer.
 
-### Validate Counter Use Case
+### Validate Answers Use Case
 
 #### Primary course:
-1. Execute "Validate Counter" command with the above data.
-2. System valides if all save answers is equal to the total correct answers from the question model.
+1. Execute "Validate Answers" command with the above data.
+2. System valides if all saved answers is equal to the total correct answers that came from server.
 3. System stop the counter.
 4. System delivers success message.
 
