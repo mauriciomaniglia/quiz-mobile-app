@@ -18,6 +18,7 @@ public final class QuizGameEngine {
     public enum QuizGameEngineResult: Equatable {
         case gameStarted
         case updateSecond(Int)
+        case gameFinished
     }
     
     public init(counter: Counter, correctAnswers: [String]) {
@@ -36,19 +37,20 @@ public final class QuizGameEngine {
                 completion(.gameStarted)
             case let .currentSecond(second):
                 completion(.updateSecond(second))
-            case .reset: break                
+            case .reset: break
+            case .stop:
+                completion(.gameFinished)
             }
         }
     }
     
     public func addAnswer(_ answer: String, completion: @escaping (AddAnswerResult) -> Void) {
-        
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
-        
         guard !trimmedAnswer.isEmpty else { return }
         guard savedAnswers.count < correctAnswers.count else { return }
         
         savedAnswers.append(trimmedAnswer)
+        validateAnswers()
         
         completion((savedAnswers, correctAnswers.count))
     }
@@ -57,5 +59,11 @@ public final class QuizGameEngine {
         counter.reset()
         savedAnswers = []
         completion(["correct_answers_count": correctAnswers.count])
+    }
+    
+    private func validateAnswers() {
+        if savedAnswers.count == correctAnswers.count {
+            counter.stop()
+        }
     }
 }

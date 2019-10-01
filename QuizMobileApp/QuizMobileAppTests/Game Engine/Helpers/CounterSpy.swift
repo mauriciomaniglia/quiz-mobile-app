@@ -13,6 +13,7 @@ public class CounterSpy: Counter {
     var messages = [CounterResult]()
     var seconds = 0
     var startCompletions = [(CounterResult) -> Void]()
+    var stopCompletion: ((CounterResult) -> Void)?
     
     init(seconds: Int) {
         self.seconds = seconds
@@ -21,11 +22,11 @@ public class CounterSpy: Counter {
     public func start(completion: @escaping (CounterResult) -> Void) {
         guard seconds > 0 else { return }
         messages.append(.start)
+        stopCompletion = completion
         
         while seconds > 0 {
             messages.append(.currentSecond(seconds))
             startCompletions.append(completion)
-            
             seconds -= 1
         }
     }
@@ -44,5 +45,9 @@ public class CounterSpy: Counter {
     
     public func reset() {
         messages.append(.reset)
+    }
+    
+    public func stop() {
+        stopCompletion?(.stop)
     }
 }
