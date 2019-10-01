@@ -95,11 +95,23 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(correctAnswerTotal, 2)
     }
     
+    func test_addAnswer_doNotSaveMoreAnswersThanTheTotalNumberOfCorrectAnswers() {
+        let counter = CounterSpy(seconds: 1)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2"])
+        
+        var savedAnswers = [String]()
+        sut.addAnswer("Answer1") { savedAnswers = $0.savedAnswers }
+        sut.addAnswer("Answer2") { savedAnswers = $0.savedAnswers }
+        sut.addAnswer("Answer3") { savedAnswers = $0.savedAnswers }
+        
+        XCTAssertEqual(savedAnswers, ["Answer1", "Answer2"])
+    }
+    
     // MARK: - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
         let counter = CounterSpy(seconds: 1)
-        let sut = QuizGameEngine(counter: counter, correctAnswers: [])
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2", "Answer3", "Answer4", "Answer5"])
         
         trackForMemoryLeak(sut, file: file, line: line)
         trackForMemoryLeak(counter, file: file, line: line)

@@ -43,6 +43,7 @@ public final class QuizGameEngine {
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
         
         guard !trimmedAnswer.isEmpty else { return }
+        guard savedAnswers.count < correctAnswers.count else { return }
         
         savedAnswers.append(trimmedAnswer)
         
