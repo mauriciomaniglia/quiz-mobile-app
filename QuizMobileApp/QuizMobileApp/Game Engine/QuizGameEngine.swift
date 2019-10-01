@@ -26,6 +26,8 @@ public final class QuizGameEngine {
     }
     
     public func startGame(completion: @escaping (QuizGameEngineResult) -> Void) {
+        guard correctAnswers.count > 0 else { return }
+        
         self.counter.start { [weak self] counterResult in
             guard self != nil else { return }
             
