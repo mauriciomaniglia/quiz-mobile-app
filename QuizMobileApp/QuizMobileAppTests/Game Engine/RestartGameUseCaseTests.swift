@@ -23,7 +23,7 @@ class RestartGameUseCaseTests: XCTestCase {
         sut.addAnswer("Answer1") { savedAnswers = $0.savedAnswers }
         sut.addAnswer("Answer2") { savedAnswers = $0.savedAnswers }
         
-        sut.restartGame {}
+        sut.restartGame { _ in}
         sut.addAnswer("NewAnswer") { savedAnswers = $0.savedAnswers }
         
         XCTAssertEqual(savedAnswers, ["NewAnswer"])
@@ -32,9 +32,22 @@ class RestartGameUseCaseTests: XCTestCase {
     func test_restartGame_requestsCounterToReset() {
         let (sut, counter) = makeSUT()
         
-        sut.restartGame {}
+        sut.restartGame { _ in }
         
         XCTAssertEqual(counter.messages, [.reset])
+    }
+    
+    func test_restartGame_deliversRestartMessageWithCorrectAnswersCount() {
+        let counter = CounterSpy(seconds: 1)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2", "Answer3"])
+        
+        let expectedMessage = ["correct_answers_count": 3]
+        var receivedMessage = [String:Int]()
+        sut.restartGame { result in
+            receivedMessage = result
+        }
+        
+        XCTAssertEqual(receivedMessage, expectedMessage)
     }
     
     // MARK: - Helpers

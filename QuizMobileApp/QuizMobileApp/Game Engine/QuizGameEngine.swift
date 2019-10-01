@@ -51,8 +51,9 @@ public final class QuizGameEngine {
         completion((savedAnswers, correctAnswers.count))
     }
     
-    public func restartGame(completion: @escaping () -> Void) {
+    public func restartGame(completion: @escaping ([String:Int]) -> Void) {
         counter.reset()
         savedAnswers = []
+        completion(["correct_answers_count": correctAnswers.count])
     }
 }
