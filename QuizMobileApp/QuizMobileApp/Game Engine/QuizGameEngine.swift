@@ -13,6 +13,8 @@ public final class QuizGameEngine {
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
     
+    public typealias AddAnswerResult = (savedAnswers: [String], correctAnswersTotal: Int)
+    
     public enum QuizGameEngineResult: Equatable {
         case gameStarted
         case updateSecond(Int)
@@ -36,7 +38,7 @@ public final class QuizGameEngine {
         }
     }
     
-    public func addAnswer(_ answer: String, completion: @escaping ([String]) -> Void) {
+    public func addAnswer(_ answer: String, completion: @escaping (AddAnswerResult) -> Void) {
         
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
         
@@ -44,6 +46,6 @@ public final class QuizGameEngine {
         
         savedAnswers.append(trimmedAnswer)
         
-        completion(savedAnswers)
+        completion((savedAnswers, correctAnswers.count))
     }
 }

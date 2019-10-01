@@ -21,7 +21,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer1") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
@@ -30,8 +30,8 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
-        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer1") { newSavedAnswer = $0.savedAnswers }
+        sut.addAnswer("Answer1") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, ["Answer1", "Answer1"])
     }
@@ -40,7 +40,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("") { newSavedAnswer = $0 }
+        sut.addAnswer("") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, [])
     }
@@ -49,11 +49,11 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("Answer1") { newSavedAnswer = $0 }
-        sut.addAnswer("Answer2") { newSavedAnswer = $0 }
-        sut.addAnswer("Answer3") { newSavedAnswer = $0 }
-        sut.addAnswer("") { newSavedAnswer = $0 }
-        sut.addAnswer("Answer4") { newSavedAnswer = $0 }
+        sut.addAnswer("Answer1") { newSavedAnswer = $0.savedAnswers }
+        sut.addAnswer("Answer2") { newSavedAnswer = $0.savedAnswers }
+        sut.addAnswer("Answer3") { newSavedAnswer = $0.savedAnswers }
+        sut.addAnswer("") { newSavedAnswer = $0.savedAnswers }
+        sut.addAnswer("Answer4") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, ["Answer1", "Answer2", "Answer3", "Answer4"])
     }
@@ -62,7 +62,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("   Answer1 ") { newSavedAnswer = $0 }
+        sut.addAnswer("   Answer1 ") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
@@ -71,7 +71,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("My Answer") { newSavedAnswer = $0 }
+        sut.addAnswer("My Answer") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, ["My Answer"])
     }
@@ -80,7 +80,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
-        sut.addAnswer("   ") { newSavedAnswer = $0 }
+        sut.addAnswer("   ") { newSavedAnswer = $0.savedAnswers }
         
         XCTAssertEqual(newSavedAnswer, [])
     }
