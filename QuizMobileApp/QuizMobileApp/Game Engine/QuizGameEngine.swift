@@ -10,6 +10,7 @@ import Foundation
 
 public final class QuizGameEngine {
     private let counter: Counter
+    private let correctAnswers: [String]
     private var savedAnswers = [String]()
     
     public enum QuizGameEngineResult: Equatable {
@@ -17,8 +18,9 @@ public final class QuizGameEngine {
         case updateSecond(Int)
     }
     
-    public init(counter: Counter) {
+    public init(counter: Counter, correctAnswers: [String]) {
         self.counter = counter
+        self.correctAnswers = correctAnswers
     }
     
     public func startGame(completion: @escaping (QuizGameEngineResult) -> Void) {

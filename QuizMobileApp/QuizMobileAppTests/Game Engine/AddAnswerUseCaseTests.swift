@@ -89,7 +89,7 @@ class AddAnswerUseCaseTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
         let counter = CounterSpy(seconds: 1)
-        let sut = QuizGameEngine(counter: counter)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
         trackForMemoryLeak(sut, file: file, line: line)
         trackForMemoryLeak(counter, file: file, line: line)

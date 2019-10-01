@@ -45,7 +45,7 @@ class StartGameUseCaseTests: XCTestCase {
     
     func test_startGame_doNotDeliversCounterStartMessageTwiceWhenSecondsIsGreaterThanOne() {
         let counter = CounterSpy(seconds: 2)
-        let sut = QuizGameEngine(counter: counter)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
          var messages = [QuizGameEngine.QuizGameEngineResult]()
          sut.startGame { gameResult in
@@ -64,7 +64,7 @@ class StartGameUseCaseTests: XCTestCase {
     
     func test_startGame_doNotDeliversCounterStartMessageWithZeroSeconds() {
         let counter = CounterSpy(seconds: 0)
-        let sut = QuizGameEngine(counter: counter)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
         var messages = [QuizGameEngine.QuizGameEngineResult]()
         sut.startGame { gameResult in
@@ -91,7 +91,7 @@ class StartGameUseCaseTests: XCTestCase {
     
     func test_startGame_requestsCounterCurrentSecondTwiceWhenSecondIsEqualToTwo() {
         let counter = CounterSpy(seconds: 2)
-        let sut = QuizGameEngine(counter: counter)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
         sut.startGame { _ in }
 
@@ -100,7 +100,7 @@ class StartGameUseCaseTests: XCTestCase {
     
     func test_startGame_doesNotDeliverAfterSUTInstanceHasBeenDeallocated() {
         let counter = CounterSpy(seconds: 2)
-        var sut: QuizGameEngine? = QuizGameEngine(counter: counter)
+        var sut: QuizGameEngine? = QuizGameEngine(counter: counter, correctAnswers: [])
         
         var capturedResults = [QuizGameEngine.QuizGameEngineResult]()
         sut?.startGame { capturedResults.append($0)}
@@ -116,7 +116,7 @@ class StartGameUseCaseTests: XCTestCase {
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
         let counter = CounterSpy(seconds: 1)
-        let sut = QuizGameEngine(counter: counter)
+        let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
         trackForMemoryLeak(sut, file: file, line: line)
         trackForMemoryLeak(counter, file: file, line: line)
