@@ -124,11 +124,9 @@ Given the customer has not finished answering all guesses and the timer ends
 #### Primary course:
 1. Execute "Restart Game" command.
 2. System deletes old answers.
-3. System deletes old answers count.
-4. System creates new answers count.
-5. System stops the counter.
-6. System resets the counter.
-7. System disable inserting guesses.
+3. System stops the counter.
+4. System resets the counter.
+5. System delivers reset message
 
 ### Add Answer Use Case
 
