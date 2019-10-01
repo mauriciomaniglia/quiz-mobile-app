@@ -126,7 +126,7 @@ Given the customer has not finished answering all guesses and the timer ends
 2. System deletes old answers.
 3. System stops the counter.
 4. System resets the counter.
-5. System delivers reset message
+5. System delivers reset message with total number of correct answer that came from server.
 
 ### Add Answer Use Case
 
