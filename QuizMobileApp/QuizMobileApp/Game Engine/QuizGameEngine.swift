@@ -49,4 +49,8 @@ public final class QuizGameEngine {
         
         completion((savedAnswers, correctAnswers.count))
     }
+    
+    public func restartGame(completion: @escaping () -> Void) {
+        savedAnswers = []
+    }
 }
