@@ -39,6 +39,7 @@ public final class QuizGameTimer: Counter {
             completion?(.currentSecond(seconds))
             seconds -= 1
         } else {
+            timer?.invalidate()
             completion?(.stop)
         }
     }
