@@ -8,6 +8,10 @@
 
 import Foundation
 
+public protocol QuizAnswerView {
+    func display(_ viewModel: QuizAnswerViewModel)
+}
+
 public final class QuizPresenter {
     
     public func didLoadGame() {
