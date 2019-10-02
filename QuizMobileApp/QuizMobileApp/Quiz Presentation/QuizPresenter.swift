@@ -61,11 +61,14 @@ public final class QuizPresenter {
     }
     
     public func didFinishLoadGame(with question: QuestionItem) {
-        
+        questionView.display(QuizQuestionViewModel(question: question.question))
+        answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(question.answer.count)"))
+        loadingView.display(QuizLoadingViewModel(isLoading: false))
     }
     
     public func didFinishLoadGame(with error: Error) {
-        
+        errorView.display(.error(message: "Error message"))
+        loadingView.display(QuizLoadingViewModel(isLoading: false))
     }
     
     public func didStartGame() {
