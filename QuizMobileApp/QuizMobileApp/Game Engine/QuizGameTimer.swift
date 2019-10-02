@@ -21,6 +21,7 @@ public final class QuizGameTimer: Counter {
     
     public func start(completion: @escaping (CounterResult) -> Void) {
         self.completion = completion
+        self.completion?(.start)
         timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(QuizGameTimer.updateSeconds)), userInfo: nil, repeats: true)
     }
     
@@ -30,7 +31,7 @@ public final class QuizGameTimer: Counter {
         completion?(.reset)
     }
     
-    public func stop() {
+    public func stop() {        
         completion?(.stop)
     }
     
