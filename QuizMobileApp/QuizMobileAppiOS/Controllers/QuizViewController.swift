@@ -16,7 +16,6 @@ protocol QuizViewControllerDelegate {
 }
 
 class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizErrorView, QuizQuestionView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
-    
     var delegate: QuizViewControllerDelegate?
     
     @IBOutlet private(set) public var tableView: UITableView!
@@ -32,6 +31,7 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate?.didRequestLoading()
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
     }
     
     @IBAction func didTapStateButton() {
@@ -82,6 +82,17 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     }
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        return UITableViewCell()
+        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
+        cell.textLabel?.text = tableModel[indexPath.row]
+        return cell
+    }
+}
+
+extension QuizViewController: UITextFieldDelegate {
+    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
+        let text = textField.text ?? ""
+        delegate?.didTapNewAnswer(text)
+        textField.text = ""
+        return true
     }
 }
