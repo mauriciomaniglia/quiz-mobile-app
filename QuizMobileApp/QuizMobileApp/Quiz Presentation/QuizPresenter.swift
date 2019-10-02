@@ -56,7 +56,8 @@ public final class QuizPresenter {
     }
     
     public func didLoadGame() {
-        
+        errorView.display(.noError)
+        loadingView.display(QuizLoadingViewModel(isLoading: true))
     }
     
     public func didStartGame() {
