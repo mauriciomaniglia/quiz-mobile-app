@@ -10,6 +10,9 @@ import QuizMobileApp
 
 final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
     private let quizQuestionLoader: QuestionLoader
+    private var quizGameEngine: QuizGameEngine?
+    private var counter = QuizGameTimer(withSeconds: 60)
+    private var isPlaying = false
     var presenter: QuizPresenter?
     
     init(quizQuestionLoader: QuestionLoader) {
@@ -22,7 +25,11 @@ final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
         quizQuestionLoader.load { result in
             switch result {
             case let .success(questions):
-                self.presenter?.didFinishLoadGame(with: questions.first!)                
+                guard let questionItem = questions.first else { return }
+                
+                self.presenter?.didFinishLoadGame(with: questionItem)
+                self.quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
+                
             case let .failure(error):
                 self.presenter?.didFinishLoadGame(with: error)
             }
@@ -30,10 +37,24 @@ final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
     }
     
     func didTapNewAnswer(_ answer: String) {
-        
+        quizGameEngine?.addAnswer(answer) { result in
+            self.presenter?.didAddNewAnswer(result.savedAnswers)
+        }
     }
     
     func didClickStatusButton() {
-        
+        if isPlaying {
+            self.quizGameEngine?.restartGame { _ in
+                self.presenter?.didRestartGame()
+            }
+        } else {
+            self.quizGameEngine?.startGame { result in
+                switch result {
+                    case .gameStarted: self.presenter?.didStartGame()
+                    case let .updateSecond(seconds): self.presenter?.didUpdateCounter(withSeconds: seconds)
+                    case .gameFinished: self.presenter?.didFinishGame()
+                }
+            }
+        }
     }
 }

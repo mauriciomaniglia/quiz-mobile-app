@@ -25,6 +25,8 @@
 		2B2F494423450ED600D1836B /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F494323450ED600D1836B /* MainQueueDispatchDecorator.swift */; };
 		2B2F494623450FF500D1836B /* QuizLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F494523450FF500D1836B /* QuizLoaderPresentationAdapter.swift */; };
 		2B2F49482345187700D1836B /* QuizGameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F49472345187700D1836B /* QuizGameTimer.swift */; };
+		2B2F494A23451E1500D1836B /* QuizMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; };
+		2B2F494B23451E1500D1836B /* QuizMobileApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		2B3762432340061800E7CA6F /* QuizMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; };
 		2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B376253234006F500E7CA6F /* QuestionItem.swift */; };
 		2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3762552340087000E7CA6F /* QuestionLoader.swift */; };
@@ -53,6 +55,13 @@
 			remoteGlobalIDString = 2B2F491A2344E19400D1836B;
 			remoteInfo = QuizMobileAppiOS;
 		};
+		2B2F494C23451E1500D1836B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 2B3762302340061800E7CA6F /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 2B3762382340061800E7CA6F;
+			remoteInfo = QuizMobileApp;
+		};
 		2B3762442340061800E7CA6F /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 2B3762302340061800E7CA6F /* Project object */;
@@ -61,6 +70,20 @@
 			remoteInfo = QuizMobileApp;
 		};
 /* End PBXContainerItemProxy section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		2B2F494E23451E1500D1836B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				2B2F494B23451E1500D1836B /* QuizMobileApp.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		2B2F49052344B90700D1836B /* QuizPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizPresenter.swift; sourceTree = "<group>"; };
@@ -113,6 +136,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				2B2F494A23451E1500D1836B /* QuizMobileApp.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -197,6 +221,13 @@
 			path = Composers;
 			sourceTree = "<group>";
 		};
+		2B2F494923451E1500D1836B /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		2B37622F2340061800E7CA6F = {
 			isa = PBXGroup;
 			children = (
@@ -205,6 +236,7 @@
 				2B2F491C2344E19400D1836B /* QuizMobileAppiOS */,
 				2B2F49332344E19700D1836B /* QuizMobileAppiOSTests */,
 				2B37623A2340061800E7CA6F /* Products */,
+				2B2F494923451E1500D1836B /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -330,10 +362,12 @@
 				2B2F49172344E19400D1836B /* Sources */,
 				2B2F49182344E19400D1836B /* Frameworks */,
 				2B2F49192344E19400D1836B /* Resources */,
+				2B2F494E23451E1500D1836B /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
+				2B2F494D23451E1500D1836B /* PBXTargetDependency */,
 			);
 			name = QuizMobileAppiOS;
 			productName = QuizMobileAppiOS;
@@ -544,6 +578,11 @@
 			isa = PBXTargetDependency;
 			target = 2B2F491A2344E19400D1836B /* QuizMobileAppiOS */;
 			targetProxy = 2B2F49312344E19700D1836B /* PBXContainerItemProxy */;
+		};
+		2B2F494D23451E1500D1836B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 2B3762382340061800E7CA6F /* QuizMobileApp */;
+			targetProxy = 2B2F494C23451E1500D1836B /* PBXContainerItemProxy */;
 		};
 		2B3762452340061800E7CA6F /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
