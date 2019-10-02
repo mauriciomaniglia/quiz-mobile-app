@@ -55,9 +55,17 @@ public final class QuizPresenter {
         self.resultView = resultView
     }
     
-    public func didLoadGame() {
+    public func didStartLoadGame() {
         errorView.display(.noError)
         loadingView.display(QuizLoadingViewModel(isLoading: true))
+    }
+    
+    public func didFinishLoadGame(with question: QuestionItem) {
+        
+    }
+    
+    public func didFinishLoadGame(with error: Error) {
+        
     }
     
     public func didStartGame() {
@@ -69,6 +77,10 @@ public final class QuizPresenter {
     }
     
     public func didAddNewAnswer() {
+        
+    }
+    
+    public func didFinishGame() {
         
     }
 }
