@@ -31,7 +31,8 @@ public final class QuizGameTimer: Counter {
         completion?(.reset)
     }
     
-    public func stop() {        
+    public func stop() {
+        timer?.invalidate()
         completion?(.stop)
     }
     
