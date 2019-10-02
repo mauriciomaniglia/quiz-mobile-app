@@ -32,6 +32,10 @@ public protocol QuizAnswerCountView {
     func display(_ viewModel: QuizAnswerCountViewModel)
 }
 
+public protocol QuizResultView {
+    func display(_ viewModel: QuizResultViewModel)
+}
+
 public final class QuizPresenter {
     
     public func didLoadGame() {

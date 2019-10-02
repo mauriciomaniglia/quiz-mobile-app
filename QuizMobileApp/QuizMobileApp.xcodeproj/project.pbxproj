@@ -14,6 +14,7 @@
 		2B2F490E2344BEC700D1836B /* QuizQuestionViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F490D2344BEC700D1836B /* QuizQuestionViewModel.swift */; };
 		2B2F49102344BF9E00D1836B /* QuizCounterViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F490F2344BF9E00D1836B /* QuizCounterViewModel.swift */; };
 		2B2F49122344C0CE00D1836B /* QuizAnswerCountViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F49112344C0CE00D1836B /* QuizAnswerCountViewModel.swift */; };
+		2B2F49142344C19700D1836B /* QuizResultViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F49132344C19700D1836B /* QuizResultViewModel.swift */; };
 		2B3762432340061800E7CA6F /* QuizMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; };
 		2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B376253234006F500E7CA6F /* QuestionItem.swift */; };
 		2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B3762552340087000E7CA6F /* QuestionLoader.swift */; };
@@ -52,6 +53,7 @@
 		2B2F490D2344BEC700D1836B /* QuizQuestionViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizQuestionViewModel.swift; sourceTree = "<group>"; };
 		2B2F490F2344BF9E00D1836B /* QuizCounterViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizCounterViewModel.swift; sourceTree = "<group>"; };
 		2B2F49112344C0CE00D1836B /* QuizAnswerCountViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAnswerCountViewModel.swift; sourceTree = "<group>"; };
+		2B2F49132344C19700D1836B /* QuizResultViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizResultViewModel.swift; sourceTree = "<group>"; };
 		2B3762392340061800E7CA6F /* QuizMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuizMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B37623D2340061800E7CA6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B3762422340061800E7CA6F /* QuizMobileAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizMobileAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -104,6 +106,7 @@
 				2B2F490D2344BEC700D1836B /* QuizQuestionViewModel.swift */,
 				2B2F490F2344BF9E00D1836B /* QuizCounterViewModel.swift */,
 				2B2F49112344C0CE00D1836B /* QuizAnswerCountViewModel.swift */,
+				2B2F49132344C19700D1836B /* QuizResultViewModel.swift */,
 			);
 			path = "Quiz Presentation";
 			sourceTree = "<group>";
@@ -338,6 +341,7 @@
 				2B3762622341298300E7CA6F /* RemoteQuestionItem.swift in Sources */,
 				2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */,
 				2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */,
+				2B2F49142344C19700D1836B /* QuizResultViewModel.swift in Sources */,
 				2B2F490C2344BD7200D1836B /* QuizErrorViewModel.swift in Sources */,
 				2B2F49102344BF9E00D1836B /* QuizCounterViewModel.swift in Sources */,
 				2B37625B23411E4000E7CA6F /* HTTPClient.swift in Sources */,
