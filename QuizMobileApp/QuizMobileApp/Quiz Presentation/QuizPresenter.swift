@@ -37,6 +37,23 @@ public protocol QuizResultView {
 }
 
 public final class QuizPresenter {
+    private let loadingView: QuizLoadingView
+    private let questionView: QuizQuestionView
+    private let answerView: QuizAnswerView
+    private let errorView: QuizErrorView
+    private let counterView: QuizCounterView
+    private let answerCountView: QuizAnswerCountView
+    private let resultView: QuizResultView
+    
+    public init(loadingView: QuizLoadingView, questionView: QuizQuestionView, answerView: QuizAnswerView, errorView: QuizErrorView, counterView: QuizCounterView, answerCountView: QuizAnswerCountView, resultView: QuizResultView) {
+        self.loadingView = loadingView
+        self.questionView = questionView
+        self.answerView = answerView
+        self.errorView = errorView
+        self.counterView = counterView
+        self.answerCountView = answerCountView
+        self.resultView = resultView
+    }
     
     public func didLoadGame() {
         
