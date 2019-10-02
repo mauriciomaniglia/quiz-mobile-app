@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import QuizMobileApp
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
@@ -14,7 +15,15 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        // Override point for customization after application launch.
+        
+        let client = URLSessionHTTPClient(session: URLSession(configuration: .default))
+        let url = URL(string: "https://codechallenge.arctouch.com/quiz/1")!
+        let questionLoader = RemoteQuestionLoader(url: url, store: client)
+        let initialViewController = QuizUIComposer.quizComposedWith(questionLoader: questionLoader)
+
+        self.window?.rootViewController = initialViewController
+        self.window?.makeKeyAndVisible()
+        
         return true
     }
 

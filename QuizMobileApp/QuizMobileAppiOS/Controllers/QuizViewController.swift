@@ -15,7 +15,9 @@ protocol QuizViewControllerDelegate {
     func didClickStatusButton()
 }
 
-class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizQuestionView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
+class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizErrorView, QuizQuestionView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
+    
+    var delegate: QuizViewControllerDelegate?
     
     @IBOutlet private(set) public var tableView: UITableView!
     @IBOutlet private(set) public var questionLabel: UILabel!
@@ -29,6 +31,11 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
                     
     override func viewDidLoad() {
         super.viewDidLoad()
+        delegate?.didRequestLoading()
+    }
+    
+    @IBAction func didTapStateButton() {
+        delegate?.didClickStatusButton()
     }
     
     func display(_ viewModel: QuizAnswerViewModel) {
@@ -57,6 +64,10 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     func display(_ viewModel: QuizAnswerCountViewModel) {
         answerCountLabel.text = viewModel.answerCount
+    }
+    
+    func display(_ viewModel: QuizErrorViewModel) {
+        
     }
     
     func display(_ viewModel: QuizResultViewModel) {
