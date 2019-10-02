@@ -44,10 +44,12 @@ final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
     
     func didClickStatusButton() {
         if isPlaying {
+            isPlaying = false
             self.quizGameEngine?.restartGame { _ in
                 self.presenter?.didRestartGame()
             }
         } else {
+            isPlaying = true
             self.quizGameEngine?.startGame { result in
                 switch result {
                     case .gameStarted: self.presenter?.didStartGame()
