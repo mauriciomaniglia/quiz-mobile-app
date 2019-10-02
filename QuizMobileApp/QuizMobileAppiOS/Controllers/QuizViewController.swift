@@ -9,6 +9,12 @@
 import UIKit
 import QuizMobileApp
 
+protocol QuizViewControllerDelegate {
+    func didRequestLoading()
+    func didTapNewAnswer(_ answer: String)
+    func didClickStatusButton()
+}
+
 class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizQuestionView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
     
     @IBOutlet private(set) public var tableView: UITableView!
