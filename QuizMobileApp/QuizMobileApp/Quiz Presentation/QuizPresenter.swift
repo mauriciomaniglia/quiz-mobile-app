@@ -20,6 +20,10 @@ public protocol QuizErrorView {
     func display(_ viewModel: QuizErrorViewModel)
 }
 
+public protocol QuizStatusView {
+    func display(_ viewModel: QuizStatusViewModel)
+}
+
 public protocol QuizQuestionView {
     func display(_ viewModel: QuizQuestionViewModel)
 }
