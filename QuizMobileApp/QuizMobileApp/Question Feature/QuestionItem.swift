@@ -9,8 +9,8 @@
 import Foundation
 
 public struct QuestionItem: Equatable {    
-    let question: String
-    let answer: [String]
+    public let question: String
+    public let answer: [String]
     
     public init(question: String, answer: [String]) {
         self.question = question
