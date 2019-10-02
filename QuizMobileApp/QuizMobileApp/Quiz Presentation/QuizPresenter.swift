@@ -94,6 +94,10 @@ public final class QuizPresenter {
         answerCountView.display(QuizAnswerCountViewModel(answerCount: "\(answers.count)/50"))
     }
     
+    public func didUpdateCounter(withSeconds seconds: Int) {
+        counterView.display(QuizCounterViewModel(seconds: seconds))
+    }
+    
     public func didFinishGame() {
         resultView.display(QuizResultViewModel(title: "Title", message: "message", retry: "try again"))
     }
