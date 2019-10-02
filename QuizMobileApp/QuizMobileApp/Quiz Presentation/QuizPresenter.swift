@@ -69,6 +69,7 @@ public final class QuizPresenter {
     public func didFinishLoadGame(with question: QuestionItem) {
         questionView.display(QuizQuestionViewModel(question: question.question))
         answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(question.answer.count)"))
+        statusView.display(QuizStatusViewModel(status: "start"))
         loadingView.display(QuizLoadingViewModel(isLoading: false))
     }
     
@@ -78,18 +79,22 @@ public final class QuizPresenter {
     }
     
     public func didStartGame() {
-        
+        statusView.display(QuizStatusViewModel(status: "reset"))
     }
     
     public func didRestartGame() {
-        
+        answerView.display(QuizAnswerViewModel(answer: []))
+        answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/50"))
+        statusView.display(QuizStatusViewModel(status: "start"))
+        counterView.display(QuizCounterViewModel(seconds: "05:00"))
     }
     
-    public func didAddNewAnswer() {
-        
+    public func didAddNewAnswer(_ answers: [String]) {
+        answerView.display(QuizAnswerViewModel(answer: answers))
+        answerCountView.display(QuizAnswerCountViewModel(answerCount: "\(answers.count)/50"))
     }
     
     public func didFinishGame() {
-        
+        resultView.display(QuizResultViewModel(title: "Title", message: "message", retry: "try again"))
     }
 }
