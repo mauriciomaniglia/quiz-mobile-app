@@ -95,7 +95,10 @@ public final class QuizPresenter {
     }
     
     public func didUpdateCounter(withSeconds seconds: Int) {
-        counterView.display(QuizCounterViewModel(seconds: seconds))
+        let minutes = Int(seconds) / 60 % 60
+        let seconds = Int(seconds) % 60
+        let formatedValue = String(format:"%02i:%02i", minutes, seconds)
+        counterView.display(QuizCounterViewModel(seconds: formatedValue))
     }
     
     public func didFinishGame() {
