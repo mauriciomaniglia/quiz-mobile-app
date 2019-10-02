@@ -28,6 +28,10 @@ public protocol QuizCounterView {
     func display(_ viewModel: QuizCounterViewModel)
 }
 
+public protocol QuizAnswerCountView {
+    func display(_ viewModel: QuizAnswerCountViewModel)
+}
+
 public final class QuizPresenter {
     
     public func didLoadGame() {
