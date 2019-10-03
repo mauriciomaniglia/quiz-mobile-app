@@ -45,7 +45,7 @@
                                     <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
                                 </variation>
                             </label>
-                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G11-dj-gbf" userLabel="footer_container">
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="G11-dj-gbf" userLabel="footer_container" customClass="FooterView" customModule="QuizMobileAppiOS" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="732" width="414" height="164"/>
                                 <subviews>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="01:00" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IYf-eE-Xly">
@@ -123,6 +123,10 @@
                                         <include reference="Xwd-tp-caP"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outlet property="buttonBottomConstraint" destination="J09-oF-nU4" id="P62-1x-dh7"/>
+                                    <outlet property="footerContainerBottomConstraint" destination="hWo-Li-XqY" id="c3G-cp-slh"/>
+                                </connections>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Word" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cfd-vv-bV8">
                                 <rect key="frame" x="16" y="145" width="382" height="43"/>

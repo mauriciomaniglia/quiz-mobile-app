@@ -23,7 +23,7 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     @IBOutlet private(set) public var statusButton: UIButton!
     @IBOutlet private(set) public var counterLabel: UILabel!
     @IBOutlet private(set) public var answerCountLabel: UILabel!
-    @IBOutlet private(set) public var answerTextfield: UITextField!
+    @IBOutlet private(set) public var answerTextfield: UITextField!    
     
     var tableModel = [String]() {
         didSet { tableView.reloadData() }
@@ -32,7 +32,15 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()
         delegate?.didRequestLoading()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")        
+    }
+    
+    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+        view.endEditing(true)
+    }
+    
+    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+        view.endEditing(true)
     }
     
     @IBAction func didTapStateButton() {
