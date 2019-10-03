@@ -72,8 +72,8 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     func display(_ viewModel: QuizResultViewModel) {
         let alert = UIAlertController(title: viewModel.title, message: viewModel.message, preferredStyle: .alert)
-        let yesButton = UIAlertAction(title: viewModel.retry, style: .default, handler: nil)
-        alert.addAction(yesButton)        
+        let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didClickStatusButton() })
+        alert.addAction(retryButton)        
         present(alert, animated: true)
     }
     
