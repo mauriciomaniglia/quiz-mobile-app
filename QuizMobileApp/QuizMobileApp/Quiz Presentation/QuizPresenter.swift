@@ -116,9 +116,9 @@ public final class QuizPresenter {
         counterView.display(QuizCounterViewModel(seconds: "05:00"))
     }
     
-    public func didAddNewAnswer(_ answers: [String]) {
-        answerView.display(QuizAnswerViewModel(answer: answers))
-        answerCountView.display(QuizAnswerCountViewModel(answerCount: "\(answers.count)/50"))
+    public func didAddNewAnswer(_ answers: AddAnswerResult) {
+        answerView.display(QuizAnswerViewModel(answer: answers.savedAnswers))
+        answerCountView.display(QuizAnswerCountViewModel(answerCount: "\(answers.savedAnswers.count)/\(answers.correctAnswersTotal)"))
     }
     
     public func didUpdateCounter(withSeconds seconds: Int) {

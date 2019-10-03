@@ -38,7 +38,7 @@ final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
     
     func didTapNewAnswer(_ answer: String) {
         quizGameEngine?.addAnswer(answer) { result in
-            self.presenter?.didAddNewAnswer(result.savedAnswers)
+            self.presenter?.didAddNewAnswer(result)
         }
     }
     
