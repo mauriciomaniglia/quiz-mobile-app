@@ -11,7 +11,7 @@ import QuizMobileApp
 final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
-    private var counter = QuizGameTimer(withSeconds: 60)
+    private var counter = QuizGameTimer(withSeconds: 300)
     private var isPlaying = false
     var presenter: QuizPresenter?
     
