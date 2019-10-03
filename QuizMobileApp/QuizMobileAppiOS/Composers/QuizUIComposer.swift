@@ -20,14 +20,14 @@ final class QuizUIComposer {
         delegate: presentationAdapter)
         
         presentationAdapter.presenter = QuizPresenter(
-            loadingView: quizController,
-            questionView: quizController,
-            answerView: quizController,
-            errorView: quizController,
-            statusView: quizController,
-            counterView: quizController,
-            answerCountView: quizController,
-            resultView: quizController)
+            loadingView: WeakRefVirtualProxy(quizController),
+            questionView: WeakRefVirtualProxy(quizController),
+            answerView: WeakRefVirtualProxy(quizController),
+            errorView: WeakRefVirtualProxy(quizController),
+            statusView: WeakRefVirtualProxy(quizController),
+            counterView: WeakRefVirtualProxy(quizController),
+            answerCountView: WeakRefVirtualProxy(quizController),
+            resultView: WeakRefVirtualProxy(quizController))
         
         return quizController
     }

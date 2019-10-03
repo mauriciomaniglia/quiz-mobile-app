@@ -50,6 +50,7 @@
 		2B7EB1352342B58A009D166D /* AddAnswerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */; };
 		2B7EB1372342F0EF009D166D /* RestartGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1362342F0EF009D166D /* RestartGameUseCaseTests.swift */; };
 		2BEB5C5723466DB8007D76D1 /* QuizGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB5C5623466DB8007D76D1 /* QuizGame.swift */; };
+		2BEB5C59234679E5007D76D1 /* WeakRefVirtualProxy.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB5C58234679E5007D76D1 /* WeakRefVirtualProxy.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -139,6 +140,7 @@
 		2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnswerUseCaseTests.swift; sourceTree = "<group>"; };
 		2B7EB1362342F0EF009D166D /* RestartGameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartGameUseCaseTests.swift; sourceTree = "<group>"; };
 		2BEB5C5623466DB8007D76D1 /* QuizGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGame.swift; sourceTree = "<group>"; };
+		2BEB5C58234679E5007D76D1 /* WeakRefVirtualProxy.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = WeakRefVirtualProxy.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -230,6 +232,7 @@
 				2B2F494F23452C6500D1836B /* QuizUIComposer.swift */,
 				2B2F494323450ED600D1836B /* MainQueueDispatchDecorator.swift */,
 				2B2F494523450FF500D1836B /* QuizLoaderPresentationAdapter.swift */,
+				2BEB5C58234679E5007D76D1 /* WeakRefVirtualProxy.swift */,
 			);
 			path = Composers;
 			sourceTree = "<group>";
@@ -554,6 +557,7 @@
 				2B72C7E12346601300740B73 /* CustomTextField.swift in Sources */,
 				2B2F491E2344E19400D1836B /* AppDelegate.swift in Sources */,
 				2B2F493F2344FD4000D1836B /* QuizViewController.swift in Sources */,
+				2BEB5C59234679E5007D76D1 /* WeakRefVirtualProxy.swift in Sources */,
 				2B2F4941234502C800D1836B /* LoadingViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
