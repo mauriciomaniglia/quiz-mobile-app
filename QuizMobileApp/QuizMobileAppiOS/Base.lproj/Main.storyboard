@@ -227,6 +227,7 @@
                     </view>
                     <connections>
                         <outlet property="answerCountLabel" destination="IJ3-dh-CvL" id="V5F-9z-z9b"/>
+                        <outlet property="answerTextfield" destination="cfd-vv-bV8" id="ikO-qe-Mvb"/>
                         <outlet property="counterLabel" destination="IYf-eE-Xly" id="ETa-cg-rcV"/>
                         <outlet property="questionLabel" destination="vOI-1y-ueW" id="dqk-xM-B0w"/>
                         <outlet property="statusButton" destination="Xis-gf-OxF" id="PtP-O9-Vt3"/>
@@ -254,7 +255,7 @@
                                         <constraints>
                                             <constraint firstAttribute="height" constant="64" id="RTx-O2-2EE"/>
                                         </constraints>
-                                        <color key="color" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="color" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                     </activityIndicatorView>
                                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="nXY-N2-1Lo">
                                         <rect key="frame" x="39" y="93" width="92" height="21"/>
@@ -262,7 +263,7 @@
                                             <constraint firstAttribute="height" constant="21" id="0D4-8f-LOA"/>
                                         </constraints>
                                         <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
-                                        <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058823529413" green="0.77647058823529413" blue="0.78431372549019607" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                         <nil key="highlightedColor"/>
                                     </label>
                                 </subviews>

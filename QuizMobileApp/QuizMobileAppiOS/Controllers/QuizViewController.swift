@@ -23,6 +23,7 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     @IBOutlet private(set) public var statusButton: UIButton!
     @IBOutlet private(set) public var counterLabel: UILabel!
     @IBOutlet private(set) public var answerCountLabel: UILabel!
+    @IBOutlet private(set) public var answerTextfield: UITextField!
     
     var tableModel = [String]() {
         didSet { tableView.reloadData() }
@@ -52,6 +53,11 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     func display(_ viewModel: QuizStatusViewModel) {
         statusButton.setTitle(viewModel.status, for: .normal)
+        if viewModel.isPlaying {
+            answerTextfield.isUserInteractionEnabled = false
+        } else {
+            answerTextfield.isUserInteractionEnabled = true
+        }
     }
     
     func display(_ viewModel: QuizQuestionViewModel) {

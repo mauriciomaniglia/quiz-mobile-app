@@ -96,7 +96,7 @@ public final class QuizPresenter {
     public func didFinishLoadGame(with question: QuestionItem) {
         questionView.display(QuizQuestionViewModel(question: question.question))
         answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(question.answer.count)"))
-        statusView.display(QuizStatusViewModel(status: startStatus))
+        statusView.display(QuizStatusViewModel(isPlaying: true, status: startStatus))
         loadingView.display(QuizLoadingViewModel(isLoading: false))
     }
     
@@ -106,13 +106,13 @@ public final class QuizPresenter {
     }
     
     public func didStartGame() {
-        statusView.display(QuizStatusViewModel(status: resetStatus))
+        statusView.display(QuizStatusViewModel(isPlaying: false, status: resetStatus))
     }
     
     public func didRestartGame() {
         answerView.display(QuizAnswerViewModel(answer: []))
         answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/50"))
-        statusView.display(QuizStatusViewModel(status: startStatus))
+        statusView.display(QuizStatusViewModel(isPlaying: true, status: startStatus))
         counterView.display(QuizCounterViewModel(seconds: "05:00"))
     }
     

@@ -9,5 +9,6 @@
 import Foundation
 
 public struct QuizStatusViewModel {
+    public let isPlaying: Bool
     public let status: String
 }
