@@ -26,14 +26,14 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
     
-    func test_addAnswerTwice_deliversTheNewTwoAnswersAfterSave() {
+    func test_addAnswerDuplicated_deliversOnlyTheFirstAddedAnswerAfterSave() {
         let (sut, _) = makeSUT()
         
         var newSavedAnswer = [String]()
         sut.addAnswer("Answer1") { newSavedAnswer = $0.savedAnswers }
         sut.addAnswer("Answer1") { newSavedAnswer = $0.savedAnswers }
         
-        XCTAssertEqual(newSavedAnswer, ["Answer1", "Answer1"])
+        XCTAssertEqual(newSavedAnswer, ["Answer1"])
     }
     
     func test_addAnswer_doNotSaveEmptyAnswer() {

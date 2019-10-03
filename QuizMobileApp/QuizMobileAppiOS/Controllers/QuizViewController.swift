@@ -26,7 +26,7 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     var tableModel = [String]() {
         didSet { tableView.reloadData() }
-    }                
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidLoad()

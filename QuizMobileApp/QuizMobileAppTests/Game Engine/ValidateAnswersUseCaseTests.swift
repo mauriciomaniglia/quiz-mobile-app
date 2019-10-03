@@ -15,6 +15,7 @@ class ValidateAnswersUseCaseTests: XCTestCase {
         let counter = CounterSpy(seconds: 1)
         let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2", "Answer3"])
         
+        let gameResult = GameResult(scoreAll: true, savedAnswersCorrect: 3, correctAnswersTotal: 3)
         var receivedMessage = [QuizGameEngine.QuizGameEngineResult]()
         sut.startGame { receivedMessage.append($0) }
         
@@ -22,6 +23,6 @@ class ValidateAnswersUseCaseTests: XCTestCase {
         sut.addAnswer("Answer2") { _ in }
         sut.addAnswer("Answer3") { _ in }
         
-        XCTAssertEqual(receivedMessage, [.gameFinished])
+        XCTAssertEqual(receivedMessage, [.gameFinished(gameResult)])
     }
 }

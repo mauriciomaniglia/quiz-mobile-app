@@ -101,7 +101,11 @@ public final class QuizPresenter {
         counterView.display(QuizCounterViewModel(seconds: formatedValue))
     }
     
-    public func didFinishGame() {
-        resultView.display(QuizResultViewModel(title: "Title", message: "message", retry: "try again"))
+    public func didFinishGame(_ gameResult: GameResult) {
+        if gameResult.scoreAll {
+            resultView.display(QuizResultViewModel(title: "Congratulations", message: "Good job! You found all the answers on time. Keep up with the great work.", retry: "Play Again"))
+        } else {
+            resultView.display(QuizResultViewModel(title: "Time finished", message: "Sorry, time is up! You got \(gameResult.savedAnswersCorrect) out of \(gameResult.correctAnswersTotal) answers", retry: "Try Again"))
+        }
     }
 }

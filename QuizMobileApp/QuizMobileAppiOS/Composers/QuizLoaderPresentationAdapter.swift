@@ -54,7 +54,7 @@ final class FeedLoaderPresentationAdapter: QuizViewControllerDelegate {
                 switch result {
                     case .gameStarted: self.presenter?.didStartGame()
                     case let .updateSecond(seconds): self.presenter?.didUpdateCounter(withSeconds: seconds)
-                    case .gameFinished: self.presenter?.didFinishGame()
+                    case let .gameFinished(result): self.presenter?.didFinishGame(result)
                 }
             }
         }

@@ -8,17 +8,31 @@
 
 import Foundation
 
+public struct GameResult: Equatable {
+    
+    public init(scoreAll: Bool, savedAnswersCorrect: Int, correctAnswersTotal: Int) {
+        self.scoreAll = scoreAll
+        self.savedAnswersCorrect = savedAnswersCorrect
+        self.correctAnswersTotal = correctAnswersTotal
+    }
+    
+    public let scoreAll: Bool
+    public let savedAnswersCorrect: Int
+    public let correctAnswersTotal: Int
+}
+
 public final class QuizGameEngine {
     private let counter: Counter
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
+    private var savedAnswersCorrect = 0
     
     public typealias AddAnswerResult = (savedAnswers: [String], correctAnswersTotal: Int)
     
     public enum QuizGameEngineResult: Equatable {
         case gameStarted
         case updateSecond(Int)
-        case gameFinished
+        case gameFinished(GameResult)
     }
     
     public init(counter: Counter, correctAnswers: [String]) {
@@ -39,7 +53,7 @@ public final class QuizGameEngine {
                 completion(.updateSecond(second))
             case .reset: break
             case .stop:
-                completion(.gameFinished)
+                completion(.gameFinished(self!.gameResult()))
             }
         }
     }
@@ -47,7 +61,12 @@ public final class QuizGameEngine {
     public func addAnswer(_ answer: String, completion: @escaping (AddAnswerResult) -> Void) {
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedAnswer.isEmpty else { return }
+        guard !savedAnswers.contains(trimmedAnswer) else { return }
         guard savedAnswers.count < correctAnswers.count else { return }
+        
+        if correctAnswers.contains(trimmedAnswer) {
+            savedAnswersCorrect += 1
+        }
         
         savedAnswers.append(trimmedAnswer)
         validateAnswers()
@@ -64,6 +83,14 @@ public final class QuizGameEngine {
     private func validateAnswers() {
         if savedAnswers.count == correctAnswers.count {
             counter.stop()
+        }
+    }
+    
+    private func gameResult() -> GameResult {
+        if savedAnswersCorrect == correctAnswers.count {
+            return GameResult(scoreAll: true, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
+        } else {
+            return GameResult(scoreAll: false, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
         }
     }
 }
