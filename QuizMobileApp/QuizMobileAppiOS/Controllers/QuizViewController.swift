@@ -67,17 +67,13 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     }
     
     func display(_ viewModel: QuizErrorViewModel) {
-        let alert = UIAlertController(title: viewModel.message, message: nil, preferredStyle: .alert)
         let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didRequestLoading() })
-        alert.addAction(retryButton)
-        present(alert, animated: false)
+        alertWithTitle(viewModel.message, message: nil, action: retryButton)
     }
     
-    func display(_ viewModel: QuizResultViewModel) {
-        let alert = UIAlertController(title: viewModel.title, message: viewModel.message, preferredStyle: .alert)
+    func display(_ viewModel: QuizResultViewModel) {                
         let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didClickStatusButton() })
-        alert.addAction(retryButton)        
-        present(alert, animated: true)
+        alertWithTitle(viewModel.title, message: viewModel.message, action: retryButton)
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -88,6 +84,12 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
         cell.textLabel?.text = tableModel[indexPath.row]
         return cell
+    }
+    
+    private func alertWithTitle(_ title: String, message: String?, action: UIAlertAction) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(action)
+        present(alert, animated: false)
     }
 }
 
