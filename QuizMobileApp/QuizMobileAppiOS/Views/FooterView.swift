@@ -26,7 +26,6 @@ final class FooterView: UIView {
         
         UIView.animate(withDuration: 2.0, animations: {
             self.footerContainerBottomConstraint.constant += self.keyboardHeight(notification) ?? 0
-            print("will show \(self.footerContainerBottomConstraint.constant)")
             self.buttonBottomConstraint.constant += self.keyboardHeight(notification) ?? 0
         })
     }
@@ -36,8 +35,7 @@ final class FooterView: UIView {
         isKeyboardOpen = false
         
         UIView.animate(withDuration: 2.0, animations: {
-            self.footerContainerBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0
-            print("will hide \(self.footerContainerBottomConstraint.constant)")
+            self.footerContainerBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0            
             self.buttonBottomConstraint.constant -= self.keyboardHeight(notification) ?? 0
         })
     }
