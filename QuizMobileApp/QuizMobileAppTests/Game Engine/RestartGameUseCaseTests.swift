@@ -41,8 +41,8 @@ class RestartGameUseCaseTests: XCTestCase {
         let counter = CounterSpy(seconds: 1)
         let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2", "Answer3"])
         
-        let expectedMessage = GameResult(scoreAll: false, savedAnswersCorrect: 0, correctAnswersTotal: 3)
-        var receivedMessage: GameResult?
+        let expectedMessage = FinalResult(scoreAll: false, savedAnswersCorrect: 0, correctAnswersTotal: 3)
+        var receivedMessage: FinalResult?
         sut.restartGame { result in
             receivedMessage = result
         }

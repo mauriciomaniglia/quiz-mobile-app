@@ -37,7 +37,7 @@ class StartGameUseCaseTests: XCTestCase {
     func test_startGame_deliversCounterStartMessageWhenSecondsIsGreaterThanZero() {
         let (sut, counter) = makeSUT()
         
-        var messages = [QuizGameEngine.QuizGameEngineResult]()
+        var messages = [QuizGameEngineResult]()
         sut.startGame { messages.append($0) }
         
         counter.startGameMessage()
@@ -49,7 +49,7 @@ class StartGameUseCaseTests: XCTestCase {
         let counter = CounterSpy(seconds: 2)
         let sut = QuizGameEngine(counter: counter, correctAnswers: ["CorrectAnswer1", "CorrectAnswer2"])
         
-         var messages = [QuizGameEngine.QuizGameEngineResult]()
+         var messages = [QuizGameEngineResult]()
          sut.startGame { messages.append($0) }
         
         counter.startGameMessage()
@@ -61,7 +61,7 @@ class StartGameUseCaseTests: XCTestCase {
         let counter = CounterSpy(seconds: 0)
         let sut = QuizGameEngine(counter: counter, correctAnswers: [])
         
-        var messages = [QuizGameEngine.QuizGameEngineResult]()
+        var messages = [QuizGameEngineResult]()
         sut.startGame { messages.append($0) }
         
         counter.startGameMessage()
@@ -90,7 +90,7 @@ class StartGameUseCaseTests: XCTestCase {
         let counter = CounterSpy(seconds: 2)
         var sut: QuizGameEngine? = QuizGameEngine(counter: counter, correctAnswers: [])
         
-        var capturedResults = [QuizGameEngine.QuizGameEngineResult]()
+        var capturedResults = [QuizGameEngineResult]()
         sut?.startGame { capturedResults.append($0)}
         
         sut = nil

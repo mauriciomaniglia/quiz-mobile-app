@@ -49,6 +49,7 @@
 		2B7EB1312342B3C4009D166D /* QuizGameEngine.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1302342B3C4009D166D /* QuizGameEngine.swift */; };
 		2B7EB1352342B58A009D166D /* AddAnswerUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */; };
 		2B7EB1372342F0EF009D166D /* RestartGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B7EB1362342F0EF009D166D /* RestartGameUseCaseTests.swift */; };
+		2BEB5C5723466DB8007D76D1 /* QuizGame.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2BEB5C5623466DB8007D76D1 /* QuizGame.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -137,6 +138,7 @@
 		2B7EB1302342B3C4009D166D /* QuizGameEngine.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGameEngine.swift; sourceTree = "<group>"; };
 		2B7EB1342342B58A009D166D /* AddAnswerUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddAnswerUseCaseTests.swift; sourceTree = "<group>"; };
 		2B7EB1362342F0EF009D166D /* RestartGameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RestartGameUseCaseTests.swift; sourceTree = "<group>"; };
+		2BEB5C5623466DB8007D76D1 /* QuizGame.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGame.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -269,6 +271,7 @@
 				2B7EB1322342B476009D166D /* Game Engine */,
 				2B37625E234120C000E7CA6F /* Question API */,
 				2B3762572340092400E7CA6F /* Question Feature */,
+				2BEB5C5523466D86007D76D1 /* Game Feature */,
 				2B37623D2340061800E7CA6F /* Info.plist */,
 			);
 			path = QuizMobileApp;
@@ -360,6 +363,14 @@
 				2B4592CF23437FAF00F23C31 /* ValidateAnswersUseCaseTests.swift */,
 			);
 			path = "Game Engine";
+			sourceTree = "<group>";
+		};
+		2BEB5C5523466D86007D76D1 /* Game Feature */ = {
+			isa = PBXGroup;
+			children = (
+				2BEB5C5623466DB8007D76D1 /* QuizGame.swift */,
+			);
+			path = "Game Feature";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -570,6 +581,7 @@
 				2B3762622341298300E7CA6F /* RemoteQuestionItem.swift in Sources */,
 				2B2F49482345187700D1836B /* QuizGameTimer.swift in Sources */,
 				2B3762562340087000E7CA6F /* QuestionLoader.swift in Sources */,
+				2BEB5C5723466DB8007D76D1 /* QuizGame.swift in Sources */,
 				2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */,
 				2B2F49142344C19700D1836B /* QuizResultViewModel.swift in Sources */,
 				2B2F49162344D27B00D1836B /* QuizStatusViewModel.swift in Sources */,

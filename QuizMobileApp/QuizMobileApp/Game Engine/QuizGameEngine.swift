@@ -8,32 +8,11 @@
 
 import Foundation
 
-public struct GameResult: Equatable {
-    
-    public init(scoreAll: Bool, savedAnswersCorrect: Int, correctAnswersTotal: Int) {
-        self.scoreAll = scoreAll
-        self.savedAnswersCorrect = savedAnswersCorrect
-        self.correctAnswersTotal = correctAnswersTotal
-    }
-    
-    public let scoreAll: Bool
-    public let savedAnswersCorrect: Int
-    public let correctAnswersTotal: Int
-}
-
-public final class QuizGameEngine {
+public final class QuizGameEngine: QuizGame {
     private let counter: Counter
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
     private var savedAnswersCorrect = 0
-    
-    public typealias AddAnswerResult = (savedAnswers: [String], correctAnswersTotal: Int)
-    
-    public enum QuizGameEngineResult: Equatable {
-        case gameStarted
-        case updateSecond(Int)
-        case gameFinished(GameResult)
-    }
     
     public init(counter: Counter, correctAnswers: [String]) {
         self.counter = counter
@@ -74,11 +53,11 @@ public final class QuizGameEngine {
         completion((savedAnswers, correctAnswers.count))
     }
     
-    public func restartGame(completion: @escaping (GameResult) -> Void) {
+    public func restartGame(completion: @escaping (FinalResult) -> Void) {
         counter.reset()
         savedAnswers = []
         savedAnswersCorrect = 0
-        completion(GameResult(scoreAll: false, savedAnswersCorrect: 0, correctAnswersTotal: correctAnswers.count))
+        completion(FinalResult(scoreAll: false, savedAnswersCorrect: 0, correctAnswersTotal: correctAnswers.count))
     }
     
     private func validateAnswers() {
@@ -87,11 +66,11 @@ public final class QuizGameEngine {
         }
     }
     
-    private func gameResult() -> GameResult {
+    private func gameResult() -> FinalResult {
         if savedAnswersCorrect == correctAnswers.count {
-            return GameResult(scoreAll: true, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
+            return FinalResult(scoreAll: true, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
         } else {
-            return GameResult(scoreAll: false, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
+            return FinalResult(scoreAll: false, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
         }
     }
 }

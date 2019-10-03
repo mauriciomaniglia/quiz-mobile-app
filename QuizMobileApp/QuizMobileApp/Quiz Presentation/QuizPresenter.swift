@@ -128,7 +128,7 @@ public final class QuizPresenter {
         counterView.display(QuizCounterViewModel(seconds: formatedValue))
     }
     
-    public func didFinishGame(_ gameResult: GameResult) {
+    public func didFinishGame(_ gameResult: FinalResult) {
         if gameResult.scoreAll {
             resultView.display(QuizResultViewModel(title: congratulationsTitle, message: congratulationsMessage, retry: playAgainTitle))
         } else {
