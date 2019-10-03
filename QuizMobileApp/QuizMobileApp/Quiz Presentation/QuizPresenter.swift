@@ -50,6 +50,31 @@ public final class QuizPresenter {
     private let answerCountView: QuizAnswerCountView
     private let resultView: QuizResultView
     
+    private var startStatus: String {
+        return localizedString("QUIZ_START_STATUS", comment: "Title for the start game status")
+    }
+    private var resetStatus: String {
+        return localizedString("QUIZ_RESET_STATUS", comment: "Title for the reset game status")
+    }
+    private var congratulationsTitle: String {
+        return localizedString("QUIZ_CONGRATULATIONS_TITLE", comment: "Congratulations title for the game final result")
+    }
+    private var congratulationsMessage: String {
+        return localizedString("QUIZ_CONGRATULATIONS_MESSAGE", comment: "Congratulations message for the game final result")
+    }
+    private var playAgainTitle: String {
+        return localizedString("QUIZ_PLAY_AGAIN_TITLE", comment: "Title for play again message on game final result")
+    }
+    private var timeFinishedTitle: String {
+        return localizedString("QUIZ_TIME_FINISHED_TITLE", comment: "Time finished title for the game final result")
+    }
+    private var timeFinishedMessage: String {
+        return localizedString("QUIZ_TIME_FINISHED_MESSAGE", comment: "Time finished message for the game final result")
+    }
+    private var tryAgainTitle: String {
+        return localizedString("QUIZ_TRY_AGAIN_TITLE", comment: "Title for try again message on game final result")
+    }
+    
     public init(loadingView: QuizLoadingView, questionView: QuizQuestionView, answerView: QuizAnswerView, errorView: QuizErrorView, statusView: QuizStatusView, counterView: QuizCounterView, answerCountView: QuizAnswerCountView, resultView: QuizResultView) {
         self.loadingView = loadingView
         self.questionView = questionView
@@ -69,7 +94,7 @@ public final class QuizPresenter {
     public func didFinishLoadGame(with question: QuestionItem) {
         questionView.display(QuizQuestionViewModel(question: question.question))
         answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(question.answer.count)"))
-        statusView.display(QuizStatusViewModel(status: "start"))
+        statusView.display(QuizStatusViewModel(status: startStatus))
         loadingView.display(QuizLoadingViewModel(isLoading: false))
     }
     
@@ -79,13 +104,13 @@ public final class QuizPresenter {
     }
     
     public func didStartGame() {
-        statusView.display(QuizStatusViewModel(status: "reset"))
+        statusView.display(QuizStatusViewModel(status: resetStatus))
     }
     
     public func didRestartGame() {
         answerView.display(QuizAnswerViewModel(answer: []))
         answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/50"))
-        statusView.display(QuizStatusViewModel(status: "start"))
+        statusView.display(QuizStatusViewModel(status: startStatus))
         counterView.display(QuizCounterViewModel(seconds: "05:00"))
     }
     
@@ -103,9 +128,17 @@ public final class QuizPresenter {
     
     public func didFinishGame(_ gameResult: GameResult) {
         if gameResult.scoreAll {
-            resultView.display(QuizResultViewModel(title: "Congratulations", message: "Good job! You found all the answers on time. Keep up with the great work.", retry: "Play Again"))
+            resultView.display(QuizResultViewModel(title: congratulationsTitle, message: congratulationsMessage, retry: playAgainTitle))
         } else {
-            resultView.display(QuizResultViewModel(title: "Time finished", message: "Sorry, time is up! You got \(gameResult.savedAnswersCorrect) out of \(gameResult.correctAnswersTotal) answers", retry: "Try Again"))
+            let message = String(format: timeFinishedMessage, gameResult.savedAnswersCorrect, gameResult.correctAnswersTotal)
+            resultView.display(QuizResultViewModel(title: timeFinishedTitle, message: message, retry: tryAgainTitle))
         }
+    }
+    
+    private func localizedString(_ key: String, comment: String, placeholders: String...) -> String {
+        return NSLocalizedString(key,
+                                 tableName: "Quiz",
+                                 bundle: Bundle(for: QuizPresenter.self),
+                                 comment: comment)
     }
 }

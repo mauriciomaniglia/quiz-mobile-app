@@ -1,0 +1,9 @@
+"QUIZ_START_STATUS" = "start";
+"QUIZ_RESET_STATUS" = "reset";
+"QUIZ_CONGRATULATIONS_TITLE" = "Congratulations";
+"QUIZ_CONGRATULATIONS_MESSAGE" = "Good job! You found all the answers on time. Keep up with the great work.";
+"QUIZ_PLAY_AGAIN_TITLE" = "Play Again";
+"QUIZ_TIME_FINISHED_TITLE" = "Time finished";
+"QUIZ_TIME_FINISHED_MESSAGE" = "Sorry, time is up! You got %d out of %d answers";
+"QUIZ_TRY_AGAIN_TITLE" = "Try Again";
+
