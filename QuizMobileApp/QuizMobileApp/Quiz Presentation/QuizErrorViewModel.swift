@@ -10,12 +10,9 @@ import Foundation
 
 public struct QuizErrorViewModel {
     public let message: String?
-    
-    static var noError: QuizErrorViewModel {
-        return QuizErrorViewModel(message: nil)
-    }
-    
-    static func error(message: String) -> QuizErrorViewModel {
-        return QuizErrorViewModel(message: message)
+    public let retry: String?
+        
+    static func error(message: String, retry: String) -> QuizErrorViewModel {
+        return QuizErrorViewModel(message: message, retry: retry)
     }
 }

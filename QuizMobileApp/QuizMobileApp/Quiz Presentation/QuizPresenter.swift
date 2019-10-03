@@ -74,6 +74,9 @@ public final class QuizPresenter {
     private var tryAgainTitle: String {
         return localizedString("QUIZ_TRY_AGAIN_TITLE", comment: "Title for try again message on game final result")
     }
+    private var errorMessage: String {
+        return localizedString("QUIZ_ERROR_MESSAGE", comment: "Message for connection error")
+    }
     
     public init(loadingView: QuizLoadingView, questionView: QuizQuestionView, answerView: QuizAnswerView, errorView: QuizErrorView, statusView: QuizStatusView, counterView: QuizCounterView, answerCountView: QuizAnswerCountView, resultView: QuizResultView) {
         self.loadingView = loadingView
@@ -86,8 +89,7 @@ public final class QuizPresenter {
         self.resultView = resultView
     }
     
-    public func didStartLoadGame() {
-        errorView.display(.noError)
+    public func didStartLoadGame() {        
         loadingView.display(QuizLoadingViewModel(isLoading: true))
     }
     
@@ -99,8 +101,8 @@ public final class QuizPresenter {
     }
     
     public func didFinishLoadGame(with error: Error) {
-        errorView.display(.error(message: "Error message"))
         loadingView.display(QuizLoadingViewModel(isLoading: false))
+        errorView.display(.error(message: errorMessage, retry: tryAgainTitle))
     }
     
     public func didStartGame() {

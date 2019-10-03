@@ -44,9 +44,9 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     func display(_ viewModel: QuizLoadingViewModel) {
         if viewModel.isLoading {
-            self.present(LoadingViewController.shared, animated: true)
+            self.present(LoadingViewController.shared, animated: false)
         } else {
-            self.dismiss(animated: true, completion: nil)
+            self.dismiss(animated: false, completion: nil)
         }
     }
     
@@ -67,7 +67,10 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     }
     
     func display(_ viewModel: QuizErrorViewModel) {
-        
+        let alert = UIAlertController(title: viewModel.message, message: nil, preferredStyle: .alert)
+        let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didRequestLoading() })
+        alert.addAction(retryButton)
+        present(alert, animated: false)
     }
     
     func display(_ viewModel: QuizResultViewModel) {

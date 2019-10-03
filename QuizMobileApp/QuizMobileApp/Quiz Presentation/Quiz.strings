@@ -6,4 +6,5 @@
 "QUIZ_TIME_FINISHED_TITLE" = "Time finished";
 "QUIZ_TIME_FINISHED_MESSAGE" = "Sorry, time is up! You got %d out of %d answers";
 "QUIZ_TRY_AGAIN_TITLE" = "Try Again";
+"QUIZ_ERROR_MESSAGE" = "oops something went wrong!";
 
