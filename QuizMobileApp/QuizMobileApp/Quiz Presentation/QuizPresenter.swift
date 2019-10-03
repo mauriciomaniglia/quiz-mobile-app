@@ -109,9 +109,9 @@ public final class QuizPresenter {
         statusView.display(QuizStatusViewModel(isPlaying: false, status: resetStatus))
     }
     
-    public func didRestartGame() {
+    public func didRestartGame(_ gameResult: FinalResult) {
         answerView.display(QuizAnswerViewModel(answer: []))
-        answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/50"))
+        answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(gameResult.correctAnswersTotal)"))
         statusView.display(QuizStatusViewModel(isPlaying: true, status: startStatus))
         counterView.display(QuizCounterViewModel(seconds: "05:00"))
     }
