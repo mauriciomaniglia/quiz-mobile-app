@@ -16,7 +16,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="46C-bk-4oV">
-                                <rect key="frame" x="16" y="204" width="382" height="528"/>
+                                <rect key="frame" x="0.0" y="204" width="414" height="528"/>
                                 <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                                 <connections>
                                     <outlet property="dataSource" destination="dBT-Qs-rVq" id="dfQ-Zv-FER"/>
@@ -166,10 +166,10 @@
                             <constraint firstItem="cfd-vv-bV8" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" constant="16" id="knc-TH-4Kn"/>
                             <constraint firstItem="G11-dj-gbf" firstAttribute="top" secondItem="FoE-hC-EPm" secondAttribute="top" id="l7a-3o-wDj"/>
                             <constraint firstItem="G11-dj-gbf" firstAttribute="top" secondItem="46C-bk-4oV" secondAttribute="bottom" id="lKx-Ay-mJS"/>
-                            <constraint firstItem="FoE-hC-EPm" firstAttribute="trailing" secondItem="46C-bk-4oV" secondAttribute="trailing" constant="16" id="n66-Wh-f50"/>
+                            <constraint firstItem="FoE-hC-EPm" firstAttribute="trailing" secondItem="46C-bk-4oV" secondAttribute="trailing" id="n66-Wh-f50"/>
                             <constraint firstItem="cfd-vv-bV8" firstAttribute="top" secondItem="vOI-1y-ueW" secondAttribute="bottom" constant="16" id="p8U-y9-qbG"/>
                             <constraint firstItem="G11-dj-gbf" firstAttribute="leading" secondItem="vOI-1y-ueW" secondAttribute="trailing" constant="10" id="peR-ky-WFG"/>
-                            <constraint firstItem="46C-bk-4oV" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" constant="16" id="rTB-g8-Lfk"/>
+                            <constraint firstItem="46C-bk-4oV" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" id="rTB-g8-Lfk"/>
                             <constraint firstItem="G11-dj-gbf" firstAttribute="trailing" secondItem="FoE-hC-EPm" secondAttribute="trailing" id="xdI-sY-wEh"/>
                             <constraint firstItem="FoE-hC-EPm" firstAttribute="trailing" secondItem="vOI-1y-ueW" secondAttribute="trailing" constant="16" id="zec-5t-ysi"/>
                         </constraints>
@@ -191,6 +191,7 @@
                                 <include reference="8hf-fp-XWO"/>
                                 <exclude reference="9yS-xt-CcY"/>
                                 <exclude reference="J09-oF-nU4"/>
+                                <include reference="n66-Wh-f50"/>
                                 <exclude reference="zec-5t-ysi"/>
                                 <include reference="auI-5M-Kw0"/>
                                 <include reference="OPj-QD-vrs"/>
@@ -212,6 +213,7 @@
                                 <include reference="8hf-fp-XWO"/>
                                 <exclude reference="9yS-xt-CcY"/>
                                 <exclude reference="J09-oF-nU4"/>
+                                <include reference="n66-Wh-f50"/>
                                 <exclude reference="zec-5t-ysi"/>
                                 <include reference="auI-5M-Kw0"/>
                                 <include reference="OPj-QD-vrs"/>
