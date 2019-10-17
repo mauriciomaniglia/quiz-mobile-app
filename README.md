@@ -115,19 +115,18 @@ Given the customer has not finished answering all guesses and the timer ends
 #### Primary course:
 1. Execute "Start Game" command with the above data.
 2. System starts the counter.
-3. System delivers counter current value.
-3. System enables inserting guesses.
+3. Counter delivers start message.
+4. Counter delivers current seconds.
+5. System delivers counter current value.
 
 ### Restart Game Use Case
 
 #### Primary course:
 1. Execute "Restart Game" command.
 2. System deletes old answers.
-3. System deletes old answers count.
-4. System creates new answers count.
-5. System stops the counter.
-6. System resets the counter.
-7. System disable inserting guesses.
+3. System stops the counter.
+4. System resets the counter.
+5. System delivers reset message with total number of correct answer that came from server.
 
 ### Add Answer Use Case
 
@@ -140,15 +139,16 @@ Given the customer has not finished answering all guesses and the timer ends
 3. System removes extra spaces from answer.
 4. System saves new answer.
 5. System delivers all answers count from previous answers.
+6. System delivers all answers already saved
 
 #### Invalid data course (sad path):
 1. System do not save empty answer.
 
-### Validate Counter Use Case
+### Validate Answers Use Case
 
 #### Primary course:
-1. Execute "Validate Counter" command with the above data.
-2. System valides if all save answers is equal to the total correct answers from the question model.
+1. Execute "Validate Answers" command with the above data.
+2. System valides if all saved answers is equal to the total correct answers that came from server.
 3. System stop the counter.
 4. System delivers success message.
 
