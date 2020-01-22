@@ -29,10 +29,10 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         didSet { tableView.reloadData() }
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    override func viewDidLoad() {
         super.viewDidLoad()
         delegate?.didRequestLoading()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")        
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell") 
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
