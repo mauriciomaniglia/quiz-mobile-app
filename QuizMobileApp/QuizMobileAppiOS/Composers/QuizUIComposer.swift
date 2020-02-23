@@ -13,7 +13,7 @@ final class QuizUIComposer {
     private init() {}
     
     static func quizComposedWith(questionLoader: QuestionLoader) -> QuizViewController {
-        let presentationAdapter = FeedLoaderPresentationAdapter(quizQuestionLoader:
+        let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:
             MainQueueDispatchDecorator(decoratee: questionLoader))
         
         let quizController = makeQuizViewController(
