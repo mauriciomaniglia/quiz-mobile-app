@@ -9,7 +9,7 @@
 import Foundation
 
 public class RemoteQuestionLoader: QuestionLoader {
-    private let store: HTTPClient
+    private let client: HTTPClient
     private let url: URL
     
     public typealias Result = QuestionLoaderResult
@@ -19,13 +19,13 @@ public class RemoteQuestionLoader: QuestionLoader {
         case invalidData
     }
     
-    public init(url: URL, store: HTTPClient) {
+    public init(url: URL, client: HTTPClient) {
         self.url = url
-        self.store = store
+        self.client = client
     }
     
     public func load(completion: @escaping (Result) -> Void) {
-        store.get(from: url) { [weak self] result in
+        client.get(from: url) { [weak self] result in
             guard self != nil else { return }            
             
             switch result {
