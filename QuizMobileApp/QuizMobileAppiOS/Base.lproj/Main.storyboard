@@ -124,6 +124,10 @@
                                         <include reference="Xwd-tp-caP"/>
                                     </mask>
                                 </variation>
+                                <connections>
+                                    <outlet property="buttonBottomConstraint" destination="J09-oF-nU4" id="C6Y-jb-TXo"/>
+                                    <outlet property="footerBottomConstraint" destination="hWo-Li-XqY" id="6ZM-6L-xYP"/>
+                                </connections>
                             </view>
                             <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Word" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="cfd-vv-bV8" customClass="CustomTextField" customModule="QuizMobileAppiOS" customModuleProvider="target">
                                 <rect key="frame" x="16" y="145" width="382" height="43"/>
