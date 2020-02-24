@@ -1,5 +1,5 @@
 //
-//  QuizCounterViewModel.swift
+//  QuizAnswerCountPresentableModel.swift
 //  QuizMobileApp
 //
 //  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public struct QuizCounterViewModel {
-    public let seconds: String
+public struct QuizAnswerCountPresentableModel {
+    public let answerCount: String
 }

@@ -9,35 +9,35 @@
 import Foundation
 
 public protocol QuizAnswerView {
-    func display(_ viewModel: QuizAnswerViewModel)
+    func display(_ viewModel: QuizAnswerPresentableModel)
 }
 
 public protocol QuizLoadingView {
-    func display(_ viewModel: QuizLoadingViewModel)
+    func display(_ viewModel: QuizLoadingPresentableModel)
 }
 
 public protocol QuizErrorView {
-    func display(_ viewModel: QuizErrorViewModel)
+    func display(_ viewModel: QuizErrorPresentableModel)
 }
 
 public protocol QuizStatusView {
-    func display(_ viewModel: QuizStatusViewModel)
+    func display(_ viewModel: QuizStatusPresentableModel)
 }
 
 public protocol QuizQuestionView {
-    func display(_ viewModel: QuizQuestionViewModel)
+    func display(_ viewModel: QuizQuestionPresentableModel)
 }
 
 public protocol QuizCounterView {
-    func display(_ viewModel: QuizCounterViewModel)
+    func display(_ viewModel: QuizCounterPresentableModel)
 }
 
 public protocol QuizAnswerCountView {
-    func display(_ viewModel: QuizAnswerCountViewModel)
+    func display(_ viewModel: QuizAnswerCountPresentableModel)
 }
 
 public protocol QuizResultView {
-    func display(_ viewModel: QuizResultViewModel)
+    func display(_ viewModel: QuizResultPresentableModel)
 }
 
 public final class QuizPresenter {
@@ -90,50 +90,50 @@ public final class QuizPresenter {
     }
     
     public func didStartLoadGame() {        
-        loadingView.display(QuizLoadingViewModel(isLoading: true))
+        loadingView.display(QuizLoadingPresentableModel(isLoading: true))
     }
     
     public func didFinishLoadGame(with question: QuestionItem) {
-        questionView.display(QuizQuestionViewModel(question: question.question))
-        answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(question.answer.count)"))
-        statusView.display(QuizStatusViewModel(isPlaying: true, status: startStatus))
-        loadingView.display(QuizLoadingViewModel(isLoading: false))
+        questionView.display(QuizQuestionPresentableModel(question: question.question))
+        answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "00/\(question.answer.count)"))
+        statusView.display(QuizStatusPresentableModel(isPlaying: true, status: startStatus))
+        loadingView.display(QuizLoadingPresentableModel(isLoading: false))
     }
     
     public func didFinishLoadGame(with error: Error) {
-        loadingView.display(QuizLoadingViewModel(isLoading: false))
+        loadingView.display(QuizLoadingPresentableModel(isLoading: false))
         errorView.display(.error(message: errorMessage, retry: tryAgainTitle))
     }
     
     public func didStartGame() {
-        statusView.display(QuizStatusViewModel(isPlaying: false, status: resetStatus))
+        statusView.display(QuizStatusPresentableModel(isPlaying: false, status: resetStatus))
     }
     
     public func didRestartGame(_ gameResult: FinalResult) {
-        answerView.display(QuizAnswerViewModel(answer: []))
-        answerCountView.display(QuizAnswerCountViewModel(answerCount: "00/\(gameResult.correctAnswersTotal)"))
-        statusView.display(QuizStatusViewModel(isPlaying: true, status: startStatus))
-        counterView.display(QuizCounterViewModel(seconds: "05:00"))
+        answerView.display(QuizAnswerPresentableModel(answer: []))
+        answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "00/\(gameResult.correctAnswersTotal)"))
+        statusView.display(QuizStatusPresentableModel(isPlaying: true, status: startStatus))
+        counterView.display(QuizCounterPresentableModel(seconds: "05:00"))
     }
     
     public func didAddNewAnswer(_ answers: AddAnswerResult) {
-        answerView.display(QuizAnswerViewModel(answer: answers.savedAnswers))
-        answerCountView.display(QuizAnswerCountViewModel(answerCount: "\(answers.savedAnswers.count)/\(answers.correctAnswersTotal)"))
+        answerView.display(QuizAnswerPresentableModel(answer: answers.savedAnswers))
+        answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "\(answers.savedAnswers.count)/\(answers.correctAnswersTotal)"))
     }
     
     public func didUpdateCounter(withSeconds seconds: Int) {
         let minutes = Int(seconds) / 60 % 60
         let seconds = Int(seconds) % 60
         let formatedValue = String(format:"%02i:%02i", minutes, seconds)
-        counterView.display(QuizCounterViewModel(seconds: formatedValue))
+        counterView.display(QuizCounterPresentableModel(seconds: formatedValue))
     }
     
     public func didFinishGame(_ gameResult: FinalResult) {
         if gameResult.scoreAll {
-            resultView.display(QuizResultViewModel(title: congratulationsTitle, message: congratulationsMessage, retry: playAgainTitle))
+            resultView.display(QuizResultPresentableModel(title: congratulationsTitle, message: congratulationsMessage, retry: playAgainTitle))
         } else {
             let message = String(format: timeFinishedMessage, gameResult.savedAnswersCorrect, gameResult.correctAnswersTotal)
-            resultView.display(QuizResultViewModel(title: timeFinishedTitle, message: message, retry: tryAgainTitle))
+            resultView.display(QuizResultPresentableModel(title: timeFinishedTitle, message: message, retry: tryAgainTitle))
         }
     }
     

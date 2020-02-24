@@ -20,8 +20,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate {
     }
     
     func didRequestLoading() {
-        presenter?.didStartLoadGame()
-        
+        presenter?.didStartLoadGame()        
         quizQuestionLoader.load { result in
             switch result {
             case let .success(questions):

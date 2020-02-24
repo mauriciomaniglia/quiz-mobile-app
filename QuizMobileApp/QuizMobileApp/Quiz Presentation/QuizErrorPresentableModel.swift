@@ -1,5 +1,5 @@
 //
-//  QuizErrorViewModel.swift
+//  QuizErrorPresentableModel.swift
 //  QuizMobileApp
 //
 //  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
@@ -8,11 +8,11 @@
 
 import Foundation
 
-public struct QuizErrorViewModel {
+public struct QuizErrorPresentableModel {
     public let message: String
     public let retry: String
         
-    static func error(message: String, retry: String) -> QuizErrorViewModel {
-        return QuizErrorViewModel(message: message, retry: retry)
+    static func error(message: String, retry: String) -> QuizErrorPresentableModel {
+        return QuizErrorPresentableModel(message: message, retry: retry)
     }
 }

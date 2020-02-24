@@ -1,5 +1,5 @@
 //
-//  QuizAnswerViewModel.swift
+//  QuizResultPresentableModel.swift
 //  QuizMobileApp
 //
 //  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
@@ -8,6 +8,8 @@
 
 import Foundation
 
-public struct QuizAnswerViewModel {
-    public let answer: [String]
+public struct QuizResultPresentableModel {
+    public let title: String
+    public let message: String
+    public let retry: String
 }

@@ -1,5 +1,5 @@
 //
-//  QuizStatusViewModel.swift
+//  QuizCounterPresentableModel.swift
 //  QuizMobileApp
 //
 //  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
@@ -8,7 +8,6 @@
 
 import Foundation
 
-public struct QuizStatusViewModel {
-    public let isPlaying: Bool
-    public let status: String
+public struct QuizCounterPresentableModel {
+    public let seconds: String
 }

@@ -1,5 +1,5 @@
 //
-//  QuizLoadingViewModel.swift
+//  QuizAnswerPresentableModel.swift
 //  QuizMobileApp
 //
 //  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
@@ -8,6 +8,6 @@
 
 import Foundation
 
-public struct QuizLoadingViewModel {
-    public let isLoading: Bool
+public struct QuizAnswerPresentableModel {
+    public let answer: [String]
 }

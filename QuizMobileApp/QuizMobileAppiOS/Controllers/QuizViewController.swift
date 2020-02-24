@@ -47,11 +47,11 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         delegate?.didClickStatusButton()
     }
     
-    func display(_ viewModel: QuizAnswerViewModel) {
+    func display(_ viewModel: QuizAnswerPresentableModel) {
         tableModel = viewModel.answer
     }
     
-    func display(_ viewModel: QuizLoadingViewModel) {
+    func display(_ viewModel: QuizLoadingPresentableModel) {
         if viewModel.isLoading {
             self.present(LoadingViewController.shared, animated: false)
         } else {
@@ -59,7 +59,7 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         }
     }
     
-    func display(_ viewModel: QuizStatusViewModel) {
+    func display(_ viewModel: QuizStatusPresentableModel) {
         statusButton.setTitle(viewModel.status, for: .normal)
         if viewModel.isPlaying {
             answerTextfield.isUserInteractionEnabled = false
@@ -68,24 +68,24 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         }
     }
     
-    func display(_ viewModel: QuizQuestionViewModel) {
+    func display(_ viewModel: QuizQuestionPresentableModel) {
         questionLabel.text = viewModel.question
     }
     
-    func display(_ viewModel: QuizCounterViewModel) {
+    func display(_ viewModel: QuizCounterPresentableModel) {
         counterLabel.text = viewModel.seconds
     }
     
-    func display(_ viewModel: QuizAnswerCountViewModel) {
+    func display(_ viewModel: QuizAnswerCountPresentableModel) {
         answerCountLabel.text = viewModel.answerCount
     }
     
-    func display(_ viewModel: QuizErrorViewModel) {
+    func display(_ viewModel: QuizErrorPresentableModel) {
         let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didRequestLoading() })
         alertWithTitle(viewModel.message, message: nil, action: retryButton)
     }
     
-    func display(_ viewModel: QuizResultViewModel) {                
+    func display(_ viewModel: QuizResultPresentableModel) {                
         let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didClickStatusButton() })
         alertWithTitle(viewModel.title, message: viewModel.message, action: retryButton)
     }
