@@ -32,7 +32,8 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     override func viewDidLoad() {
         super.viewDidLoad()
         delegate?.didRequestLoading()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell") 
+        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
+        tableView.keyboardDismissMode = .onDrag
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
