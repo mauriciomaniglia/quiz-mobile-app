@@ -94,7 +94,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
         let client = HTTPClientSpy()
         let item = makeItem(question: "Question", answer: ["answer1", "answer2"])
         let data = try! JSONSerialization.data(withJSONObject: item.json)
-        var sut: RemoteQuestionLoader? = RemoteQuestionLoader(url: url, store: client)
+        var sut: RemoteQuestionLoader? = RemoteQuestionLoader(url: url, client: client)
         
         var capturedResults = [RemoteQuestionLoader.Result]()
         sut?.load { capturedResults.append($0)}
@@ -109,7 +109,7 @@ class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
     
     private func makeSUT(url: URL = URL(fileURLWithPath: "http://a-given-http-url.com"), file: StaticString = #file, line: UInt = #line) -> (sut: RemoteQuestionLoader, store: HTTPClientSpy) {
         let store = HTTPClientSpy()
-        let sut = RemoteQuestionLoader(url: url, store: store)
+        let sut = RemoteQuestionLoader(url: url, client: store)
         trackForMemoryLeak(sut, file: file, line: line)
         return (sut, store)
     }
