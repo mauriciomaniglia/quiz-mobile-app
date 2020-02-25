@@ -8,12 +8,13 @@
 
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate {
+final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeaderViewControllerDelegate {
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter = QuizGameTimer(withSeconds: 300)
     private var isPlaying = false
     var presenter: QuizPresenter?
+    var headerPresenter: QuizHeaderPresenter?
     
     init(quizQuestionLoader: QuestionLoader) {
         self.quizQuestionLoader = quizQuestionLoader
@@ -27,6 +28,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate {
                 guard let questionItem = questions.first else { return }
                 
                 self.presenter?.didFinishLoadGame(with: questionItem)
+                self.headerPresenter?.didFinishLoadGame(with: questionItem)
                 self.quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
                 
             case let .failure(error):
@@ -51,7 +53,9 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate {
             isPlaying = true
             self.quizGameEngine?.startGame { result in
                 switch result {
-                    case .gameStarted: self.presenter?.didStartGame()
+                    case .gameStarted:
+                        self.presenter?.didStartGame()
+                        self.headerPresenter?.didStartGame()
                     case let .updateSecond(seconds): self.presenter?.didUpdateCounter(withSeconds: seconds)
                     case let .gameFinished(result): self.presenter?.didFinishGame(result)
                 }

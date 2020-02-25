@@ -22,4 +22,8 @@ public final class QuizHeaderPresenter {
     public func didFinishLoadGame(with question: QuestionItem) {
         quizHeader.display(QuizHeaderPresentableModel(gameStarted: false, question: question.question))
     }
+    
+    public func didStartGame() {
+        quizHeader.display(QuizHeaderPresentableModel(gameStarted: true, question: nil))
+    }
 }

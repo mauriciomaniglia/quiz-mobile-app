@@ -41,12 +41,6 @@ extension WeakRefVirtualProxy: QuizStatusView where T: QuizStatusView {
     }
 }
 
-extension WeakRefVirtualProxy: QuizQuestionView where T: QuizQuestionView {
-    func display(_ viewModel: QuizQuestionPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
 extension WeakRefVirtualProxy: QuizCounterView where T: QuizCounterView {
     func display(_ viewModel: QuizCounterPresentableModel) {
         object?.display(viewModel)

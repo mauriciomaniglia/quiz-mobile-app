@@ -15,15 +15,16 @@ protocol QuizViewControllerDelegate {
     func didClickStatusButton()
 }
 
-class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizErrorView, QuizQuestionView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
+class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizErrorView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
     var delegate: QuizViewControllerDelegate?
     
     @IBOutlet private(set) public var tableView: UITableView!
-    @IBOutlet private(set) public var questionLabel: UILabel!
     @IBOutlet private(set) public var statusButton: UIButton!
     @IBOutlet private(set) public var counterLabel: UILabel!
     @IBOutlet private(set) public var answerCountLabel: UILabel!
-    @IBOutlet private(set) public var answerTextfield: UITextField!    
+    @IBOutlet weak var headerContainer: UIView!
+    
+    var quizHeaderController: QuizHeaderViewController!
     
     var tableModel = [String]() {
         didSet { tableView.reloadData() }
@@ -34,6 +35,8 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         delegate?.didRequestLoading()
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
         tableView.keyboardDismissMode = .onDrag
+        
+        addHeaderContent()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -62,15 +65,6 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     func display(_ viewModel: QuizStatusPresentableModel) {
         statusButton.setTitle(viewModel.status, for: .normal)
-        if viewModel.isPlaying {
-            answerTextfield.isUserInteractionEnabled = false
-        } else {
-            answerTextfield.isUserInteractionEnabled = true
-        }
-    }
-    
-    func display(_ viewModel: QuizQuestionPresentableModel) {
-        questionLabel.text = viewModel.question
     }
     
     func display(_ viewModel: QuizCounterPresentableModel) {
@@ -106,13 +100,19 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         alert.addAction(action)
         present(alert, animated: false)
     }
-}
+    
+    private func addHeaderContent() {
+        addChild(quizHeaderController)
+        quizHeaderController.view.translatesAutoresizingMaskIntoConstraints = false
+        headerContainer.addSubview(quizHeaderController.view)
 
-extension QuizViewController: UITextFieldDelegate {
-    func textFieldShouldReturn(_ textField: UITextField) -> Bool {
-        let text = textField.text ?? ""
-        delegate?.didTapNewAnswer(text)
-        textField.text = ""
-        return true
+        NSLayoutConstraint.activate([
+            quizHeaderController.view.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor),
+            quizHeaderController.view.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor),
+            quizHeaderController.view.topAnchor.constraint(equalTo: headerContainer.topAnchor),
+            quizHeaderController.view.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor)
+        ])
+
+        quizHeaderController.didMove(toParent: self)
     }
 }

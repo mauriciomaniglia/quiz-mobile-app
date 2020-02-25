@@ -17,10 +17,12 @@ final class QuizHeaderViewController: UIViewController, QuizHeader, UITextFieldD
     var delegate: QuizHeaderViewControllerDelegate?
     
     @IBOutlet private(set) public var questionLabel: UILabel!
-    @IBOutlet private(set) public var answerTextfield: UITextField!
+    @IBOutlet private(set) public var answerTextfield: UITextField!    
     
     func display(_ presentableModel: QuizHeaderPresentableModel) {
-        questionLabel.text = presentableModel.question
+        if let question = presentableModel.question {
+            questionLabel.text = question
+        }
         answerTextfield.isUserInteractionEnabled = presentableModel.gameStarted
     }
     

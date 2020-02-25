@@ -10,5 +10,5 @@ import Foundation
 
 public struct QuizHeaderPresentableModel {
     public let gameStarted: Bool
-    public let question: String
+    public let question: String?
 }

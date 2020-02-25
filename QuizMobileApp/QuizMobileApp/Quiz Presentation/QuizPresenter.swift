@@ -24,10 +24,6 @@ public protocol QuizStatusView {
     func display(_ viewModel: QuizStatusPresentableModel)
 }
 
-public protocol QuizQuestionView {
-    func display(_ viewModel: QuizQuestionPresentableModel)
-}
-
 public protocol QuizCounterView {
     func display(_ viewModel: QuizCounterPresentableModel)
 }
@@ -42,7 +38,7 @@ public protocol QuizResultView {
 
 public final class QuizPresenter {
     private let loadingView: QuizLoadingView
-    private let questionView: QuizQuestionView
+    //private let questionView: QuizQuestionView
     private let answerView: QuizAnswerView
     private let errorView: QuizErrorView
     private let statusView: QuizStatusView
@@ -78,9 +74,8 @@ public final class QuizPresenter {
         return localizedString("QUIZ_ERROR_MESSAGE", comment: "Message for connection error")
     }
     
-    public init(loadingView: QuizLoadingView, questionView: QuizQuestionView, answerView: QuizAnswerView, errorView: QuizErrorView, statusView: QuizStatusView, counterView: QuizCounterView, answerCountView: QuizAnswerCountView, resultView: QuizResultView) {
+    public init(loadingView: QuizLoadingView, answerView: QuizAnswerView, errorView: QuizErrorView, statusView: QuizStatusView, counterView: QuizCounterView, answerCountView: QuizAnswerCountView, resultView: QuizResultView) {
         self.loadingView = loadingView
-        self.questionView = questionView
         self.answerView = answerView
         self.errorView = errorView
         self.statusView = statusView
@@ -93,8 +88,7 @@ public final class QuizPresenter {
         loadingView.display(QuizLoadingPresentableModel(isLoading: true))
     }
     
-    public func didFinishLoadGame(with question: QuestionItem) {
-        questionView.display(QuizQuestionPresentableModel(question: question.question))
+    public func didFinishLoadGame(with question: QuestionItem) {        
         answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "00/\(question.answer.count)"))
         statusView.display(QuizStatusPresentableModel(isPlaying: true, status: startStatus))
         loadingView.display(QuizLoadingPresentableModel(isLoading: false))
