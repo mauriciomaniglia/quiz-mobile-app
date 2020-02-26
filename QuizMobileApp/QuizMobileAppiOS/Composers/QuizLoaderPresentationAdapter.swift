@@ -8,13 +8,14 @@
 
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeaderViewControllerDelegate {
+final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate {
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter = QuizGameTimer(withSeconds: 300)
     private var isPlaying = false
     var presenter: QuizPresenter?
     var headerPresenter: QuizHeaderPresenter?
+    var footerPresenter: QuizFooterPresenter?
     
     init(quizQuestionLoader: QuestionLoader) {
         self.quizQuestionLoader = quizQuestionLoader
@@ -29,6 +30,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
                 
                 self.presenter?.didFinishLoadGame(with: questionItem)
                 self.headerPresenter?.didFinishLoadGame(with: questionItem)
+                self.footerPresenter?.didFinishLoadGame(with: questionItem)
                 self.quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
                 
             case let .failure(error):
@@ -40,6 +42,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
     func didTapNewAnswer(_ answer: String) {
         quizGameEngine?.addAnswer(answer) { result in
             self.presenter?.didAddNewAnswer(result)
+            self.footerPresenter?.didAddNewAnswer(result)
         }
     }
     
@@ -47,16 +50,17 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
         if isPlaying {
             isPlaying = false
             self.quizGameEngine?.restartGame { result in
-                self.presenter?.didRestartGame(result)
+                self.presenter?.didRestartGame(result)                
+                self.footerPresenter?.didRestartGame(result)
             }
         } else {
             isPlaying = true
             self.quizGameEngine?.startGame { result in
                 switch result {
                     case .gameStarted:
-                        self.presenter?.didStartGame()
                         self.headerPresenter?.didStartGame()
-                    case let .updateSecond(seconds): self.presenter?.didUpdateCounter(withSeconds: seconds)
+                        self.footerPresenter?.didStartGame()
+                    case let .updateSecond(seconds): self.footerPresenter?.didUpdateCounter(withSeconds: seconds)
                     case let .gameFinished(result): self.presenter?.didFinishGame(result)
                 }
             }

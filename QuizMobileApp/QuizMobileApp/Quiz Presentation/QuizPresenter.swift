@@ -20,38 +20,16 @@ public protocol QuizErrorView {
     func display(_ viewModel: QuizErrorPresentableModel)
 }
 
-public protocol QuizStatusView {
-    func display(_ viewModel: QuizStatusPresentableModel)
-}
-
-public protocol QuizCounterView {
-    func display(_ viewModel: QuizCounterPresentableModel)
-}
-
-public protocol QuizAnswerCountView {
-    func display(_ viewModel: QuizAnswerCountPresentableModel)
-}
-
 public protocol QuizResultView {
     func display(_ viewModel: QuizResultPresentableModel)
 }
 
 public final class QuizPresenter {
     private let loadingView: QuizLoadingView
-    //private let questionView: QuizQuestionView
     private let answerView: QuizAnswerView
     private let errorView: QuizErrorView
-    private let statusView: QuizStatusView
-    private let counterView: QuizCounterView
-    private let answerCountView: QuizAnswerCountView
     private let resultView: QuizResultView
     
-    private var startStatus: String {
-        return localizedString("QUIZ_START_STATUS", comment: "Title for the start game status")
-    }
-    private var resetStatus: String {
-        return localizedString("QUIZ_RESET_STATUS", comment: "Title for the reset game status")
-    }
     private var congratulationsTitle: String {
         return localizedString("QUIZ_CONGRATULATIONS_TITLE", comment: "Congratulations title for the game final result")
     }
@@ -74,13 +52,10 @@ public final class QuizPresenter {
         return localizedString("QUIZ_ERROR_MESSAGE", comment: "Message for connection error")
     }
     
-    public init(loadingView: QuizLoadingView, answerView: QuizAnswerView, errorView: QuizErrorView, statusView: QuizStatusView, counterView: QuizCounterView, answerCountView: QuizAnswerCountView, resultView: QuizResultView) {
+    public init(loadingView: QuizLoadingView, answerView: QuizAnswerView, errorView: QuizErrorView, resultView: QuizResultView) {
         self.loadingView = loadingView
         self.answerView = answerView
         self.errorView = errorView
-        self.statusView = statusView
-        self.counterView = counterView
-        self.answerCountView = answerCountView
         self.resultView = resultView
     }
     
@@ -88,9 +63,7 @@ public final class QuizPresenter {
         loadingView.display(QuizLoadingPresentableModel(isLoading: true))
     }
     
-    public func didFinishLoadGame(with question: QuestionItem) {        
-        answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "00/\(question.answer.count)"))
-        statusView.display(QuizStatusPresentableModel(isPlaying: true, status: startStatus))
+    public func didFinishLoadGame(with question: QuestionItem) {
         loadingView.display(QuizLoadingPresentableModel(isLoading: false))
     }
     
@@ -99,27 +72,12 @@ public final class QuizPresenter {
         errorView.display(.error(message: errorMessage, retry: tryAgainTitle))
     }
     
-    public func didStartGame() {
-        statusView.display(QuizStatusPresentableModel(isPlaying: false, status: resetStatus))
-    }
-    
     public func didRestartGame(_ gameResult: FinalResult) {
         answerView.display(QuizAnswerPresentableModel(answer: []))
-        answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "00/\(gameResult.correctAnswersTotal)"))
-        statusView.display(QuizStatusPresentableModel(isPlaying: true, status: startStatus))
-        counterView.display(QuizCounterPresentableModel(seconds: "05:00"))
     }
     
     public func didAddNewAnswer(_ answers: AddAnswerResult) {
         answerView.display(QuizAnswerPresentableModel(answer: answers.savedAnswers))
-        answerCountView.display(QuizAnswerCountPresentableModel(answerCount: "\(answers.savedAnswers.count)/\(answers.correctAnswersTotal)"))
-    }
-    
-    public func didUpdateCounter(withSeconds seconds: Int) {
-        let minutes = Int(seconds) / 60 % 60
-        let seconds = Int(seconds) % 60
-        let formatedValue = String(format:"%02i:%02i", minutes, seconds)
-        counterView.display(QuizCounterPresentableModel(seconds: formatedValue))
     }
     
     public func didFinishGame(_ gameResult: FinalResult) {

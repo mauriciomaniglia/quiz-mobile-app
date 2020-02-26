@@ -15,8 +15,8 @@ final class FooterView: UIView {
     private var buttonBottomInitialConstraint = CGFloat.init()
     
     override func draw(_ rect: CGRect) {
-        saveButtonBottomConstraintInitialValue()
-        registerKeyboardObservers()
+        //saveButtonBottomConstraintInitialValue()
+        //registerKeyboardObservers()
     }
     
     deinit {

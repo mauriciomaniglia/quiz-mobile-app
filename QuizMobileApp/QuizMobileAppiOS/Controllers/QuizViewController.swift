@@ -11,20 +11,17 @@ import QuizMobileApp
 
 protocol QuizViewControllerDelegate {
     func didRequestLoading()
-    func didTapNewAnswer(_ answer: String)
-    func didClickStatusButton()
 }
 
-class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizStatusView, QuizErrorView, QuizCounterView, QuizAnswerCountView, QuizResultView, UITableViewDataSource {
+class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizErrorView, QuizResultView, UITableViewDataSource {
     var delegate: QuizViewControllerDelegate?
     
     @IBOutlet private(set) public var tableView: UITableView!
-    @IBOutlet private(set) public var statusButton: UIButton!
-    @IBOutlet private(set) public var counterLabel: UILabel!
-    @IBOutlet private(set) public var answerCountLabel: UILabel!
     @IBOutlet weak var headerContainer: UIView!
+    @IBOutlet weak var footerContainer: UIView!
     
     var quizHeaderController: QuizHeaderViewController!
+    var quizFooterController: QuizFooterViewController!
     
     var tableModel = [String]() {
         didSet { tableView.reloadData() }
@@ -37,6 +34,7 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         tableView.keyboardDismissMode = .onDrag
         
         addHeaderContent()
+        addFooterContent()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -45,10 +43,6 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         view.endEditing(true)
-    }
-    
-    @IBAction func didTapStateButton() {
-        delegate?.didClickStatusButton()
     }
     
     func display(_ viewModel: QuizAnswerPresentableModel) {
@@ -63,25 +57,13 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         }
     }
     
-    func display(_ viewModel: QuizStatusPresentableModel) {
-        statusButton.setTitle(viewModel.status, for: .normal)
-    }
-    
-    func display(_ viewModel: QuizCounterPresentableModel) {
-        counterLabel.text = viewModel.seconds
-    }
-    
-    func display(_ viewModel: QuizAnswerCountPresentableModel) {
-        answerCountLabel.text = viewModel.answerCount
-    }
-    
     func display(_ viewModel: QuizErrorPresentableModel) {
         let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didRequestLoading() })
         alertWithTitle(viewModel.message, message: nil, action: retryButton)
     }
     
     func display(_ viewModel: QuizResultPresentableModel) {                
-        let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didClickStatusButton() })
+        let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in /*self.delegate?.didClickStatusButton()*/ })
         alertWithTitle(viewModel.title, message: viewModel.message, action: retryButton)
     }
     
@@ -114,5 +96,20 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         ])
 
         quizHeaderController.didMove(toParent: self)
+    }
+    
+    private func addFooterContent() {
+        addChild(quizFooterController)
+        quizFooterController.view.translatesAutoresizingMaskIntoConstraints = false
+        footerContainer.addSubview(quizFooterController.view)
+
+        NSLayoutConstraint.activate([
+            quizFooterController.view.leadingAnchor.constraint(equalTo: footerContainer.leadingAnchor),
+            quizFooterController.view.trailingAnchor.constraint(equalTo: footerContainer.trailingAnchor),
+            quizFooterController.view.topAnchor.constraint(equalTo: footerContainer.topAnchor),
+            quizFooterController.view.bottomAnchor.constraint(equalTo: footerContainer.bottomAnchor)
+        ])
+
+        quizFooterController.didMove(toParent: self)
     }
 }
