@@ -19,6 +19,9 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     @IBOutlet private(set) public var tableView: UITableView!
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var footerContainer: UIView!
+    @IBOutlet weak var footerContainerBottomConstraint: NSLayoutConstraint!
+    
+    private var footerContainerBottomConstraintInitialValue = CGFloat.init()
     
     var quizHeaderController: QuizHeaderViewController!
     var quizFooterController: QuizFooterViewController!
@@ -35,6 +38,13 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         
         addHeaderContent()
         addFooterContent()
+        
+        registerKeyboardObservers()
+        saveFooterContainerBottomConstraintInitialValue()
+    }
+    
+    deinit {
+        unregisterKeyboardObservers()
     }
     
     override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -111,5 +121,39 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         ])
 
         quizFooterController.didMove(toParent: self)
+    }
+    
+    private func saveFooterContainerBottomConstraintInitialValue() {
+        footerContainerBottomConstraintInitialValue = footerContainerBottomConstraint.constant
+    }
+    
+    private func registerKeyboardObservers() {
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    private func unregisterKeyboardObservers() {
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+    }
+    
+    private func animateFooterForKeyboardNotification(_ notification: NSNotification) {
+        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
+        view?.layoutIfNeeded()
+        
+        UIView.animate(withDuration: 1.0) {
+            if notification.name == UIResponder.keyboardWillShowNotification {
+                self.footerContainerBottomConstraint.constant = keyboardFrame.cgRectValue.height + self.footerContainerBottomConstraintInitialValue
+            } else {
+                self.footerContainerBottomConstraint.constant = self.footerContainerBottomConstraintInitialValue
+            }
+            self.view?.layoutIfNeeded()
+        }
+    }
+    
+    @objc private func keyboardWillChangeFrame(notification:NSNotification) {
+        animateFooterForKeyboardNotification(notification)
     }
 }

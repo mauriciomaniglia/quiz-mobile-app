@@ -85,6 +85,7 @@
                     </view>
                     <connections>
                         <outlet property="footerContainer" destination="bXP-7e-a7i" id="Wrh-Mc-CrJ"/>
+                        <outlet property="footerContainerBottomConstraint" destination="HZE-TY-rJt" id="QYh-cQ-lKh"/>
                         <outlet property="headerContainer" destination="HaC-ay-pIH" id="MNz-Xa-iBZ"/>
                         <outlet property="tableView" destination="46C-bk-4oV" id="Bzg-eT-pWc"/>
                     </connections>
