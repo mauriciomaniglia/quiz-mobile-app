@@ -13,16 +13,17 @@ final class QuizUIComposer {
     private init() {}
     
     static func quizComposedWith(questionLoader: QuestionLoader) -> QuizViewController {
+        let quizLoadingController = makeQuizLoadingViewController()
+        
         let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:
-            MainQueueDispatchDecorator(decoratee: questionLoader))
+            MainQueueDispatchDecorator(decoratee: questionLoader), quizLoading: quizLoadingController)
         
         let quizController = makeQuizViewController(delegate: presentationAdapter)
         let quizHeaderController = makeQuizHeaderViewController(delegate: presentationAdapter)
         let quizAnswerListController = makeQuizAnswerListViewController()
         let quizFooterController = makeQuizFooterViewController(delegate: presentationAdapter)
         
-        presentationAdapter.presenter = QuizPresenter(
-            loadingView: WeakRefVirtualProxy(quizController),                        
+        presentationAdapter.presenter = QuizPresenter(                                    
             errorView: WeakRefVirtualProxy(quizController),            
             resultView: WeakRefVirtualProxy(quizController))
         
@@ -70,5 +71,11 @@ final class QuizUIComposer {
         quizFooterController.delegate = delegate
         
         return quizFooterController
+    }
+    
+    private static func makeQuizLoadingViewController() -> QuizLoadingViewController {
+        let storyboard = UIStoryboard(name: "QuizLoading", bundle: nil)
+        let loadingViewController = storyboard.instantiateViewController(withIdentifier: "QuizLoadingViewController") as! QuizLoadingViewController
+        return loadingViewController
     }
 }

@@ -8,10 +8,6 @@
 
 import Foundation
 
-public protocol QuizLoadingView {
-    func display(_ viewModel: QuizLoadingPresentableModel)
-}
-
 public protocol QuizErrorView {
     func display(_ viewModel: QuizErrorPresentableModel)
 }
@@ -21,7 +17,6 @@ public protocol QuizResultView {
 }
 
 public final class QuizPresenter {
-    private let loadingView: QuizLoadingView
     private let errorView: QuizErrorView
     private let resultView: QuizResultView
     
@@ -47,22 +42,12 @@ public final class QuizPresenter {
         return localizedString("QUIZ_ERROR_MESSAGE", comment: "Message for connection error")
     }
     
-    public init(loadingView: QuizLoadingView, errorView: QuizErrorView, resultView: QuizResultView) {
-        self.loadingView = loadingView
+    public init(errorView: QuizErrorView, resultView: QuizResultView) {
         self.errorView = errorView
         self.resultView = resultView
     }
     
-    public func didStartLoadGame() {        
-        loadingView.display(QuizLoadingPresentableModel(isLoading: true))
-    }
-    
-    public func didFinishLoadGame(with question: QuestionItem) {
-        loadingView.display(QuizLoadingPresentableModel(isLoading: false))
-    }
-    
     public func didFinishLoadGame(with error: Error) {
-        loadingView.display(QuizLoadingPresentableModel(isLoading: false))
         errorView.display(.error(message: errorMessage, retry: tryAgainTitle))
     }        
     

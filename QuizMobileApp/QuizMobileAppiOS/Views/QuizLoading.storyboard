@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="vfi-UB-iqF">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Quiz Loading View Controller-->
+        <scene sceneID="BUz-y0-Mik">
+            <objects>
+                <viewController storyboardIdentifier="QuizLoadingViewController" modalTransitionStyle="crossDissolve" modalPresentationStyle="overFullScreen" id="vfi-UB-iqF" customClass="QuizLoadingViewController" customModule="QuizMobileAppiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="FwV-Yu-R6j">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="IEV-yP-eVZ">
+                                <rect key="frame" x="122" y="383" width="170" height="130"/>
+                                <subviews>
+                                    <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" animating="YES" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="5Ao-bi-4cV">
+                                        <rect key="frame" x="39" y="21" width="92" height="64"/>
+                                        <color key="tintColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="64" id="Hvn-cM-pwQ"/>
+                                        </constraints>
+                                        <color key="color" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                    </activityIndicatorView>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Loading..." textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="b7B-a4-eC4">
+                                        <rect key="frame" x="39" y="93" width="92" height="21"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="21" id="xgw-Yq-sNh"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
+                                        <color key="textColor" systemColor="opaqueSeparatorColor" red="0.77647058820000003" green="0.77647058820000003" blue="0.7843137255" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" red="0.13429965099999999" green="0.13429965099999999" blue="0.13429965099999999" alpha="1" colorSpace="custom" customColorSpace="displayP3"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="170" id="GdM-Ob-S2C"/>
+                                    <constraint firstItem="b7B-a4-eC4" firstAttribute="trailing" secondItem="5Ao-bi-4cV" secondAttribute="trailing" id="R7E-nw-WYi"/>
+                                    <constraint firstAttribute="height" constant="130" id="Wg9-Ja-xPA"/>
+                                    <constraint firstAttribute="trailing" secondItem="5Ao-bi-4cV" secondAttribute="trailing" constant="39" id="ZOe-aa-y6k"/>
+                                    <constraint firstItem="b7B-a4-eC4" firstAttribute="top" secondItem="5Ao-bi-4cV" secondAttribute="bottom" constant="8" id="gMc-gD-RKR"/>
+                                    <constraint firstItem="5Ao-bi-4cV" firstAttribute="leading" secondItem="IEV-yP-eVZ" secondAttribute="leading" constant="39" id="m63-JW-XxT"/>
+                                    <constraint firstItem="5Ao-bi-4cV" firstAttribute="top" secondItem="IEV-yP-eVZ" secondAttribute="top" constant="21" id="pSk-m0-ee6"/>
+                                    <constraint firstItem="b7B-a4-eC4" firstAttribute="leading" secondItem="5Ao-bi-4cV" secondAttribute="leading" id="qQH-4v-vgd"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="15"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </view>
+                        </subviews>
+                        <color key="backgroundColor" red="0.0" green="0.0" blue="0.0" alpha="0.55000000000000004" colorSpace="custom" customColorSpace="displayP3"/>
+                        <constraints>
+                            <constraint firstItem="IEV-yP-eVZ" firstAttribute="centerY" secondItem="FwV-Yu-R6j" secondAttribute="centerY" id="SaW-g8-3aT"/>
+                            <constraint firstItem="IEV-yP-eVZ" firstAttribute="centerX" secondItem="FwV-Yu-R6j" secondAttribute="centerX" id="kcE-a7-Fvg"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="yMV-nK-GOS"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gVX-gE-7Ve" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1011" y="136"/>
+        </scene>
+    </scenes>
+</document>

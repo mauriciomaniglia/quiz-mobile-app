@@ -13,7 +13,7 @@ protocol QuizViewControllerDelegate {
     func didRequestLoading()
 }
 
-class QuizViewController: UIViewController, QuizLoadingView, QuizErrorView, QuizResultView {
+class QuizViewController: UIViewController, QuizErrorView, QuizResultView {
     var delegate: QuizViewControllerDelegate?
     var quizHeaderController: QuizHeaderViewController!
     var quizAnswerListController: QuizAnswerListViewController!
@@ -28,14 +28,17 @@ class QuizViewController: UIViewController, QuizLoadingView, QuizErrorView, Quiz
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate?.didRequestLoading()        
-        
         addHeaderContent()
         addAnswerListContent()
         addFooterContent()
         
         registerKeyboardObservers()
         saveFooterContainerBottomConstraintInitialValue()
+    }
+    
+    override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        delegate?.didRequestLoading()
     }
     
     deinit {
@@ -48,14 +51,6 @@ class QuizViewController: UIViewController, QuizLoadingView, QuizErrorView, Quiz
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         view.endEditing(true)
-    }
-    
-    func display(_ viewModel: QuizLoadingPresentableModel) {
-        if viewModel.isLoading {
-            self.present(LoadingViewController.shared, animated: false)
-        } else {
-            self.dismiss(animated: false, completion: nil)
-        }
     }
     
     func display(_ viewModel: QuizErrorPresentableModel) {
