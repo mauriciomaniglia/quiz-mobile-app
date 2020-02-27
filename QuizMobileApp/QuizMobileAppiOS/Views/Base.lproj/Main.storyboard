@@ -16,13 +16,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" allowsSelection="NO" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="46C-bk-4oV">
-                                <rect key="frame" x="0.0" y="203" width="414" height="529"/>
-                                <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
-                                <connections>
-                                    <outlet property="dataSource" destination="dBT-Qs-rVq" id="dfQ-Zv-FER"/>
-                                </connections>
-                            </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-oS-nRc" userLabel="Footer Background">
                                 <rect key="frame" x="0.0" y="732" width="414" height="164"/>
                                 <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
@@ -39,55 +32,34 @@
                                     <constraint firstAttribute="height" constant="98" id="aty-9O-hxt"/>
                                 </constraints>
                             </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHd-sQ-hV9">
+                                <rect key="frame" x="0.0" y="204" width="414" height="512"/>
+                            </containerView>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
                         <constraints>
                             <constraint firstItem="bXP-7e-a7i" firstAttribute="leading" secondItem="hYA-oK-GAj" secondAttribute="leading" constant="16" id="2pU-Ic-BP2"/>
-                            <constraint firstItem="46C-bk-4oV" firstAttribute="top" secondItem="HaC-ay-pIH" secondAttribute="bottom" constant="15" id="3u9-Xy-eIq"/>
-                            <constraint firstItem="bXP-7e-a7i" firstAttribute="top" secondItem="46C-bk-4oV" secondAttribute="bottom" constant="16" id="5cE-4J-A7C"/>
                             <constraint firstAttribute="trailing" secondItem="bXP-7e-a7i" secondAttribute="trailing" constant="16" id="6L9-AU-Fgf"/>
                             <constraint firstItem="FKI-oS-nRc" firstAttribute="leading" secondItem="hYA-oK-GAj" secondAttribute="leading" id="C7P-c2-HIk"/>
-                            <constraint firstItem="FKI-oS-nRc" firstAttribute="top" secondItem="46C-bk-4oV" secondAttribute="bottom" id="G1T-bY-v6i"/>
+                            <constraint firstItem="FKI-oS-nRc" firstAttribute="top" secondItem="AHd-sQ-hV9" secondAttribute="bottom" constant="16" id="CP4-Vy-V5P"/>
                             <constraint firstAttribute="trailing" secondItem="FKI-oS-nRc" secondAttribute="trailing" id="HBD-uq-FZ0"/>
                             <constraint firstItem="FoE-hC-EPm" firstAttribute="bottom" secondItem="bXP-7e-a7i" secondAttribute="bottom" constant="16" id="HZE-TY-rJt"/>
                             <constraint firstItem="HaC-ay-pIH" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" constant="16" id="MCw-Oi-OuZ"/>
                             <constraint firstItem="HaC-ay-pIH" firstAttribute="top" secondItem="FoE-hC-EPm" secondAttribute="top" constant="44" id="NJJ-Fk-48B"/>
-                            <constraint firstAttribute="bottom" secondItem="46C-bk-4oV" secondAttribute="bottom" constant="16" id="OPj-QD-vrs"/>
+                            <constraint firstItem="AHd-sQ-hV9" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" id="PbY-nk-Rok"/>
+                            <constraint firstItem="AHd-sQ-hV9" firstAttribute="top" secondItem="HaC-ay-pIH" secondAttribute="bottom" constant="16" id="RD8-rb-1c6"/>
                             <constraint firstAttribute="bottom" secondItem="FKI-oS-nRc" secondAttribute="bottom" id="VzI-6m-tnX"/>
-                            <constraint firstItem="46C-bk-4oV" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" constant="16" id="aRr-nq-aQt"/>
-                            <constraint firstItem="FoE-hC-EPm" firstAttribute="trailing" secondItem="46C-bk-4oV" secondAttribute="trailing" id="n66-Wh-f50"/>
                             <constraint firstItem="FoE-hC-EPm" firstAttribute="trailing" secondItem="HaC-ay-pIH" secondAttribute="trailing" constant="16" id="pDy-pb-j9g"/>
-                            <constraint firstItem="46C-bk-4oV" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" id="rTB-g8-Lfk"/>
+                            <constraint firstItem="FKI-oS-nRc" firstAttribute="top" secondItem="bXP-7e-a7i" secondAttribute="bottom" constant="-114" id="rMs-Bc-SaT"/>
+                            <constraint firstItem="AHd-sQ-hV9" firstAttribute="trailing" secondItem="FoE-hC-EPm" secondAttribute="trailing" id="sHu-NB-OLp"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="FoE-hC-EPm"/>
-                        <variation key="default">
-                            <mask key="constraints">
-                                <exclude reference="OPj-QD-vrs"/>
-                                <exclude reference="aRr-nq-aQt"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact-widthClass=compact">
-                            <mask key="constraints">
-                                <include reference="n66-Wh-f50"/>
-                                <include reference="OPj-QD-vrs"/>
-                                <include reference="aRr-nq-aQt"/>
-                                <exclude reference="rTB-g8-Lfk"/>
-                            </mask>
-                        </variation>
-                        <variation key="heightClass=compact-widthClass=regular">
-                            <mask key="constraints">
-                                <include reference="n66-Wh-f50"/>
-                                <include reference="OPj-QD-vrs"/>
-                                <include reference="aRr-nq-aQt"/>
-                                <exclude reference="rTB-g8-Lfk"/>
-                            </mask>
-                        </variation>
                     </view>
                     <connections>
+                        <outlet property="answerListContainer" destination="AHd-sQ-hV9" id="53O-XZ-q1p"/>
                         <outlet property="footerContainer" destination="bXP-7e-a7i" id="Wrh-Mc-CrJ"/>
                         <outlet property="footerContainerBottomConstraint" destination="HZE-TY-rJt" id="QYh-cQ-lKh"/>
                         <outlet property="headerContainer" destination="HaC-ay-pIH" id="MNz-Xa-iBZ"/>
-                        <outlet property="tableView" destination="46C-bk-4oV" id="Bzg-eT-pWc"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="cC3-XO-HGI" sceneMemberID="firstResponder"/>

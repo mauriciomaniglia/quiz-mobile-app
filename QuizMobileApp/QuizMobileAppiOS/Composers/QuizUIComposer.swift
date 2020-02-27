@@ -18,18 +18,20 @@ final class QuizUIComposer {
         
         let quizController = makeQuizViewController(delegate: presentationAdapter)
         let quizHeaderController = makeQuizHeaderViewController(delegate: presentationAdapter)
+        let quizAnswerListController = makeQuizAnswerListViewController()
         let quizFooterController = makeQuizFooterViewController(delegate: presentationAdapter)
         
         presentationAdapter.presenter = QuizPresenter(
-            loadingView: WeakRefVirtualProxy(quizController),            
-            answerView: WeakRefVirtualProxy(quizController),
+            loadingView: WeakRefVirtualProxy(quizController),                        
             errorView: WeakRefVirtualProxy(quizController),            
             resultView: WeakRefVirtualProxy(quizController))
         
         presentationAdapter.headerPresenter = QuizHeaderPresenter(quizHeader: quizHeaderController)
+        presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: quizAnswerListController)
         presentationAdapter.footerPresenter = QuizFooterPresenter(quizFooter: quizFooterController)
         
         quizController.quizHeaderController = quizHeaderController
+        quizController.quizAnswerListController = quizAnswerListController
         quizController.quizFooterController = quizFooterController
         
         return quizController
@@ -51,6 +53,14 @@ final class QuizUIComposer {
         quizHeaderController.delegate = delegate
         
         return quizHeaderController
+    }
+    
+    private static func makeQuizAnswerListViewController() -> QuizAnswerListViewController {
+        let bundle = Bundle(for: QuizAnswerListViewController.self)
+        let answerListStoryboard = UIStoryboard(name: "QuizAnswerList", bundle: bundle)
+        let quizAnswerListController = answerListStoryboard.instantiateInitialViewController() as! QuizAnswerListViewController
+        
+        return quizAnswerListController
     }
     
     private static func makeQuizFooterViewController(delegate: QuizFooterViewControllerDelegate) -> QuizFooterViewController {

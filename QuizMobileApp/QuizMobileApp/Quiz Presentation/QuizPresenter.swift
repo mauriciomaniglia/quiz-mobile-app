@@ -8,10 +8,6 @@
 
 import Foundation
 
-public protocol QuizAnswerView {
-    func display(_ viewModel: QuizAnswerPresentableModel)
-}
-
 public protocol QuizLoadingView {
     func display(_ viewModel: QuizLoadingPresentableModel)
 }
@@ -26,7 +22,6 @@ public protocol QuizResultView {
 
 public final class QuizPresenter {
     private let loadingView: QuizLoadingView
-    private let answerView: QuizAnswerView
     private let errorView: QuizErrorView
     private let resultView: QuizResultView
     
@@ -52,9 +47,8 @@ public final class QuizPresenter {
         return localizedString("QUIZ_ERROR_MESSAGE", comment: "Message for connection error")
     }
     
-    public init(loadingView: QuizLoadingView, answerView: QuizAnswerView, errorView: QuizErrorView, resultView: QuizResultView) {
+    public init(loadingView: QuizLoadingView, errorView: QuizErrorView, resultView: QuizResultView) {
         self.loadingView = loadingView
-        self.answerView = answerView
         self.errorView = errorView
         self.resultView = resultView
     }
@@ -70,15 +64,7 @@ public final class QuizPresenter {
     public func didFinishLoadGame(with error: Error) {
         loadingView.display(QuizLoadingPresentableModel(isLoading: false))
         errorView.display(.error(message: errorMessage, retry: tryAgainTitle))
-    }
-    
-    public func didRestartGame(_ gameResult: FinalResult) {
-        answerView.display(QuizAnswerPresentableModel(answer: []))
-    }
-    
-    public func didAddNewAnswer(_ answers: AddAnswerResult) {
-        answerView.display(QuizAnswerPresentableModel(answer: answers.savedAnswers))
-    }
+    }        
     
     public func didFinishGame(_ gameResult: FinalResult) {
         if gameResult.scoreAll {

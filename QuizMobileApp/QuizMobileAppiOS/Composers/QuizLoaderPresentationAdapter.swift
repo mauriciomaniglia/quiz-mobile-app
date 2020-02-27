@@ -13,8 +13,10 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
     private var quizGameEngine: QuizGameEngine?
     private var counter = QuizGameTimer(withSeconds: 300)
     private var isPlaying = false
+    
     var presenter: QuizPresenter?
     var headerPresenter: QuizHeaderPresenter?
+    var answerListPresenter: QuizAnswerListPresenter?
     var footerPresenter: QuizFooterPresenter?
     
     init(quizQuestionLoader: QuestionLoader) {
@@ -41,7 +43,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
     
     func didTapNewAnswer(_ answer: String) {
         quizGameEngine?.addAnswer(answer) { result in
-            self.presenter?.didAddNewAnswer(result)
+            self.answerListPresenter?.didAddNewAnswer(result)
             self.footerPresenter?.didAddNewAnswer(result)
         }
     }
@@ -50,7 +52,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
         if isPlaying {
             isPlaying = false
             self.quizGameEngine?.restartGame { result in
-                self.presenter?.didRestartGame(result)                
+                self.answerListPresenter?.didRestartGame(result)                
                 self.footerPresenter?.didRestartGame(result)
             }
         } else {

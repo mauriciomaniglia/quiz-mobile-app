@@ -13,30 +13,25 @@ protocol QuizViewControllerDelegate {
     func didRequestLoading()
 }
 
-class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, QuizErrorView, QuizResultView, UITableViewDataSource {
+class QuizViewController: UIViewController, QuizLoadingView, QuizErrorView, QuizResultView {
     var delegate: QuizViewControllerDelegate?
+    var quizHeaderController: QuizHeaderViewController!
+    var quizAnswerListController: QuizAnswerListViewController!
+    var quizFooterController: QuizFooterViewController!
     
-    @IBOutlet private(set) public var tableView: UITableView!
+    private var footerContainerBottomConstraintInitialValue = CGFloat.init()
+        
     @IBOutlet weak var headerContainer: UIView!
+    @IBOutlet weak var answerListContainer: UIView!
     @IBOutlet weak var footerContainer: UIView!
     @IBOutlet weak var footerContainerBottomConstraint: NSLayoutConstraint!
     
-    private var footerContainerBottomConstraintInitialValue = CGFloat.init()
-    
-    var quizHeaderController: QuizHeaderViewController!
-    var quizFooterController: QuizFooterViewController!
-    
-    var tableModel = [String]() {
-        didSet { tableView.reloadData() }
-    }
-    
     override func viewDidLoad() {
         super.viewDidLoad()
-        delegate?.didRequestLoading()
-        tableView.register(UITableViewCell.self, forCellReuseIdentifier: "Cell")
-        tableView.keyboardDismissMode = .onDrag
+        delegate?.didRequestLoading()        
         
         addHeaderContent()
+        addAnswerListContent()
         addFooterContent()
         
         registerKeyboardObservers()
@@ -55,10 +50,6 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         view.endEditing(true)
     }
     
-    func display(_ viewModel: QuizAnswerPresentableModel) {
-        tableModel = viewModel.answer
-    }
-    
     func display(_ viewModel: QuizLoadingPresentableModel) {
         if viewModel.isLoading {
             self.present(LoadingViewController.shared, animated: false)
@@ -75,16 +66,6 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
     func display(_ viewModel: QuizResultPresentableModel) {                
         let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in /*self.delegate?.didClickStatusButton()*/ })
         alertWithTitle(viewModel.title, message: viewModel.message, action: retryButton)
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return tableModel.count
-    }
-
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "Cell", for: indexPath) as UITableViewCell
-        cell.textLabel?.text = tableModel[indexPath.row]
-        return cell
     }
     
     private func alertWithTitle(_ title: String, message: String?, action: UIAlertAction) {
@@ -106,6 +87,21 @@ class QuizViewController: UIViewController, QuizAnswerView, QuizLoadingView, Qui
         ])
 
         quizHeaderController.didMove(toParent: self)
+    }
+    
+    private func addAnswerListContent() {
+        addChild(quizAnswerListController)
+        quizAnswerListController.view.translatesAutoresizingMaskIntoConstraints = false
+        answerListContainer.addSubview(quizAnswerListController.view)
+
+        NSLayoutConstraint.activate([
+            quizAnswerListController.view.leadingAnchor.constraint(equalTo: answerListContainer.leadingAnchor),
+            quizAnswerListController.view.trailingAnchor.constraint(equalTo: answerListContainer.trailingAnchor),
+            quizAnswerListController.view.topAnchor.constraint(equalTo: answerListContainer.topAnchor),
+            quizAnswerListController.view.bottomAnchor.constraint(equalTo: answerListContainer.bottomAnchor)
+        ])
+
+        quizAnswerListController.didMove(toParent: self)
     }
     
     private func addFooterContent() {
