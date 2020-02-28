@@ -27,9 +27,9 @@ final class QuizUIComposer {
             errorView: WeakRefVirtualProxy(quizController),            
             resultView: WeakRefVirtualProxy(quizController))
         
-        presentationAdapter.headerPresenter = QuizHeaderPresenter(quizHeader: quizHeaderController)
-        presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: quizAnswerListController)
-        presentationAdapter.footerPresenter = QuizFooterPresenter(quizFooter: quizFooterController)
+        presentationAdapter.headerPresenter = QuizHeaderPresenter(quizHeader: WeakRefVirtualProxy(quizHeaderController))
+        presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: WeakRefVirtualProxy(quizAnswerListController))
+        presentationAdapter.footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(quizFooterController))
         
         quizController.quizHeaderController = quizHeaderController
         quizController.quizAnswerListController = quizAnswerListController

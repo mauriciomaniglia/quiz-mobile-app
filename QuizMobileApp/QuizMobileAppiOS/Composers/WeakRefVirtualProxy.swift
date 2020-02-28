@@ -17,6 +17,24 @@ final class WeakRefVirtualProxy<T: AnyObject> {
     }
 }
 
+extension WeakRefVirtualProxy: QuizHeader where T: QuizHeader {
+    func display(_ presentableModel: QuizHeaderPresentableModel) {
+        object?.display(presentableModel)
+    }
+}
+
+extension WeakRefVirtualProxy: QuizAnswerList where T: QuizAnswerList {
+    func display(_ presentableModel: QuizAnswerListPresentableModel) {
+        object?.display(presentableModel)
+    }
+}
+
+extension WeakRefVirtualProxy: QuizFooter where T: QuizFooter {
+    func display(_ presentableModel: QuizFooterPresentableModel) {
+        object?.display(presentableModel)
+    }
+}
+
 extension WeakRefVirtualProxy: QuizErrorView where T: QuizErrorView {
     func display(_ viewModel: QuizErrorPresentableModel) {
         object?.display(viewModel)
