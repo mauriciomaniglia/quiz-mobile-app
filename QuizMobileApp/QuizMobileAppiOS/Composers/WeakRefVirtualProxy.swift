@@ -17,50 +17,20 @@ final class WeakRefVirtualProxy<T: AnyObject> {
     }
 }
 
-extension WeakRefVirtualProxy: QuizAnswerView where T: QuizAnswerView {
-    func display(_ viewModel: QuizAnswerPresentableModel) {
-        object?.display(viewModel)
+extension WeakRefVirtualProxy: QuizHeader where T: QuizHeader {
+    func display(_ presentableModel: QuizHeaderPresentableModel) {
+        object?.display(presentableModel)
     }
 }
 
-extension WeakRefVirtualProxy: QuizLoadingView where T: QuizLoadingView {
-    func display(_ viewModel: QuizLoadingPresentableModel) {
-        object?.display(viewModel)
+extension WeakRefVirtualProxy: QuizAnswerList where T: QuizAnswerList {
+    func display(_ presentableModel: QuizAnswerListPresentableModel) {
+        object?.display(presentableModel)
     }
 }
 
-extension WeakRefVirtualProxy: QuizErrorView where T: QuizErrorView {
-    func display(_ viewModel: QuizErrorPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: QuizStatusView where T: QuizStatusView {
-    func display(_ viewModel: QuizStatusPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: QuizQuestionView where T: QuizQuestionView {
-    func display(_ viewModel: QuizQuestionPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: QuizCounterView where T: QuizCounterView {
-    func display(_ viewModel: QuizCounterPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: QuizAnswerCountView where T: QuizAnswerCountView {
-    func display(_ viewModel: QuizAnswerCountPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: QuizResultView where T: QuizResultView {
-    func display(_ viewModel: QuizResultPresentableModel) {
-        object?.display(viewModel)
+extension WeakRefVirtualProxy: QuizFooter where T: QuizFooter {
+    func display(_ presentableModel: QuizFooterPresentableModel) {
+        object?.display(presentableModel)
     }
 }

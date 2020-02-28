@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="dBT-Qs-rVq">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Quiz Root View Controller-->
+        <scene sceneID="uUY-4I-SBk">
+            <objects>
+                <viewController id="dBT-Qs-rVq" customClass="QuizRootViewController" customModule="QuizMobileAppiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="hYA-oK-GAj">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="FKI-oS-nRc" userLabel="Footer Background">
+                                <rect key="frame" x="0.0" y="732" width="414" height="164"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                            </view>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="HaC-ay-pIH">
+                                <rect key="frame" x="16" y="88" width="382" height="100"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" priority="250" constant="100" id="3PV-tL-j44"/>
+                                </constraints>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="bXP-7e-a7i">
+                                <rect key="frame" x="16" y="748" width="382" height="98"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="98" id="aty-9O-hxt"/>
+                                </constraints>
+                            </containerView>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="AHd-sQ-hV9">
+                                <rect key="frame" x="0.0" y="204" width="414" height="512"/>
+                            </containerView>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="bXP-7e-a7i" firstAttribute="leading" secondItem="hYA-oK-GAj" secondAttribute="leading" constant="16" id="2pU-Ic-BP2"/>
+                            <constraint firstAttribute="trailing" secondItem="bXP-7e-a7i" secondAttribute="trailing" constant="16" id="6L9-AU-Fgf"/>
+                            <constraint firstItem="FKI-oS-nRc" firstAttribute="leading" secondItem="hYA-oK-GAj" secondAttribute="leading" id="C7P-c2-HIk"/>
+                            <constraint firstItem="FKI-oS-nRc" firstAttribute="top" secondItem="AHd-sQ-hV9" secondAttribute="bottom" constant="16" id="CP4-Vy-V5P"/>
+                            <constraint firstAttribute="trailing" secondItem="FKI-oS-nRc" secondAttribute="trailing" id="HBD-uq-FZ0"/>
+                            <constraint firstItem="FoE-hC-EPm" firstAttribute="bottom" secondItem="bXP-7e-a7i" secondAttribute="bottom" constant="16" id="HZE-TY-rJt"/>
+                            <constraint firstItem="HaC-ay-pIH" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" constant="16" id="MCw-Oi-OuZ"/>
+                            <constraint firstItem="HaC-ay-pIH" firstAttribute="top" secondItem="FoE-hC-EPm" secondAttribute="top" constant="44" id="NJJ-Fk-48B"/>
+                            <constraint firstItem="AHd-sQ-hV9" firstAttribute="leading" secondItem="FoE-hC-EPm" secondAttribute="leading" id="PbY-nk-Rok"/>
+                            <constraint firstItem="AHd-sQ-hV9" firstAttribute="top" secondItem="HaC-ay-pIH" secondAttribute="bottom" constant="16" id="RD8-rb-1c6"/>
+                            <constraint firstAttribute="bottom" secondItem="FKI-oS-nRc" secondAttribute="bottom" id="VzI-6m-tnX"/>
+                            <constraint firstItem="FoE-hC-EPm" firstAttribute="trailing" secondItem="HaC-ay-pIH" secondAttribute="trailing" constant="16" id="pDy-pb-j9g"/>
+                            <constraint firstItem="FKI-oS-nRc" firstAttribute="top" secondItem="bXP-7e-a7i" secondAttribute="bottom" constant="-114" id="rMs-Bc-SaT"/>
+                            <constraint firstItem="AHd-sQ-hV9" firstAttribute="trailing" secondItem="FoE-hC-EPm" secondAttribute="trailing" id="sHu-NB-OLp"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="FoE-hC-EPm"/>
+                    </view>
+                    <connections>
+                        <outlet property="answerListContainer" destination="AHd-sQ-hV9" id="53O-XZ-q1p"/>
+                        <outlet property="footerContainer" destination="bXP-7e-a7i" id="Wrh-Mc-CrJ"/>
+                        <outlet property="footerContainerBottomConstraint" destination="HZE-TY-rJt" id="QYh-cQ-lKh"/>
+                        <outlet property="headerContainer" destination="HaC-ay-pIH" id="MNz-Xa-iBZ"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="cC3-XO-HGI" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="136.23188405797103" y="136.60714285714286"/>
+        </scene>
+    </scenes>
+</document>

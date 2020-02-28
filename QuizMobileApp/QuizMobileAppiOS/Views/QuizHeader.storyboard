@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="15705" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="4Ib-PD-y4N">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="15706"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <scenes>
+        <!--Quiz Header View Controller-->
+        <scene sceneID="npW-Fy-QFL">
+            <objects>
+                <viewController id="4Ib-PD-y4N" customClass="QuizHeaderViewController" customModule="QuizMobileAppiOS" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ANs-gk-3KO">
+                        <rect key="frame" x="0.0" y="0.0" width="414" height="100"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="-" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="2" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kBZ-eX-5fB">
+                                <rect key="frame" x="0.0" y="0.0" width="414" height="41"/>
+                                <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="34"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                                <variation key="heightClass=compact-widthClass=compact">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                </variation>
+                                <variation key="heightClass=compact-widthClass=regular">
+                                    <fontDescription key="fontDescription" name="HelveticaNeue-Bold" family="Helvetica Neue" pointSize="20"/>
+                                </variation>
+                            </label>
+                            <textField opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="center" placeholder="Insert Word" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="Ita-4T-KCL" customClass="CustomTextField" customModule="QuizMobileAppiOS" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="57" width="414" height="43"/>
+                                <color key="backgroundColor" red="0.96078431369999995" green="0.96078431369999995" blue="0.96078431369999995" alpha="1" colorSpace="calibratedRGB"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="43" id="uzd-k6-rbO"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="5"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                                <connections>
+                                    <outlet property="delegate" destination="4Ib-PD-y4N" id="Eag-HP-bGB"/>
+                                </connections>
+                            </textField>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor" cocoaTouchSystemColor="whiteColor"/>
+                        <constraints>
+                            <constraint firstItem="Ita-4T-KCL" firstAttribute="top" secondItem="kBZ-eX-5fB" secondAttribute="bottom" constant="16" id="6Yc-oq-VWr"/>
+                            <constraint firstAttribute="trailing" secondItem="kBZ-eX-5fB" secondAttribute="trailing" id="BLJ-W0-5Yr"/>
+                            <constraint firstAttribute="bottom" secondItem="Ita-4T-KCL" secondAttribute="bottom" id="ETO-08-4Ue"/>
+                            <constraint firstItem="kBZ-eX-5fB" firstAttribute="top" secondItem="ANs-gk-3KO" secondAttribute="top" id="iKp-TL-4fK"/>
+                            <constraint firstItem="kBZ-eX-5fB" firstAttribute="leading" secondItem="ANs-gk-3KO" secondAttribute="leading" id="m3W-qC-e7e"/>
+                            <constraint firstAttribute="trailing" secondItem="Ita-4T-KCL" secondAttribute="trailing" id="v5J-ka-CO6"/>
+                            <constraint firstItem="Ita-4T-KCL" firstAttribute="leading" secondItem="ANs-gk-3KO" secondAttribute="leading" id="y1L-39-KRE"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="oD2-H1-d3E"/>
+                    </view>
+                    <nil key="simulatedTopBarMetrics"/>
+                    <size key="freeformSize" width="414" height="100"/>
+                    <connections>
+                        <outlet property="answerTextfield" destination="Ita-4T-KCL" id="D21-hw-XwL"/>
+                        <outlet property="questionLabel" destination="kBZ-eX-5fB" id="lg6-MS-sNf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="zun-g8-vG9" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-284" y="90"/>
+        </scene>
+    </scenes>
+</document>
