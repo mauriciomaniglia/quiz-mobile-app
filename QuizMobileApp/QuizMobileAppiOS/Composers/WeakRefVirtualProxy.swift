@@ -34,15 +34,3 @@ extension WeakRefVirtualProxy: QuizFooter where T: QuizFooter {
         object?.display(presentableModel)
     }
 }
-
-extension WeakRefVirtualProxy: QuizErrorView where T: QuizErrorView {
-    func display(_ viewModel: QuizErrorPresentableModel) {
-        object?.display(viewModel)
-    }
-}
-
-extension WeakRefVirtualProxy: QuizResultView where T: QuizResultView {
-    func display(_ viewModel: QuizResultPresentableModel) {
-        object?.display(viewModel)
-    }
-}

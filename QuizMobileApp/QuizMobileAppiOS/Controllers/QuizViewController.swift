@@ -13,7 +13,7 @@ protocol QuizViewControllerDelegate {
     func didRequestLoading()
 }
 
-class QuizViewController: UIViewController, QuizErrorView, QuizResultView {
+class QuizViewController: UIViewController {
     var delegate: QuizViewControllerDelegate?
     var quizHeaderController: QuizHeaderViewController!
     var quizAnswerListController: QuizAnswerListViewController!
@@ -51,22 +51,6 @@ class QuizViewController: UIViewController, QuizErrorView, QuizResultView {
     
     override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         view.endEditing(true)
-    }
-    
-    func display(_ viewModel: QuizErrorPresentableModel) {
-        let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in self.delegate?.didRequestLoading() })
-        alertWithTitle(viewModel.message, message: nil, action: retryButton)
-    }
-    
-    func display(_ viewModel: QuizResultPresentableModel) {                
-        let retryButton = UIAlertAction(title: viewModel.retry, style: .default, handler: { _ in /*self.delegate?.didClickStatusButton()*/ })
-        alertWithTitle(viewModel.title, message: viewModel.message, action: retryButton)
-    }
-    
-    private func alertWithTitle(_ title: String, message: String?, action: UIAlertAction) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(action)
-        present(alert, animated: false)
     }
     
     private func addHeaderContent() {

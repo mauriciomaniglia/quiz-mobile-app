@@ -23,13 +23,10 @@ final class QuizUIComposer {
         let quizAnswerListController = makeQuizAnswerListViewController()
         let quizFooterController = makeQuizFooterViewController(delegate: presentationAdapter)
         
-        presentationAdapter.presenter = QuizPresenter(                                    
-            errorView: WeakRefVirtualProxy(quizController),            
-            resultView: WeakRefVirtualProxy(quizController))
-        
         presentationAdapter.headerPresenter = QuizHeaderPresenter(quizHeader: WeakRefVirtualProxy(quizHeaderController))
         presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: WeakRefVirtualProxy(quizAnswerListController))
         presentationAdapter.footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(quizFooterController))
+        presentationAdapter.messagePresenter = QuizMessagePresenter(messageView: presentationAdapter)
         
         quizController.quizHeaderController = quizHeaderController
         quizController.quizAnswerListController = quizAnswerListController

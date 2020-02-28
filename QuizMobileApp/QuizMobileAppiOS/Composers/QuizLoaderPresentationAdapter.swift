@@ -9,26 +9,29 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate {
+final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage {
+    
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter = QuizGameTimer(withSeconds: 300)
     private var isPlaying = false
     private var quizLoading: QuizLoadingViewController
-    
-    var presenter: QuizPresenter?
+    private lazy var rootViewController: UIViewController? = {
+        return UIApplication.shared.keyWindow!.rootViewController
+    }()
+        
     var headerPresenter: QuizHeaderPresenter?
     var answerListPresenter: QuizAnswerListPresenter?
     var footerPresenter: QuizFooterPresenter?
+    var messagePresenter: QuizMessagePresenter?
     
     init(quizQuestionLoader: QuestionLoader, quizLoading: QuizLoadingViewController) {
         self.quizQuestionLoader = quizQuestionLoader
         self.quizLoading = quizLoading
     }
     
-    func didRequestLoading() {
-        let viewController = UIApplication.shared.keyWindow!.rootViewController as! QuizViewController
-        viewController.present(quizLoading, animated: false)
+    func didRequestLoading() {        
+        rootViewController?.present(quizLoading, animated: false)
                 
         quizQuestionLoader.load { result in
             switch result {
@@ -38,12 +41,12 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
                 self.headerPresenter?.didFinishLoadGame(with: questionItem)
                 self.footerPresenter?.didFinishLoadGame(with: questionItem)
                 self.quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
+                self.rootViewController?.dismiss(animated: false, completion: nil)
                 
             case let .failure(error):
-                self.presenter?.didFinishLoadGame(with: error)
+                self.rootViewController?.dismiss(animated: false, completion: nil)
+                self.messagePresenter?.didFinishLoadGame(with: error)
             }
-            
-            viewController.dismiss(animated: false, completion: nil)
         }
     }
     
@@ -69,9 +72,28 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
                         self.headerPresenter?.didStartGame()
                         self.footerPresenter?.didStartGame()
                     case let .updateSecond(seconds): self.footerPresenter?.didUpdateCounter(withSeconds: seconds)
-                    case let .gameFinished(result): self.presenter?.didFinishGame(result)
+                    case let .gameFinished(result): self.messagePresenter?.didFinishGame(result)
                 }
             }
         }
+    }
+                    
+    func displayErrorMessage(_ presentableModel: QuizMessagePresentableModel) {
+        let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in
+            self.rootViewController?.dismiss(animated: false, completion: nil)
+            self.didRequestLoading()
+        })
+        alertWithTitle(presentableModel.message, message: nil, action: retryButton)
+    }
+    
+    func displayMessage(_ presentableModel: QuizMessagePresentableModel) {
+        let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in self.didClickStatusButton() })
+        alertWithTitle(presentableModel.title, message: presentableModel.message, action: retryButton)
+    }
+    
+    private func alertWithTitle(_ title: String?, message: String?, action: UIAlertAction) {
+        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
+        alert.addAction(action)
+        rootViewController?.present(alert, animated: true)
     }
 }

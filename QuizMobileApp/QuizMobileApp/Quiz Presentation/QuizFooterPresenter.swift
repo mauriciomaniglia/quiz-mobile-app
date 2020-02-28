@@ -56,7 +56,7 @@ final public class QuizFooterPresenter {
     private func localizedString(_ key: String, comment: String, placeholders: String...) -> String {
         return NSLocalizedString(key,
                                  tableName: "Quiz",
-                                 bundle: Bundle(for: QuizPresenter.self),
+                                 bundle: Bundle(for: QuizFooterPresenter.self),
                                  comment: comment)
     }
 }

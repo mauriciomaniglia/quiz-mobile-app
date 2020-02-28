@@ -1,24 +1,20 @@
 //
-//  QuizPresenter.swift
+//  QuizMessagePresenter.swift
 //  QuizMobileApp
 //
-//  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
-//  Copyright © 2019 Mauricio Cesar Maniglia Junior. All rights reserved.
+//  Created by Mauricio Cesar Maniglia Junior on 28/02/20.
+//  Copyright © 2020 Mauricio Cesar Maniglia Junior. All rights reserved.
 //
 
 import Foundation
 
-public protocol QuizErrorView {
-    func display(_ viewModel: QuizErrorPresentableModel)
+public protocol QuizMessage {
+    func displayMessage(_ presentableModel: QuizMessagePresentableModel)
+    func displayErrorMessage(_ presentableModel: QuizMessagePresentableModel)
 }
 
-public protocol QuizResultView {
-    func display(_ viewModel: QuizResultPresentableModel)
-}
-
-public final class QuizPresenter {
-    private let errorView: QuizErrorView
-    private let resultView: QuizResultView
+public final class QuizMessagePresenter {
+    private let messageView: QuizMessage
     
     private var congratulationsTitle: String {
         return localizedString("QUIZ_CONGRATULATIONS_TITLE", comment: "Congratulations title for the game final result")
@@ -42,28 +38,27 @@ public final class QuizPresenter {
         return localizedString("QUIZ_ERROR_MESSAGE", comment: "Message for connection error")
     }
     
-    public init(errorView: QuizErrorView, resultView: QuizResultView) {
-        self.errorView = errorView
-        self.resultView = resultView
+    public init(messageView: QuizMessage) {
+        self.messageView = messageView
     }
     
     public func didFinishLoadGame(with error: Error) {
-        errorView.display(.error(message: errorMessage, retry: tryAgainTitle))
-    }        
+        messageView.displayErrorMessage(.error(message: errorMessage, retry: tryAgainTitle))
+    }
     
     public func didFinishGame(_ gameResult: FinalResult) {
         if gameResult.scoreAll {
-            resultView.display(QuizResultPresentableModel(title: congratulationsTitle, message: congratulationsMessage, retry: playAgainTitle))
+            messageView.displayMessage(QuizMessagePresentableModel(title: congratulationsTitle, message: congratulationsMessage, retry: playAgainTitle))
         } else {
             let message = String(format: timeFinishedMessage, gameResult.savedAnswersCorrect, gameResult.correctAnswersTotal)
-            resultView.display(QuizResultPresentableModel(title: timeFinishedTitle, message: message, retry: tryAgainTitle))
+            messageView.displayMessage(QuizMessagePresentableModel(title: timeFinishedTitle, message: message, retry: tryAgainTitle))
         }
     }
     
     private func localizedString(_ key: String, comment: String, placeholders: String...) -> String {
         return NSLocalizedString(key,
                                  tableName: "Quiz",
-                                 bundle: Bundle(for: QuizPresenter.self),
+                                 bundle: Bundle(for: QuizMessagePresenter.self),
                                  comment: comment)
     }
 }
