@@ -1,5 +1,5 @@
 //
-//  QuizViewController.swift
+//  QuizRootViewController.swift
 //  QuizMobileAppiOS
 //
 //  Created by Mauricio Cesar Maniglia Junior on 02/10/19.
@@ -9,12 +9,12 @@
 import UIKit
 import QuizMobileApp
 
-protocol QuizViewControllerDelegate {
-    func didRequestLoading()
+protocol QuizRootViewControllerDelegate {
+    func loadGame()
 }
 
-class QuizViewController: UIViewController {
-    var delegate: QuizViewControllerDelegate?
+class QuizRootViewController: UIViewController {
+    var delegate: QuizRootViewControllerDelegate?
     var quizHeaderController: QuizHeaderViewController!
     var quizAnswerListController: QuizAnswerListViewController!
     var quizFooterController: QuizFooterViewController!
@@ -38,7 +38,7 @@ class QuizViewController: UIViewController {
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        delegate?.didRequestLoading()
+        delegate?.loadGame()
     }
     
     deinit {
@@ -103,9 +103,9 @@ class QuizViewController: UIViewController {
     }
     
     private func registerKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(QuizViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizRootViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillShowNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizRootViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillHideNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(QuizRootViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
     }
     
     private func unregisterKeyboardObservers() {

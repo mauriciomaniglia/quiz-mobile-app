@@ -9,7 +9,7 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage {
+final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage {
     
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
@@ -30,7 +30,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
         self.quizLoading = quizLoading
     }
     
-    func didRequestLoading() {        
+    func loadGame() {        
         rootViewController?.present(quizLoading, animated: false)
                 
         quizQuestionLoader.load { result in
@@ -81,7 +81,7 @@ final class QuizLoaderPresentationAdapter: QuizViewControllerDelegate, QuizHeade
     func displayErrorMessage(_ presentableModel: QuizMessagePresentableModel) {
         let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in
             self.rootViewController?.dismiss(animated: false, completion: nil)
-            self.didRequestLoading()
+            self.loadGame()
         })
         alertWithTitle(presentableModel.message, message: nil, action: retryButton)
     }

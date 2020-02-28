@@ -12,7 +12,7 @@ import QuizMobileApp
 final class QuizUIComposer {
     private init() {}
     
-    static func quizComposedWith(questionLoader: QuestionLoader) -> QuizViewController {
+    static func quizComposedWith(questionLoader: QuestionLoader) -> QuizRootViewController {
         let quizLoadingController = makeQuizLoadingViewController()
         
         let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:
@@ -35,17 +35,17 @@ final class QuizUIComposer {
         return quizController
     }
     
-    private static func makeQuizViewController(delegate: QuizViewControllerDelegate) -> QuizViewController {
-        let bundle = Bundle(for: QuizViewController.self)
+    private static func makeQuizViewController(delegate: QuizRootViewControllerDelegate) -> QuizRootViewController {
+        let bundle = Bundle(for: QuizRootViewController.self)
         let storyboard = UIStoryboard(name: "Main", bundle: bundle)
-        let quizController = storyboard.instantiateInitialViewController() as! QuizViewController
+        let quizController = storyboard.instantiateInitialViewController() as! QuizRootViewController
         quizController.delegate = delegate
         
         return quizController
     }
     
     private static func makeQuizHeaderViewController(delegate: QuizHeaderViewControllerDelegate) -> QuizHeaderViewController {
-        let bundle = Bundle(for: QuizViewController.self)
+        let bundle = Bundle(for: QuizRootViewController.self)
         let headerStoryboard = UIStoryboard(name: "QuizHeader", bundle: bundle)
         let quizHeaderController = headerStoryboard.instantiateInitialViewController() as! QuizHeaderViewController
         quizHeaderController.delegate = delegate
