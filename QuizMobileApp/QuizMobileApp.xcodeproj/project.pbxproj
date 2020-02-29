@@ -22,6 +22,7 @@
 		121F2ECD2407DA6800FE1B29 /* QuizLoading.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 121F2ECC2407DA6800FE1B29 /* QuizLoading.storyboard */; };
 		12E2C22B24090D55002845D9 /* QuizMessagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2C22A24090D55002845D9 /* QuizMessagePresenter.swift */; };
 		12E2C22D24090E79002845D9 /* QuizMessagePresentableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2C22C24090E79002845D9 /* QuizMessagePresentableModel.swift */; };
+		12E2C22F240AB4DE002845D9 /* LocalizedStrings.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12E2C22E240AB4DE002845D9 /* LocalizedStrings.swift */; };
 		2B2F491E2344E19400D1836B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F491D2344E19400D1836B /* AppDelegate.swift */; };
 		2B2F49252344E19400D1836B /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B2F49232344E19400D1836B /* Main.storyboard */; };
 		2B2F49272344E19700D1836B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 2B2F49262344E19700D1836B /* Assets.xcassets */; };
@@ -112,6 +113,7 @@
 		121F2ECC2407DA6800FE1B29 /* QuizLoading.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = QuizLoading.storyboard; sourceTree = "<group>"; };
 		12E2C22A24090D55002845D9 /* QuizMessagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMessagePresenter.swift; sourceTree = "<group>"; };
 		12E2C22C24090E79002845D9 /* QuizMessagePresentableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizMessagePresentableModel.swift; sourceTree = "<group>"; };
+		12E2C22E240AB4DE002845D9 /* LocalizedStrings.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalizedStrings.swift; sourceTree = "<group>"; };
 		2B2F491B2344E19400D1836B /* QuizMobileAppiOS.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = QuizMobileAppiOS.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B2F491D2344E19400D1836B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		2B2F49242344E19400D1836B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
@@ -190,6 +192,7 @@
 		2B2F49042344B89300D1836B /* Quiz Presentation */ = {
 			isa = PBXGroup;
 			children = (
+				12E2C22E240AB4DE002845D9 /* LocalizedStrings.swift */,
 				2B72C7DB23460C2900740B73 /* Quiz.strings */,
 				121F2EB42405177E00FE1B29 /* QuizHeaderPresenter.swift */,
 				121F2EB62405198400FE1B29 /* QuizHeaderPresentableModel.swift */,
@@ -608,6 +611,7 @@
 				12E2C22B24090D55002845D9 /* QuizMessagePresenter.swift in Sources */,
 				2B376254234006F500E7CA6F /* QuestionItem.swift in Sources */,
 				121F2EB72405198400FE1B29 /* QuizHeaderPresentableModel.swift in Sources */,
+				12E2C22F240AB4DE002845D9 /* LocalizedStrings.swift in Sources */,
 				121F2EBF240585AD00FE1B29 /* QuizFooterPresentableModel.swift in Sources */,
 				2B37625B23411E4000E7CA6F /* HTTPClient.swift in Sources */,
 				121F2EC52407B7EB00FE1B29 /* QuizAnswerListPresenter.swift in Sources */,
