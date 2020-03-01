@@ -9,40 +9,43 @@
 import Foundation
 
 public final class QuizGameTimer: Counter {
+    public var delegate: CounterDelegate?
+    
     private var timer: Timer?
     private var seconds: Int
-    private var secondsReseted: Int
-    private var completion: ((CounterResult) -> Void)?
+    private var resetedSeconds: Int
     
     public init(withSeconds seconds: Int) {
         self.seconds = seconds
-        self.secondsReseted = seconds
+        self.resetedSeconds = seconds
     }
     
-    public func start(completion: @escaping (CounterResult) -> Void) {
-        self.completion = completion
-        self.completion?(.start)
-        timer = Timer.scheduledTimer(timeInterval: 1, target: self,   selector: (#selector(QuizGameTimer.updateSeconds)), userInfo: nil, repeats: true)
+    public func start() {
+        timer = Timer.scheduledTimer(timeInterval: 1,
+                                     target: self,
+                                     selector: (#selector(QuizGameTimer.updateSeconds)),
+                                     userInfo: nil,
+                                     repeats: true)
+        delegate?.counterSeconds(seconds)
     }
     
     public func reset() {
         timer?.invalidate()
-        seconds = secondsReseted
-        completion?(.reset)
+        seconds = resetedSeconds
+        delegate?.counterReseted(seconds)
     }
     
     public func stop() {
         timer?.invalidate()
-        completion?(.stop)
+        delegate?.counterStopped(seconds)
     }
     
     @objc private func updateSeconds() {
         if seconds > 0 {
-            completion?(.currentSecond(seconds))
+            delegate?.counterSeconds(seconds)
             seconds -= 1
         } else {
-            timer?.invalidate()
-            completion?(.stop)
+            stop()
         }
     }
 }

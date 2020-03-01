@@ -9,11 +9,11 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage {
+final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage, QuizGameDelegate {
     
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
-    private var counter = QuizGameTimer(withSeconds: 300)
+    private var counter: QuizGameTimer
     private var isPlaying = false
     private var quizLoading: QuizLoadingViewController
     private lazy var rootViewController: UIViewController? = {
@@ -25,8 +25,9 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
     var footerPresenter: QuizFooterPresenter?
     var messagePresenter: QuizMessagePresenter?
     
-    init(quizQuestionLoader: QuestionLoader, quizLoading: QuizLoadingViewController) {
+    init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer, quizLoading: QuizLoadingViewController) {
         self.quizQuestionLoader = quizQuestionLoader
+        self.counter = counter
         self.quizLoading = quizLoading
     }
     
@@ -41,6 +42,8 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
                 self.headerPresenter?.didFinishLoadGame(with: questionItem)
                 self.footerPresenter?.didFinishLoadGame(with: questionItem)
                 self.quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
+                self.quizGameEngine?.delegate = self
+                self.counter.delegate = self.quizGameEngine
                 self.rootViewController?.dismiss(animated: false, completion: nil)
                 
             case let .failure(error):
@@ -51,30 +54,27 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
     }
     
     func didTapNewAnswer(_ answer: String) {
-        quizGameEngine?.addAnswer(answer) { result in
-            self.answerListPresenter?.didAddNewAnswer(result)
-            self.footerPresenter?.didAddNewAnswer(result)
-        }
+        quizGameEngine?.addAnswer(answer)
     }
     
     func didClickStatusButton() {
         if isPlaying {
             isPlaying = false
-            self.quizGameEngine?.restartGame { result in
-                self.answerListPresenter?.didRestartGame(result)                
-                self.footerPresenter?.didRestartGame(result)
-            }
+            quizGameEngine?.reset()
         } else {
             isPlaying = true
-            self.quizGameEngine?.startGame { result in
-                switch result {
-                    case .gameStarted:
-                        self.headerPresenter?.didStartGame()
-                        self.footerPresenter?.didStartGame()
-                    case let .updateSecond(seconds): self.footerPresenter?.didUpdateCounter(withSeconds: seconds)
-                    case let .gameFinished(result): self.messagePresenter?.didFinishGame(result)
-                }
-            }
+            quizGameEngine?.start()
+            headerPresenter?.didStartGame()
+            footerPresenter?.didStartGame()
+        }
+    }
+    
+    public func gameStatus(_ gameStatus: GameStatus) {
+        if gameStatus.isGameFinished {
+            messagePresenter?.didFinishGame(gameStatus)
+        } else {
+            answerListPresenter?.didUpdateGameStatus(gameStatus)
+            footerPresenter?.didUpdateGameStatus(gameStatus)
         }
     }
                     

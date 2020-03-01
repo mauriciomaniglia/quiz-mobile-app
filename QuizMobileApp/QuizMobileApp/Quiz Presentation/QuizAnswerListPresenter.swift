@@ -19,11 +19,7 @@ public final class QuizAnswerListPresenter {
         self.answerList = answerList
     }
     
-    public func didRestartGame(_ gameResult: FinalResult) {
-        answerList.display(QuizAnswerListPresentableModel(answer: []))
-    }
-    
-    public func didAddNewAnswer(_ answers: AddAnswerResult) {
-        answerList.display(QuizAnswerListPresentableModel(answer: answers.savedAnswers))
+    public func didUpdateGameStatus(_ gameStatus: GameStatus) {
+        answerList.display(QuizAnswerListPresentableModel(answer: gameStatus.userAnswers))
     }
 }

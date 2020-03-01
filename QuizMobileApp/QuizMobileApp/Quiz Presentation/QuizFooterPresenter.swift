@@ -20,7 +20,7 @@ final public class QuizFooterPresenter {
     }
     
     public func didFinishLoadGame(with question: QuestionItem) {
-        let initialAnswerCount = "00/\(question.answer.count)"
+        let initialAnswerCount = "0/\(question.answer.count)"
         quizFooter.display(QuizFooterPresentableModel(status: LocalizedStrings.startGameText, seconds: nil, answerCount: initialAnswerCount))
     }
     
@@ -28,20 +28,16 @@ final public class QuizFooterPresenter {
         quizFooter.display(QuizFooterPresentableModel(status: LocalizedStrings.resetGameText, seconds: nil, answerCount: nil))
     }
     
-    public func didRestartGame(_ gameResult: FinalResult) {
-        let answerCount = "00/\(gameResult.correctAnswersTotal)"
-        quizFooter.display(QuizFooterPresentableModel(status: LocalizedStrings.startGameText, seconds: "05:00", answerCount: answerCount))
-    }
-    
-    public func didAddNewAnswer(_ answers: AddAnswerResult) {
-        let answerCount = "\(answers.savedAnswers.count)/\(answers.correctAnswersTotal)"
-        quizFooter.display(QuizFooterPresentableModel(status: LocalizedStrings.resetGameText, seconds: nil, answerCount: answerCount))
-    }
-    
-    public func didUpdateCounter(withSeconds seconds: Int) {
-        let minutes = Int(seconds) / 60 % 60
-        let seconds = Int(seconds) % 60
-        let formatedValue = String(format:"%02i:%02i", minutes, seconds)
-        quizFooter.display(QuizFooterPresentableModel(status: nil, seconds: formatedValue, answerCount: nil))
+    public func didUpdateGameStatus(_ gameStatus: GameStatus) {
+        let minutes = Int(gameStatus.currentSeconds) / 60 % 60
+        let seconds = Int(gameStatus.currentSeconds) % 60
+        let formatedSeconds = String(format:"%02i:%02i", minutes, seconds)
+        
+        let answerCount = "\(gameStatus.userAnswers.count)/\(gameStatus.correctAnswers.count)"
+        let gameStatusText = gameStatus.isGameStarted ? LocalizedStrings.resetGameText : LocalizedStrings.startGameText
+        
+        quizFooter.display(QuizFooterPresentableModel(status: gameStatusText,
+                                                      seconds: formatedSeconds,
+                                                      answerCount: answerCount))                        
     }
 }

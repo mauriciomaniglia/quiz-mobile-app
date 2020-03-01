@@ -8,28 +8,23 @@
 
 import Foundation
 
-public enum QuizGameEngineResult: Equatable {
-    case gameStarted
-    case updateSecond(Int)
-    case gameFinished(FinalResult)
-}
-
-public typealias AddAnswerResult = (savedAnswers: [String], correctAnswersTotal: Int)
-
-public struct FinalResult: Equatable {
-    public let scoreAll: Bool
-    public let savedAnswersCorrect: Int
-    public let correctAnswersTotal: Int
-    
-    public init(scoreAll: Bool, savedAnswersCorrect: Int, correctAnswersTotal: Int) {
-        self.scoreAll = scoreAll
-        self.savedAnswersCorrect = savedAnswersCorrect
-        self.correctAnswersTotal = correctAnswersTotal
-    }
-}
-
 public protocol QuizGame {
-    func startGame(completion: @escaping (QuizGameEngineResult) -> Void)
-    func addAnswer(_ answer: String, completion: @escaping (AddAnswerResult) -> Void)
-    func restartGame(completion: @escaping (FinalResult) -> Void)
+    func start()
+    func reset()
+    func addAnswer(_ answer: String)
+}
+
+public protocol QuizGameDelegate {
+    func gameStatus(_ gameStatus: GameStatus)
+}
+
+public struct GameStatus {
+    public var isGameStarted: Bool
+    public var isGameFinished: Bool
+    public var currentSeconds: Int
+    public var correctAnswers: [String]
+    public var userAnswers: [String]
+    public var userHitAllAnswers: Bool {
+        return userAnswers.count == correctAnswers.count
+    }
 }

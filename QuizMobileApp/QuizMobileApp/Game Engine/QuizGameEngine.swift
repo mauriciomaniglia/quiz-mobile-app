@@ -8,36 +8,30 @@
 
 import Foundation
 
-public final class QuizGameEngine: QuizGame {
+public final class QuizGameEngine: QuizGame, CounterDelegate {
+    public var delegate: QuizGameDelegate?
+    
     private let counter: Counter
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
     private var savedAnswersCorrect = 0
     
     public init(counter: Counter, correctAnswers: [String]) {
-        self.counter = counter
+        self.counter = counter        
         self.correctAnswers = correctAnswers
     }
     
-    public func startGame(completion: @escaping (QuizGameEngineResult) -> Void) {
-        guard correctAnswers.count > 0 else { return }
-        
-        self.counter.start { [weak self] counterResult in
-            guard self != nil else { return }
-            
-            switch counterResult {
-            case .start:
-                completion(.gameStarted)
-            case let .currentSecond(second):
-                completion(.updateSecond(second))
-            case .reset: break
-            case .stop:
-                completion(.gameFinished(self!.gameResult()))
-            }
-        }
+    public func start() {
+        counter.start()
     }
     
-    public func addAnswer(_ answer: String, completion: @escaping (AddAnswerResult) -> Void) {
+    public func reset() {
+        savedAnswers = []
+        savedAnswersCorrect = 0
+        counter.reset()
+    }
+    
+    public func addAnswer(_ answer: String) {
         let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
         guard !trimmedAnswer.isEmpty else { return }
         guard !savedAnswers.contains(trimmedAnswer) else { return }
@@ -49,28 +43,37 @@ public final class QuizGameEngine: QuizGame {
         
         savedAnswers.append(trimmedAnswer)
         validateAnswers()
-        
-        completion((savedAnswers, correctAnswers.count))
     }
     
-    public func restartGame(completion: @escaping (FinalResult) -> Void) {
-        counter.reset()
-        savedAnswers = []
-        savedAnswersCorrect = 0
-        completion(FinalResult(scoreAll: false, savedAnswersCorrect: 0, correctAnswersTotal: correctAnswers.count))
+    // MARK: Counter delegate
+    
+    public func counterSeconds(_ seconds: Int) {
+        updateGameStatus(isGameStarted: true, isGameFinished: false, seconds: seconds)
+    }
+    
+    public func counterReseted(_ seconds: Int) {
+        updateGameStatus(isGameStarted: false, isGameFinished: false, seconds: seconds)
+    }
+    
+    public func counterStopped(_ seconds: Int) {
+        updateGameStatus(isGameStarted: true, isGameFinished: true, seconds: seconds)
+    }
+    
+    // MARK: Helpers
+    
+    private func updateGameStatus(isGameStarted: Bool, isGameFinished: Bool, seconds: Int) {
+        let gameStatus = GameStatus(isGameStarted: isGameStarted,
+                                    isGameFinished: isGameFinished,
+                                    currentSeconds: seconds,
+                                    correctAnswers: correctAnswers,
+                                    userAnswers: savedAnswers)
+        
+        delegate?.gameStatus(gameStatus)
     }
     
     private func validateAnswers() {
         if savedAnswers.count == correctAnswers.count {
             counter.stop()
-        }
-    }
-    
-    private func gameResult() -> FinalResult {
-        if savedAnswersCorrect == correctAnswers.count {
-            return FinalResult(scoreAll: true, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
-        } else {
-            return FinalResult(scoreAll: false, savedAnswersCorrect: savedAnswersCorrect, correctAnswersTotal: correctAnswers.count)
         }
     }
 }

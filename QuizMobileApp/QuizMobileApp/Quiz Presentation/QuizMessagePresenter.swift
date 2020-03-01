@@ -24,13 +24,13 @@ public final class QuizMessagePresenter {
         messageView.displayErrorMessage(.error(message: LocalizedStrings.errorMessageText, retry: LocalizedStrings.tryAgainTitleText))
     }
     
-    public func didFinishGame(_ gameResult: FinalResult) {
-        if gameResult.scoreAll {
+    public func didFinishGame(_ gameStatus: GameStatus) {
+        if gameStatus.userHitAllAnswers {
             messageView.displayMessage(QuizMessagePresentableModel(title: LocalizedStrings.congratulationsTitleText,
                                                                    message: LocalizedStrings.congratulationsMessageText,
                                                                    retry: LocalizedStrings.playAgainTitleText))
         } else {
-            let message = String(format: LocalizedStrings.timeFinishedMessageText, gameResult.savedAnswersCorrect, gameResult.correctAnswersTotal)
+            let message = String(format: LocalizedStrings.timeFinishedMessageText, gameStatus.userAnswers.count, gameStatus.correctAnswers.count)
             messageView.displayMessage(QuizMessagePresentableModel(title: LocalizedStrings.timeFinishedTitleText,
                                                                    message: message,
                                                                    retry: LocalizedStrings.tryAgainTitleText))

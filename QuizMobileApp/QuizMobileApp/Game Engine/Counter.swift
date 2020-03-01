@@ -8,15 +8,14 @@
 
 import Foundation
 
-public enum CounterResult: Equatable {
-    case start
-    case currentSecond(Int)
-    case reset
-    case stop
+public protocol CounterDelegate {
+    func counterSeconds(_ seconds: Int)
+    func counterReseted(_ seconds: Int)
+    func counterStopped(_ seconds: Int)
 }
 
 public protocol Counter {
-    func start(completion: @escaping (CounterResult) -> Void)
+    func start()
     func reset()
     func stop()
 }

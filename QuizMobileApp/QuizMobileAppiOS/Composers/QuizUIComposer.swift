@@ -14,9 +14,9 @@ final class QuizUIComposer {
     
     static func quizComposedWith(questionLoader: QuestionLoader) -> QuizRootViewController {
         let quizLoadingController = makeQuizLoadingViewController()
-        
+        let counter = QuizGameTimer(withSeconds: 300)
         let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:
-            MainQueueDispatchDecorator(decoratee: questionLoader), quizLoading: quizLoadingController)
+            MainQueueDispatchDecorator(decoratee: questionLoader), counter: counter, quizLoading: quizLoadingController)        
         
         let quizController = makeQuizViewController(delegate: presentationAdapter)
         let quizHeaderController = makeQuizHeaderViewController(delegate: presentationAdapter)
