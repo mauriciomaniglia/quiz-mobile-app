@@ -8,15 +8,15 @@
 
 import Foundation
 
-public final class QuizGameEngine: QuizGame, CounterDelegate {
+public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     public var delegate: QuizGameDelegate?
     
-    private let counter: Counter
+    private let counter: QuizCounter
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
     private var savedAnswersCorrect = 0
     
-    public init(counter: Counter, correctAnswers: [String]) {
+    public init(counter: QuizCounter, correctAnswers: [String]) {
         self.counter = counter        
         self.correctAnswers = correctAnswers
     }

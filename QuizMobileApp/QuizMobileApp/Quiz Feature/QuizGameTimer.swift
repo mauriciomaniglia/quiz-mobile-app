@@ -8,8 +8,8 @@
 
 import Foundation
 
-public final class QuizGameTimer: Counter {
-    public var delegate: CounterDelegate?
+public final class QuizGameTimer: QuizCounter {
+    public var delegate: QuizCounterDelegate?
     
     private var timer: Timer?
     private var seconds: Int
