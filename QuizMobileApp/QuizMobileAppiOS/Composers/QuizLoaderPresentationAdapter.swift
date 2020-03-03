@@ -15,7 +15,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
     private var quizGameEngine: QuizGameEngine?
     private var counter: QuizGameTimer
     private var isPlaying = false
-    private var quizLoading: QuizLoadingViewController
+    private var quizLoading: UIViewController
     private lazy var rootViewController: UIViewController? = {
         return UIApplication.shared.keyWindow!.rootViewController
     }()
@@ -25,7 +25,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
     var footerPresenter: QuizFooterPresenter?
     var messagePresenter: QuizMessagePresenter?
     
-    init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer, quizLoading: QuizLoadingViewController) {
+    init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer, quizLoading: UIViewController) {
         self.quizQuestionLoader = quizQuestionLoader
         self.counter = counter
         self.quizLoading = quizLoading

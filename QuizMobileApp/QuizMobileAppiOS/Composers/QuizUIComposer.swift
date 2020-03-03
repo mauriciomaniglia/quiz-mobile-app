@@ -70,9 +70,9 @@ final class QuizUIComposer {
         return quizFooterController
     }
     
-    private static func makeQuizLoadingViewController() -> QuizLoadingViewController {
+    private static func makeQuizLoadingViewController() -> UIViewController {
         let storyboard = UIStoryboard(name: "QuizLoading", bundle: nil)
-        let loadingViewController = storyboard.instantiateViewController(withIdentifier: "QuizLoadingViewController") as! QuizLoadingViewController
+        let loadingViewController = storyboard.instantiateViewController(withIdentifier: "QuizLoadingViewController")
         return loadingViewController
     }
 }
