@@ -28,9 +28,9 @@ class QuizRootViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        addHeaderContent()
-        addAnswerListContent()
-        addFooterContent()
+        addContentForViewController(quizHeaderController, insideContainer: headerContainer)
+        addContentForViewController(quizAnswerListController, insideContainer: answerListContainer)
+        addContentForViewController(quizFooterController, insideContainer: footerContainer)
         
         registerKeyboardObservers()
         saveFooterContainerBottomConstraintInitialValue()
@@ -53,49 +53,19 @@ class QuizRootViewController: UIViewController {
         view.endEditing(true)
     }
     
-    private func addHeaderContent() {
-        addChild(quizHeaderController)
-        quizHeaderController.view.translatesAutoresizingMaskIntoConstraints = false
-        headerContainer.addSubview(quizHeaderController.view)
+    private func addContentForViewController(_ viewController: UIViewController, insideContainer container: UIView) {
+        addChild(viewController)
+        viewController.view.translatesAutoresizingMaskIntoConstraints = false
+        container.addSubview(viewController.view)
 
         NSLayoutConstraint.activate([
-            quizHeaderController.view.leadingAnchor.constraint(equalTo: headerContainer.leadingAnchor),
-            quizHeaderController.view.trailingAnchor.constraint(equalTo: headerContainer.trailingAnchor),
-            quizHeaderController.view.topAnchor.constraint(equalTo: headerContainer.topAnchor),
-            quizHeaderController.view.bottomAnchor.constraint(equalTo: headerContainer.bottomAnchor)
+            viewController.view.leadingAnchor.constraint(equalTo: container.leadingAnchor),
+            viewController.view.trailingAnchor.constraint(equalTo: container.trailingAnchor),
+            viewController.view.topAnchor.constraint(equalTo: container.topAnchor),
+            viewController.view.bottomAnchor.constraint(equalTo: container.bottomAnchor)
         ])
 
-        quizHeaderController.didMove(toParent: self)
-    }
-    
-    private func addAnswerListContent() {
-        addChild(quizAnswerListController)
-        quizAnswerListController.view.translatesAutoresizingMaskIntoConstraints = false
-        answerListContainer.addSubview(quizAnswerListController.view)
-
-        NSLayoutConstraint.activate([
-            quizAnswerListController.view.leadingAnchor.constraint(equalTo: answerListContainer.leadingAnchor),
-            quizAnswerListController.view.trailingAnchor.constraint(equalTo: answerListContainer.trailingAnchor),
-            quizAnswerListController.view.topAnchor.constraint(equalTo: answerListContainer.topAnchor),
-            quizAnswerListController.view.bottomAnchor.constraint(equalTo: answerListContainer.bottomAnchor)
-        ])
-
-        quizAnswerListController.didMove(toParent: self)
-    }
-    
-    private func addFooterContent() {
-        addChild(quizFooterController)
-        quizFooterController.view.translatesAutoresizingMaskIntoConstraints = false
-        footerContainer.addSubview(quizFooterController.view)
-
-        NSLayoutConstraint.activate([
-            quizFooterController.view.leadingAnchor.constraint(equalTo: footerContainer.leadingAnchor),
-            quizFooterController.view.trailingAnchor.constraint(equalTo: footerContainer.trailingAnchor),
-            quizFooterController.view.topAnchor.constraint(equalTo: footerContainer.topAnchor),
-            quizFooterController.view.bottomAnchor.constraint(equalTo: footerContainer.bottomAnchor)
-        ])
-
-        quizFooterController.didMove(toParent: self)
+        viewController.didMove(toParent: self)
     }
     
     private func saveFooterContainerBottomConstraintInitialValue() {
