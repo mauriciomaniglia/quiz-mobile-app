@@ -14,7 +14,6 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     private let counter: QuizCounter
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
-    private var savedAnswersCorrect = 0
     
     public init(counter: QuizCounter, correctAnswers: [String]) {
         self.counter = counter        
@@ -27,7 +26,6 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     
     public func reset() {
         savedAnswers = []
-        savedAnswersCorrect = 0
         counter.reset()
     }
     
@@ -36,10 +34,6 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
         guard !trimmedAnswer.isEmpty else { return }
         guard !savedAnswers.contains(trimmedAnswer) else { return }
         guard savedAnswers.count < correctAnswers.count else { return }
-        
-        if correctAnswers.contains(trimmedAnswer) {
-            savedAnswersCorrect += 1
-        }
         
         savedAnswers.append(trimmedAnswer)
         validateAnswers()
