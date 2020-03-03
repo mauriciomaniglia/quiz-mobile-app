@@ -64,8 +64,6 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
         } else {
             isPlaying = true
             quizGameEngine?.start()
-            headerPresenter?.didStartGame()
-            footerPresenter?.didStartGame()
         }
     }
     
@@ -73,6 +71,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
         if gameStatus.isGameFinished {
             messagePresenter?.didFinishGame(gameStatus)
         } else {
+            headerPresenter?.didUpdateGameStatus(gameStatus)
             answerListPresenter?.didUpdateGameStatus(gameStatus)
             footerPresenter?.didUpdateGameStatus(gameStatus)
         }

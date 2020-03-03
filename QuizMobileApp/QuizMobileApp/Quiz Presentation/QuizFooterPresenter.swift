@@ -24,10 +24,6 @@ final public class QuizFooterPresenter {
         quizFooter.display(QuizFooterPresentableModel(status: LocalizedStrings.startGameText, seconds: nil, answerCount: initialAnswerCount))
     }
     
-    public func didStartGame() {
-        quizFooter.display(QuizFooterPresentableModel(status: LocalizedStrings.resetGameText, seconds: nil, answerCount: nil))
-    }
-    
     public func didUpdateGameStatus(_ gameStatus: GameStatus) {
         let minutes = Int(gameStatus.currentSeconds) / 60 % 60
         let seconds = Int(gameStatus.currentSeconds) % 60

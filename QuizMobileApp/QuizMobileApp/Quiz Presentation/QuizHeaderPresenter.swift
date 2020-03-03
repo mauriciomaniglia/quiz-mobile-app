@@ -23,7 +23,7 @@ public final class QuizHeaderPresenter {
         quizHeader.display(QuizHeaderPresentableModel(gameStarted: false, question: question.question))
     }
     
-    public func didStartGame() {
-        quizHeader.display(QuizHeaderPresentableModel(gameStarted: true, question: nil))
+    public func didUpdateGameStatus(_ gameStatus: GameStatus) {
+        quizHeader.display(QuizHeaderPresentableModel(gameStarted: gameStatus.isGameStarted, question: nil))
     }
 }
