@@ -2,7 +2,7 @@
 
 ## BDD Specs
 
-### Story: Customer requests to load the game
+### Story: Quiz gameplay
 
 ### Narrative #1
 
@@ -26,7 +26,7 @@ Given the customer has connectivity
 ```
 As an online customer
 I want to start the game
-So I can start to guess the answers before the time runs out
+So I can start to play the game
 ```
 
 #### Scenarios (Acceptance criteria)
@@ -34,33 +34,44 @@ So I can start to guess the answers before the time runs out
 ```
 Given the app has already loaded the question
  When the customer requests to start the game
- Then the timer should start to count
+ Then the counter should starts to count
   And the game should be ready to play
 
 Given the app has already loaded the question
  When the customer has not requested to start the game
- Then the timer should not start to count
-  And the app should not allow the customer to type the answers
-
-Given the customer has already requested to start the game
- When the customer type the guess and hit
- Then the app should display the answer typed by the customer
-  And the app should update the remaining answers
-
-Given the customer has already requested to start the game
- When the customer finished answering all the guesses
-  And the timer has not finished yet
- Then the app should display a message showing how many answers do customer hit
-  And the option to try another round
-
-Given the customer has already requested to start the game
- When the customer do not finished answering all the guesses
-  And the timer ends
- Then the app should display a message indicate the time is over and how many answers the customer hit
-  And the option to try another round
+ Then the app should not allow the customer to play the game
 ```
 
 ### Narrative #3
+
+```
+As an online customer
+I want to add an answer
+So I can start to guess all the correct answers before the counter end
+```
+
+#### Scenarios (Acceptance criteria)
+
+```
+Given the customer has already requested to start the game
+ When the customer insert a new answer
+ Then the app should display the answers inserted by the customer
+  And the app should update the remaining answers to guess
+
+Given the customer has already requested to start the game
+ When the customer finished answer all the guesses
+  And the timer has not finished yet
+ Then the app should display a message showing how many answers the customer hit
+  And the option to try another again
+
+Given the customer has already requested to start the game
+ When the customer do not finished answer all the guesses
+  And the timer ends
+ Then the app should display a message indicating the time is over and how many answers the customer hit
+  And the option to try another again
+```
+
+### Narrative #4
 
 ```
 As an online customer
@@ -73,17 +84,17 @@ So I can start another round
 ```
 Given the customer has already requested to start the game
  When the customer requests to reset the game
- Then the timer should stop and reset 
+ Then the counter should reset 
   And all previous answers should be deleted
 
 Given the customer finished answering all guesses before the timer ends
- When the customer request to try another round from the message shown by the app
- Then the timer should stop and reset 
+ When the customer request to try another again from the message shown by the app
+ Then the counter should reset 
   And all previous answers should be deleted
 
 Given the customer has not finished answering all guesses and the timer ends
  When the customer request to try another round from the message shown by the app
- Then the timer should stop and reset 
+ Then the counter should reset 
   And all previous answers should be deleted
 ```
 
@@ -99,7 +110,7 @@ Given the customer has not finished answering all guesses and the timer ends
 2. System downloads data from the URL.
 3. System validates downloaded data.
 4. System creates question from valid data.
-5. System delivers question.
+5. System delivers question and correct answers.
 
 #### Invalid data – error course (sad path):
 1. System delivers invalid data error.
@@ -110,14 +121,13 @@ Given the customer has not finished answering all guesses and the timer ends
 ### Start Game Use Case
 
 #### Data:
-- Time
+- Counter
 
 #### Primary course:
 1. Execute "Start Game" command with the above data.
 2. System starts the counter.
-3. Counter delivers start message.
 4. Counter delivers current seconds.
-5. System delivers counter current value.
+5. System delivers game current state.
 
 ### Restart Game Use Case
 
@@ -126,7 +136,7 @@ Given the customer has not finished answering all guesses and the timer ends
 2. System deletes old answers.
 3. System stops the counter.
 4. System resets the counter.
-5. System delivers reset message with total number of correct answer that came from server.
+5. System delivers game current state.
 
 ### Add Answer Use Case
 
@@ -138,8 +148,7 @@ Given the customer has not finished answering all guesses and the timer ends
 2. System validates answer is not empty.
 3. System removes extra spaces from answer.
 4. System saves new answer.
-5. System delivers all answers count from previous answers.
-6. System delivers all answers already saved
+5. System delivers game current state
 
 #### Invalid data course (sad path):
 1. System do not save empty answer.
