@@ -2,14 +2,14 @@
 
 ## BDD Specs
 
-### Story: Quiz gameplay
+### Story: Customer request to load the game
 
 ### Narrative #1
 
 ```
 As an online customer
 I want the app to automatically load the quiz game
-So I can always be ready to start the game
+So I can see the game ready to be play
 ```
 
 #### Scenarios (Acceptance criteria)
@@ -18,36 +18,46 @@ So I can always be ready to start the game
 Given the customer has connectivity
  When the customer requests to load the game
  Then the app should display the question from remote
-  And the game should be ready to start
+  And the customer can start to play
 ```
 
-### Narrative #2
+### Story: Customer request to start the game
+
+### Narrative #1
 
 ```
 As an online customer
 I want to start the game
-So I can start to play the game
+So I can starts to play
 ```
 
 #### Scenarios (Acceptance criteria)
 
+
 ```
+Given the app has already loaded the question
+When the customer requests to start the game
+Then the app should allow the customer to insert answers
+
 Given the app has already loaded the question
  When the customer requests to start the game
- Then the counter should starts to count
-  And the game should be ready to play
-
-Given the app has already loaded the question
- When the customer has not requested to start the game
- Then the app should not allow the customer to play the game
+ Then the counter should starts to count  
+ 
+ Given the app has already loaded the question
+ When the customer requests to start the game
+ Then the app should show the amount of answers that the customer hit
+ And the total of answers to be guessed
+ 
 ```
 
-### Narrative #3
+### Story: Customer insert a new answer
+
+### Narrative #1
 
 ```
 As an online customer
 I want to add an answer
-So I can start to guess all the correct answers before the counter end
+So I can start to guess all the correct answers before the counter ends
 ```
 
 #### Scenarios (Acceptance criteria)
@@ -55,23 +65,19 @@ So I can start to guess all the correct answers before the counter end
 ```
 Given the customer has already requested to start the game
  When the customer insert a new answer
- Then the app should display the answers inserted by the customer
-  And the app should update the remaining answers to guess
+ Then the app should display a list with all answers inserted by the customer
+  And the app should update the remaining answers to be guessed
 
 Given the customer has already requested to start the game
- When the customer finished answer all the guesses
+ When the customer finished inserting all answers to be guessed
   And the timer has not finished yet
  Then the app should display a message showing how many answers the customer hit
-  And the option to try another again
-
-Given the customer has already requested to start the game
- When the customer do not finished answer all the guesses
-  And the timer ends
- Then the app should display a message indicating the time is over and how many answers the customer hit
-  And the option to try another again
+  And the option to play again
 ```
 
-### Narrative #4
+### Story: Customer request to restart the game
+
+### Narrative #1
 
 ```
 As an online customer
@@ -85,17 +91,40 @@ So I can start another round
 Given the customer has already requested to start the game
  When the customer requests to reset the game
  Then the counter should reset 
-  And all previous answers should be deleted
+  And the list with all customer's guesses should be deleted
+  
+Given the customer has already requested to start the game
+ When the customer requests to reset the game
+ Then the app should not allow the customer insert new answers until it starts again
 
 Given the customer finished answering all guesses before the timer ends
- When the customer request to try another again from the message shown by the app
+ When the customer request to play again from the message shown by the app
  Then the counter should reset 
   And all previous answers should be deleted
 
-Given the customer has not finished answering all guesses and the timer ends
- When the customer request to try another round from the message shown by the app
+Given the customer has not finished answering all guesses 
+  And the counter ends
+ When the customer request to play again from the message shown by the app
  Then the counter should reset 
-  And all previous answers should be deleted
+  And the list with all customer's guesses should be deleted
+```
+
+### Story: Game finished
+
+### Narrative #1
+
+```
+Given the customer has already requested to start the game
+When the customer do not finished answering all the guesses
+ And the counter ends
+Then the app should display a message indicating the time is over and how many answers the customer hit
+ And show the option to try another again
+ 
+Given the customer has already requested to start the game
+ When the customer finished inserting all answers to be guessed
+  And the timer has not finished yet
+ Then the app should display a message showing how many answers the customer hit
+  And the option to play again
 ```
 
 ## Use Cases
