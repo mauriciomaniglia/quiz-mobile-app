@@ -174,13 +174,9 @@ Given the customer has already requested to start the game
 
 #### Primary course:
 1. Execute "Add Answer" command with the above data.
-2. System validates answer is not empty.
-3. System removes extra spaces from answer.
-4. System saves new answer.
-5. System delivers game current state
-
-#### Invalid data course (sad path):
-1. System do not save empty answer.
+2. System validates answer
+3. System saves new answer.
+4. System delivers game current state
 
 ### Validate Answers Use Case
 
@@ -188,14 +184,7 @@ Given the customer has already requested to start the game
 1. Execute "Validate Answers" command with the above data.
 2. System valides if all saved answers is equal to the total correct answers that came from server.
 3. System stop the counter.
-4. System delivers success message.
-
-#### Answers incorrect course (sad path):
-1. System delivers ops message with only correct user answer count.
-
-#### Counter ends before course (sad path):
-1. System delivers ops message with only correct user answer count.
-
+4. System delivers game current state
 
 ## Architecture
 
