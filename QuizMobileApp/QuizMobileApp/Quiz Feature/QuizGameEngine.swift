@@ -30,13 +30,13 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     }
     
     public func addAnswer(_ answer: String) {
-        let trimmedAnswer = answer.trimmingCharacters(in: .whitespacesAndNewlines)
-        guard !trimmedAnswer.isEmpty else { return }
-        guard !savedAnswers.contains(trimmedAnswer) else { return }
-        guard savedAnswers.count < correctAnswers.count else { return }
+        let answer = removeEmptySpaces(string: answer)
         
-        savedAnswers.append(trimmedAnswer)
-        validateAnswers()
+        if isValidAnswer(answer) {
+            savedAnswers.append(answer)
+        }
+                                        
+        checkIfGameFinished()
     }
     
     // MARK: Counter delegate
@@ -65,7 +65,19 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
         delegate?.gameStatus(gameStatus)
     }
     
-    private func validateAnswers() {
+    private func removeEmptySpaces(string: String) -> String {
+        return string.trimmingCharacters(in: .whitespacesAndNewlines)
+    }
+    
+    private func isValidAnswer(_ answer: String) -> Bool {
+        if answer.isEmpty || savedAnswers.contains(answer) {
+            return false
+        }
+        
+        return true
+    }
+    
+    private func checkIfGameFinished() {
         if savedAnswers.count == correctAnswers.count {
             counter.stop()
         }
