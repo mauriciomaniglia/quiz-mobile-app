@@ -18,11 +18,20 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counter.callsCount, 0)
     }
     
+    func test_start_startCounter() {
+        let counter = CounterSpy()
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        
+        sut.start()
+        
+        XCTAssertEqual(counter.callsCount, 1)
+    }
+    
     private class CounterSpy: QuizCounter {
         var callsCount = 0
         
         func start() {
-            
+            callsCount += 1
         }
         
         func reset() {
