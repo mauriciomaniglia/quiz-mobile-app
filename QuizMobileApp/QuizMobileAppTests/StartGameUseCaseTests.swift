@@ -12,15 +12,13 @@ import QuizMobileApp
 class StartGameUseCaseTests: XCTestCase {
     
     func test_init_doesNotStartCounter() {
-        let counter = CounterSpy()
-        _ = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        let (_, counter) = makeSUT()
         
         XCTAssertEqual(counter.callsCount, 0)
     }
     
     func test_start_startCounter() {
-        let counter = CounterSpy()
-        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        let (sut, counter) = makeSUT()
         
         sut.start()
         
@@ -28,13 +26,21 @@ class StartGameUseCaseTests: XCTestCase {
     }
     
     func test_startTwice_startCounterTwice() {
-        let counter = CounterSpy()
-        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        let (sut, counter) = makeSUT()
         
         sut.start()
         sut.start()
         
         XCTAssertEqual(counter.callsCount, 2)
+    }
+    
+    // MARK - Helpers
+    
+    private func makeSUT() -> (sut: QuizGameEngine, counter: CounterSpy) {
+        let counter = CounterSpy()
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        
+        return (sut, counter)
     }
     
     private class CounterSpy: QuizCounter {
