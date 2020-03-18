@@ -27,6 +27,16 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counter.callsCount, 1)
     }
     
+    func test_startTwice_startCounterTwice() {
+        let counter = CounterSpy()
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        
+        sut.start()
+        sut.start()
+        
+        XCTAssertEqual(counter.callsCount, 2)
+    }
+    
     private class CounterSpy: QuizCounter {
         var callsCount = 0
         
