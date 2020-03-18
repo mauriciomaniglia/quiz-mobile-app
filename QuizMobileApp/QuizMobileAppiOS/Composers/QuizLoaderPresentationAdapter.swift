@@ -41,9 +41,12 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
                                 
                 self.headerPresenter?.didFinishLoadGame(with: questionItem)
                 self.footerPresenter?.didFinishLoadGame(with: questionItem)
-                self.quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
-                self.quizGameEngine?.delegate = self
-                self.counter.delegate = self.quizGameEngine
+                
+                let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
+                self.quizGameEngine = quizGameEngine
+                self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
+                
+                self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
                 self.rootViewController?.dismiss(animated: false, completion: nil)
                 
             case let .failure(error):

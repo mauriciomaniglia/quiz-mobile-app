@@ -34,3 +34,25 @@ extension WeakRefVirtualProxy: QuizFooter where T: QuizFooter {
         object?.display(presentableModel)
     }
 }
+
+extension WeakRefVirtualProxy: QuizGameDelegate where T: QuizGameDelegate {
+    func gameStatus(_ gameStatus: GameStatus) {
+        object?.gameStatus(gameStatus)
+    }
+}
+
+extension WeakRefVirtualProxy: QuizCounterDelegate where T: QuizCounterDelegate {
+    func counterSeconds(_ seconds: Int) {
+        object?.counterSeconds(seconds)
+    }
+    
+    func counterReseted(_ seconds: Int) {
+        object?.counterReseted(seconds)
+    }
+    
+    func counterStopped(_ seconds: Int) {
+        object?.counterStopped(seconds)
+    }
+    
+    
+}
