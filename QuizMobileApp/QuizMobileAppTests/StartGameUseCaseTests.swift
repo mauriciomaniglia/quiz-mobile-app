@@ -34,6 +34,16 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counter.startCallsCount, 2)
     }
     
+    func test_start_deliversCounterSeconds() {
+        let sut = QuizGameTimer(withSeconds: 1)
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.start()
+        
+        XCTAssertEqual(delegate.counterSecondsCalls, 1)
+    }
+    
     func test_start_deliversGameOnStartState() {
         let counter = QuizGameTimer(withSeconds: 1)
         let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
@@ -79,11 +89,24 @@ class StartGameUseCaseTests: XCTestCase {
         }
     }
     
-    private class GameDelegateSpy: QuizGameDelegate {
+    private class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
         var gameStatus: GameStatus?
+        var counterSecondsCalls = 0
         
         func gameStatus(_ gameStatus: GameStatus) {
             self.gameStatus = gameStatus
+        }
+        
+        func counterSeconds(_ seconds: Int) {
+            counterSecondsCalls += 1
+        }
+        
+        func counterReseted(_ seconds: Int) {
+            
+        }
+        
+        func counterStopped(_ seconds: Int) {
+            
         }
     }
 }
