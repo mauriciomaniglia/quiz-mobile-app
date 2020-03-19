@@ -44,21 +44,19 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(delegate.counterSecondsCalls, 1)
     }
     
-    func test_start_deliversGameOnStartState() {
-        let counter = QuizGameTimer(withSeconds: 1)
-        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
-        let gameDelegate = GameDelegateSpy()
-        counter.delegate = sut
-        sut.delegate = gameDelegate
+    func test_counterSeconds_deliversGameState() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
         
-        sut.start()        
+        sut.counterSeconds(1)
         
-        XCTAssertNotNil(gameDelegate.gameStatus)
-        XCTAssertEqual(gameDelegate.gameStatus?.isGameStarted, true)
-        XCTAssertEqual(gameDelegate.gameStatus?.isGameFinished, false)        
-        XCTAssertEqual(gameDelegate.gameStatus?.correctAnswers, ["Answer1"])
-        XCTAssertEqual(gameDelegate.gameStatus?.userAnswers, [])
-        XCTAssertEqual(gameDelegate.gameStatus?.userHitAllAnswers, false)
+        XCTAssertNotNil(delegate.gameStatus)
+        XCTAssertEqual(delegate.gameStatus?.isGameStarted, true)
+        XCTAssertEqual(delegate.gameStatus?.isGameFinished, false)
+        XCTAssertEqual(delegate.gameStatus?.correctAnswers, ["Answer1"])
+        XCTAssertEqual(delegate.gameStatus?.userAnswers, [])
+        XCTAssertEqual(delegate.gameStatus?.userHitAllAnswers, false)
     }
     
     // MARK - Helpers
