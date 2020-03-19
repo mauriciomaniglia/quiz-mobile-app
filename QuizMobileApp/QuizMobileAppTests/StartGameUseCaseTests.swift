@@ -14,7 +14,7 @@ class StartGameUseCaseTests: XCTestCase {
     func test_init_doesNotStartCounter() {
         let (_, counter) = makeSUT()
         
-        XCTAssertEqual(counter.callsCount, 0)
+        XCTAssertEqual(counter.startCallsCount, 0)
     }
     
     func test_start_startCounter() {
@@ -22,7 +22,7 @@ class StartGameUseCaseTests: XCTestCase {
         
         sut.start()
         
-        XCTAssertEqual(counter.callsCount, 1)
+        XCTAssertEqual(counter.startCallsCount, 1)
     }
     
     func test_startTwice_startCounterTwice() {
@@ -31,7 +31,7 @@ class StartGameUseCaseTests: XCTestCase {
         sut.start()
         sut.start()
         
-        XCTAssertEqual(counter.callsCount, 2)
+        XCTAssertEqual(counter.startCallsCount, 2)
     }
     
     func test_start_deliversGameOnStartState() {
@@ -64,10 +64,10 @@ class StartGameUseCaseTests: XCTestCase {
     }
     
     private class CounterSpy: QuizCounter {
-        var callsCount = 0
+        var startCallsCount = 0
         
         func start() {
-            callsCount += 1
+            startCallsCount += 1
         }
         
         func reset() {
