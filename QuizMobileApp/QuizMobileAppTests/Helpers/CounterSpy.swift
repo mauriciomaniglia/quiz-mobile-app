@@ -17,7 +17,7 @@ class CounterSpy: QuizCounter {
     }
     
     func reset() {
-        
+        resetCallsCount += 1
     }
     
     func stop() {
