@@ -44,6 +44,21 @@ class ResetGameUseCaseTest: XCTestCase {
         XCTAssertEqual(delegate.counterResetedCalls, 1)
     }
     
+    func test_counterReseted_deliversGameOnResetState() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.counterReseted(1)
+        
+        XCTAssertNotNil(delegate.gameStatus)
+        XCTAssertEqual(delegate.gameStatus?.isGameStarted, false)
+        XCTAssertEqual(delegate.gameStatus?.isGameFinished, false)
+        XCTAssertEqual(delegate.gameStatus?.correctAnswers, ["Answer1"])
+        XCTAssertEqual(delegate.gameStatus?.userAnswers, [])
+        XCTAssertEqual(delegate.gameStatus?.userHitAllAnswers, false)
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
