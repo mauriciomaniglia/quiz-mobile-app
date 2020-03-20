@@ -59,6 +59,19 @@ class ResetGameUseCaseTest: XCTestCase {
         XCTAssertEqual(delegate.gameStatus?.userHitAllAnswers, false)
     }
     
+    func test_reset_withTwoUserAnswers_deliversGameStateWithEmptyUserAnswers() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+                
+        sut.addAnswer("Answer1")
+        sut.addAnswer("Answer2")
+        sut.reset()
+        sut.counterReseted(1)
+                
+        XCTAssertEqual(delegate.gameStatus?.userAnswers, [])
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
