@@ -25,6 +25,15 @@ class ResetGameUseCaseTest: XCTestCase {
         XCTAssertEqual(counter.resetCallsCount, 1)
     }
     
+    func test_resetTwice_callsResetCounterTwice() {
+        let (sut, counter) = makeSUT()
+        
+        sut.reset()
+        sut.reset()
+        
+        XCTAssertEqual(counter.resetCallsCount, 2)
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
