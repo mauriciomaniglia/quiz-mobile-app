@@ -54,27 +54,5 @@ class ResetGameUseCaseTest: XCTestCase {
         trackForMemoryLeak(counter, file: file, line: line)
         
         return (sut, counter)
-    }
-    
-    private class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
-        var gameStatus: GameStatus?
-        var counterSecondsCalls = 0
-        var counterResetedCalls = 0
-        
-        func gameStatus(_ gameStatus: GameStatus) {
-            self.gameStatus = gameStatus
-        }
-        
-        func counterSeconds(_ seconds: Int) {
-            counterSecondsCalls += 1
-        }
-        
-        func counterReseted(_ seconds: Int) {
-            counterResetedCalls += 1
-        }
-        
-        func counterStopped(_ seconds: Int) {
-            
-        }
-    }
+    }        
 }
