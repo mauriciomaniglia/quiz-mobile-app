@@ -71,22 +71,6 @@ class StartGameUseCaseTests: XCTestCase {
         return (sut, counter)
     }
     
-    private class CounterSpy: QuizCounter {
-        var startCallsCount = 0
-        
-        func start() {
-            startCallsCount += 1
-        }
-        
-        func reset() {
-            
-        }
-        
-        func stop() {
-            
-        }
-    }
-    
     private class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
         var gameStatus: GameStatus?
         var counterSecondsCalls = 0

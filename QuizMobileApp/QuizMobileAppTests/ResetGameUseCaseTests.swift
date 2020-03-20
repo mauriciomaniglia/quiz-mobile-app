@@ -28,21 +28,4 @@ class ResetGameUseCaseTest: XCTestCase {
         
         return (sut, counter)
     }
-    
-    private class CounterSpy: QuizCounter {
-        var startCallsCount = 0
-        var resetCallsCount = 0
-        
-        func start() {
-            startCallsCount += 1
-        }
-        
-        func reset() {
-            
-        }
-        
-        func stop() {
-            
-        }
-    }
 }
