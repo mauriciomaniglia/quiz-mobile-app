@@ -163,9 +163,8 @@ Given the customer has already requested to start the game
 #### Primary course:
 1. Execute "Restart Game" command.
 2. System deletes old answers.
-3. System stops the counter.
-4. System resets the counter.
-5. System delivers game current state.
+3. System resets the counter.
+4. System delivers game current state.
 
 ### Add Answer Use Case
 
