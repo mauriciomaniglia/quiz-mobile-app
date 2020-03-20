@@ -34,6 +34,16 @@ class ResetGameUseCaseTest: XCTestCase {
         XCTAssertEqual(counter.resetCallsCount, 2)
     }
     
+    func test_reset_deliversCounterReseted() {
+        let sut = QuizGameTimer(withSeconds: 1)
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.reset()
+        
+        XCTAssertEqual(delegate.counterResetedCalls, 1)
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
@@ -44,5 +54,27 @@ class ResetGameUseCaseTest: XCTestCase {
         trackForMemoryLeak(counter, file: file, line: line)
         
         return (sut, counter)
+    }
+    
+    private class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
+        var gameStatus: GameStatus?
+        var counterSecondsCalls = 0
+        var counterResetedCalls = 0
+        
+        func gameStatus(_ gameStatus: GameStatus) {
+            self.gameStatus = gameStatus
+        }
+        
+        func counterSeconds(_ seconds: Int) {
+            counterSecondsCalls += 1
+        }
+        
+        func counterReseted(_ seconds: Int) {
+            counterResetedCalls += 1
+        }
+        
+        func counterStopped(_ seconds: Int) {
+            
+        }
     }
 }
