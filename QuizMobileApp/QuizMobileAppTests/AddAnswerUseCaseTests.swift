@@ -80,6 +80,18 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(delegate.gameStatus?.userAnswers, [])
     }
     
+    func test_addAnswer_empty_doNotInsertAnswer() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.addAnswer("Answer")
+        sut.addAnswer("")
+        sut.counterSeconds(1)
+        
+        XCTAssertEqual(delegate.gameStatus?.userAnswers, ["Answer"])
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
