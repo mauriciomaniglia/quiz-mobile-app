@@ -177,7 +177,7 @@ Given the customer has already requested to start the game
 3. System saves new answer.
 4. System delivers game current state
 
-### Validate Answers Use Case
+### Finish Game Use Case
 
 #### Primary course:
 1. Execute "Validate Answers" command with the above data.
