@@ -46,6 +46,17 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(delegate.gameStatus?.userAnswers, ["Answer"])
     }
     
+    func test_addAnswer_withSpace_insertAnswerWithNoSpace() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.addAnswer("  Answer ")
+        sut.counterSeconds(1)
+        
+        XCTAssertEqual(delegate.gameStatus?.userAnswers, ["Answer"])
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
