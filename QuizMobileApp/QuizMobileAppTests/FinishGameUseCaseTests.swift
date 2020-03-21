@@ -20,4 +20,14 @@ class FinishGameUseCaseTests: XCTestCase {
         
         XCTAssertEqual(counter.stoppedCallsCount, 1)
     }
+    
+    func test_stop_deliversCounterStopped() {
+        let sut = QuizGameTimer(withSeconds: 1)
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.stop()
+        
+        XCTAssertEqual(delegate.counterStoppedCalls, 1)
+    }
 }

@@ -12,6 +12,7 @@ class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
     var gameStatus: GameStatus?
     var counterSecondsCalls = 0
     var counterResetedCalls = 0
+    var counterStoppedCalls = 0
     
     func gameStatus(_ gameStatus: GameStatus) {
         self.gameStatus = gameStatus
@@ -26,6 +27,6 @@ class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
     }
     
     func counterStopped(_ seconds: Int) {
-        
+        counterStoppedCalls += 1
     }
 }
