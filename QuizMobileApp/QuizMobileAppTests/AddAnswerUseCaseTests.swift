@@ -34,6 +34,18 @@ class AddAnswerUseCaseTests: XCTestCase {
         XCTAssertEqual(delegate.gameStatus?.userAnswers, ["Answer1", "Answer2"])
     }
     
+    func test_addAnswer_withRepeatedAnswer_doNotInsertNewAnswer() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.addAnswer("Answer")
+        sut.addAnswer("Answer")
+        sut.counterSeconds(1)
+        
+        XCTAssertEqual(delegate.gameStatus?.userAnswers, ["Answer"])
+    }
+    
     // MARK - Helpers
     
     private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
