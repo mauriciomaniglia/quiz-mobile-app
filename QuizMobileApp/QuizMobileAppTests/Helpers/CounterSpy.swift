@@ -11,6 +11,7 @@ import QuizMobileApp
 class CounterSpy: QuizCounter {
     var startCallsCount = 0
     var resetCallsCount = 0
+    var stoppedCallsCount = 0
     
     func start() {
         startCallsCount += 1
@@ -21,6 +22,6 @@ class CounterSpy: QuizCounter {
     }
     
     func stop() {
-        
+        stoppedCallsCount += 1
     }
 }
