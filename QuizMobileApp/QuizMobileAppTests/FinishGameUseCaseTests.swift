@@ -30,4 +30,28 @@ class FinishGameUseCaseTests: XCTestCase {
         
         XCTAssertEqual(delegate.counterStoppedCalls, 1)
     }
+    
+    func test_counterStopped_deliversGameOnFinishedState() {
+        let (sut, _) = makeSUT()
+        let delegate = GameDelegateSpy()
+        sut.delegate = delegate
+        
+        sut.counterStopped(1)
+        
+        XCTAssertNotNil(delegate.gameStatus)
+        XCTAssertEqual(delegate.gameStatus?.isGameStarted, true)
+        XCTAssertEqual(delegate.gameStatus?.isGameFinished, true)                
+    }
+    
+    // MARK - Helpers
+    
+    private func makeSUT(file: StaticString = #file, line: UInt = #line) -> (sut: QuizGameEngine, counter: CounterSpy) {
+        let counter = CounterSpy()
+        let sut = QuizGameEngine(counter: counter, correctAnswers: ["Answer1"])
+        
+        trackForMemoryLeak(sut, file: file, line: line)
+        trackForMemoryLeak(counter, file: file, line: line)
+        
+        return (sut, counter)
+    }
 }
