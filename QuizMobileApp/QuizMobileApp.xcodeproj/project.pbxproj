@@ -189,6 +189,17 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		124E730A2428212B00F48D26 /* Quiz Feature */ = {
+			isa = PBXGroup;
+			children = (
+				129A6F7224219C2600164A4D /* StartGameUseCaseTests.swift */,
+				129A6FA22424C17D00164A4D /* ResetGameUseCaseTests.swift */,
+				124E73062425975D00F48D26 /* AddAnswerUseCaseTests.swift */,
+				124E73082426BE9400F48D26 /* FinishGameUseCaseTests.swift */,
+			);
+			path = "Quiz Feature";
+			sourceTree = "<group>";
+		};
 		2B2F49042344B89300D1836B /* Quiz Presentation */ = {
 			isa = PBXGroup;
 			children = (
@@ -296,11 +307,8 @@
 			children = (
 				2B37626723412EE400E7CA6F /* Helpers */,
 				2B3A37D023424AF90012EE04 /* Question API */,
+				124E730A2428212B00F48D26 /* Quiz Feature */,
 				2B3762492340061800E7CA6F /* Info.plist */,
-				129A6F7224219C2600164A4D /* StartGameUseCaseTests.swift */,
-				129A6FA22424C17D00164A4D /* ResetGameUseCaseTests.swift */,
-				124E73062425975D00F48D26 /* AddAnswerUseCaseTests.swift */,
-				124E73082426BE9400F48D26 /* FinishGameUseCaseTests.swift */,
 			);
 			path = QuizMobileAppTests;
 			sourceTree = "<group>";
