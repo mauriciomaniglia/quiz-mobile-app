@@ -23,6 +23,7 @@ class QuizIntegrationTests: XCTestCase {
         quizGameEngine.start()
         
         wait(for: [exp], timeout: 1.0)
+        quizGameDelegate.asyncExpectation = nil
         
         XCTAssertEqual(quizGameDelegate.gameStatus?.isGameStarted, true)
         XCTAssertEqual(quizGameDelegate.gameStatus?.isGameFinished, false)
