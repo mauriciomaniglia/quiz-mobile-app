@@ -31,6 +31,23 @@ class QuizIntegrationTests: XCTestCase {
         XCTAssertEqual(quizGameDelegate.gameStatus?.userHitAllAnswers, false)
     }
     
+    func test_start_runsCounterUntilItsFinished() {
+        let counter = QuizGameTimer(withSeconds: 1)
+        let quizGameEngine = QuizGameEngine(counter: counter, correctAnswers: ["Answer1", "Answer2"])
+        let quizGameDelegate = GameSpy()
+        let exp = expectation(description: "Wait for counter")
+        exp.expectedFulfillmentCount = 2
+        counter.delegate = quizGameEngine
+        quizGameEngine.delegate = quizGameDelegate
+        quizGameDelegate.asyncExpectation = exp
+        
+        quizGameEngine.start()
+        
+        wait(for: [exp], timeout: 2.0)
+        
+        XCTAssertEqual(quizGameDelegate.gameStatus?.currentSeconds, 0)
+    }
+    
     class GameSpy: QuizGameDelegate {
         var gameStatus: GameStatus?
         var asyncExpectation: XCTestExpectation?
