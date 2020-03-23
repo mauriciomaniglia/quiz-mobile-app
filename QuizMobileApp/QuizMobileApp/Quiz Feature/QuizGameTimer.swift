@@ -25,8 +25,7 @@ public final class QuizGameTimer: QuizCounter {
                                      target: self,
                                      selector: (#selector(QuizGameTimer.updateSeconds)),
                                      userInfo: nil,
-                                     repeats: true)
-        delegate?.counterSeconds(seconds)
+                                     repeats: true)        
     }
     
     public func reset() {

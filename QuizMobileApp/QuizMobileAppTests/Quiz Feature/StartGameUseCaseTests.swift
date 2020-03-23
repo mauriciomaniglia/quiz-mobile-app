@@ -34,16 +34,6 @@ class StartGameUseCaseTests: XCTestCase {
         XCTAssertEqual(counter.startCallsCount, 2)
     }
     
-    func test_start_deliversCounterSeconds() {
-        let sut = QuizGameTimer(withSeconds: 1)
-        let delegate = GameDelegateSpy()
-        sut.delegate = delegate
-        
-        sut.start()
-        
-        XCTAssertEqual(delegate.counterSecondsCalls, 1)
-    }
-    
     func test_counterSeconds_deliversGameState() {
         let (sut, _) = makeSUT()
         let delegate = GameDelegateSpy()
