@@ -17,7 +17,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         
         let client = URLSessionHTTPClient(session: URLSession(configuration: .default))
-        let url = URL(string: "https://codechallenge.arctouch.com/quiz/1")!
+        let url = URL(string: "https://raw.githubusercontent.com/mauriciomaniglia/quiz-mobile-app/master/quiz.api")!
         let questionLoader = RemoteQuestionLoader(url: url, client: client)
         let initialViewController = QuizUIComposer.quizComposedWith(questionLoader: questionLoader)
 
