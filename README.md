@@ -1,5 +1,7 @@
 # Quiz Mobile App
 
+[![Build Status](https://travis-ci.com/mauriciomaniglia/quiz-mobile-app.svg?branch=master)](https://travis-ci.com/mauriciomaniglia/quiz-mobile-app)
+
 ## BDD Specs
 
 ### Story: Customer request to load the game
