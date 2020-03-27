@@ -13,7 +13,7 @@ public protocol QuizFooterViewControllerDelegate {
     func didClickStatusButton()
 }
 
-final class QuizFooterViewController: UIViewController, QuizFooter {
+public final class QuizFooterViewController: UIViewController, QuizFooter {
     var delegate: QuizFooterViewControllerDelegate?
     
     @IBOutlet private(set) public var statusButton: UIButton!
@@ -24,7 +24,7 @@ final class QuizFooterViewController: UIViewController, QuizFooter {
         delegate?.didClickStatusButton()
     }
     
-    func display(_ presentableModel: QuizFooterPresentableModel) {
+    public func display(_ presentableModel: QuizFooterPresentableModel) {
         if let buttonTitle = presentableModel.status {
             statusButton.setTitle(buttonTitle, for: .normal)
         }

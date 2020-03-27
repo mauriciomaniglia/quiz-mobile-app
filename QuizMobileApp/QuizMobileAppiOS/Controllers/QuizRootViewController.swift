@@ -15,9 +15,9 @@ public protocol QuizRootViewControllerDelegate {
 
 public class QuizRootViewController: UIViewController {
     var delegate: QuizRootViewControllerDelegate?
-    var quizHeaderController: QuizHeaderViewController!
-    var quizAnswerListController: QuizAnswerListViewController!
-    var quizFooterController: QuizFooterViewController!
+    public var quizHeaderController: QuizHeaderViewController!
+    public var quizAnswerListController: QuizAnswerListViewController!
+    public var quizFooterController: QuizFooterViewController!
     
     private var footerContainerBottomConstraintInitialValue = CGFloat.init()
         

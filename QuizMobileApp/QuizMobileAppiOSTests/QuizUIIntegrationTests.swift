@@ -27,6 +27,19 @@ class QuizUIIntegrationTests: XCTestCase {
         XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once view is loaded again")
     }
     
+    func test_loadingQuestionComponents_areVisibleWhileLoadingQuiz() {
+        let loader = LoaderSpy()
+        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        
+        sut.viewDidAppear(false)
+        sut.quizHeaderController.loadViewIfNeeded()
+        sut.quizFooterController.loadViewIfNeeded()
+        
+        XCTAssertEqual(sut.quizHeaderController.questionLabel.text, "-", "Expected loading indicator before question is loaded")
+        XCTAssertEqual(sut.quizFooterController.answerCountLabel.text, "-", "Expected loading indicator before question is loaded")
+        XCTAssertEqual(sut.quizFooterController.counterLabel.text, "05:00", "Expected timer label to be set correctly before question is loaded")
+    }
+    
     private class LoaderSpy: QuestionLoader {
         var loadCallCount = 0
         
