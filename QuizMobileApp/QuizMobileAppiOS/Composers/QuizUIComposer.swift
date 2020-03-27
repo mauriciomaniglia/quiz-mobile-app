@@ -9,10 +9,10 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizUIComposer {
+public final class QuizUIComposer {
     private init() {}
     
-    static func quizComposedWith(questionLoader: QuestionLoader) -> QuizRootViewController {
+    public static func quizComposedWith(questionLoader: QuestionLoader) -> QuizRootViewController {
         let quizLoadingController = makeQuizLoadingViewController()
         let counter = QuizGameTimer(withSeconds: 300)
         let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:

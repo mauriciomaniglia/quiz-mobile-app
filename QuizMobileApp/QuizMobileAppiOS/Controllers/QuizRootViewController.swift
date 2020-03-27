@@ -9,11 +9,11 @@
 import UIKit
 import QuizMobileApp
 
-protocol QuizRootViewControllerDelegate {
+public protocol QuizRootViewControllerDelegate {
     func loadGame()
 }
 
-class QuizRootViewController: UIViewController {
+public class QuizRootViewController: UIViewController {
     var delegate: QuizRootViewControllerDelegate?
     var quizHeaderController: QuizHeaderViewController!
     var quizAnswerListController: QuizAnswerListViewController!
@@ -26,7 +26,7 @@ class QuizRootViewController: UIViewController {
     @IBOutlet weak var footerContainer: UIView!
     @IBOutlet weak var footerContainerBottomConstraint: NSLayoutConstraint!
     
-    override func viewDidLoad() {
+    public override func viewDidLoad() {
         super.viewDidLoad()
         addContentForViewController(quizHeaderController, insideContainer: headerContainer)
         addContentForViewController(quizAnswerListController, insideContainer: answerListContainer)
@@ -36,7 +36,7 @@ class QuizRootViewController: UIViewController {
         saveFooterContainerBottomConstraintInitialValue()
     }
     
-    override func viewDidAppear(_ animated: Bool) {
+    public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         delegate?.loadGame()
     }
@@ -45,11 +45,11 @@ class QuizRootViewController: UIViewController {
         unregisterKeyboardObservers()
     }
     
-    override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
+    public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         view.endEditing(true)
     }
     
-    override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
+    public override func viewWillTransition(to size: CGSize, with coordinator: UIViewControllerTransitionCoordinator) {
         view.endEditing(true)
     }
     
