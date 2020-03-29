@@ -151,41 +151,27 @@ Given the customer has already requested to start the game
 
 ### Start Game Use Case
 
-#### Data:
-- Counter
-
 #### Primary course:
-1. Execute "Start Game" command with the above data.
+1. Execute "Start" command.
 2. System starts the counter.
-4. Counter delivers current seconds.
-5. System delivers game current state.
+3. System enables the user to insert guesses.
 
-### Restart Game Use Case
-
-#### Primary course:
-1. Execute "Restart Game" command.
-2. System deletes old answers.
-3. System resets the counter.
-4. System delivers game current state.
-
-### Add Answer Use Case
+### Add User Guess Use Case
 
 #### Data:
 - String
 
 #### Primary course:
-1. Execute "Add Answer" command with the above data.
-2. System validates answer
-3. System saves new answer.
-4. System delivers game current state
+1. Execute "Add guess" command with the above data.
+2. System validates the user guess
+3. System saves the user guess.
 
 ### Finish Game Use Case
 
 #### Primary course:
-1. Execute "Validate Answers" command with the above data.
-2. System valides if all saved answers is equal to the total correct answers that came from server.
-3. System stop the counter.
-4. System delivers game current state
+1. Execute "Validate user guesses" command with the above data.
+2. System verify the user guesses.
+3. System informs if the game is finished.
 
 ## Architecture
 
