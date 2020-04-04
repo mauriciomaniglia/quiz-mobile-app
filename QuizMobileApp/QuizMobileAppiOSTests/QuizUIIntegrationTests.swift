@@ -40,31 +40,7 @@ class QuizUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.quizFooterController.counterLabel.text, "05:00", "Expected timer label to be set correctly before question is loaded")
     }
     
-    func test_startGame_isVisibleWhenLoadFinish() {
-        let loader = LoaderSpy()
-        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
-        
-        sut.viewDidAppear(false)
-        sut.quizHeaderController.loadViewIfNeeded()
-        sut.quizFooterController.loadViewIfNeeded()
-        loader.simulateSuccessfulLoad()
-        
-        XCTAssertEqual(sut.quizFooterController.statusButton.titleLabel?.text, "start")
-    }
-    
-    func test_insertGuess_isNotEnableWhenGameHaveNotStarted() {
-        let loader = LoaderSpy()
-        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
-        
-        sut.viewDidAppear(false)
-        sut.quizHeaderController.loadViewIfNeeded()
-        sut.quizFooterController.loadViewIfNeeded()
-        loader.simulateSuccessfulLoad()
-        
-        XCTAssertFalse(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled)
-    }
-    
-    func test_insertGuess_isEnableWhenGameStarted() {
+    func test_startGame_changeGameStateCorrectly() {
         let loader = LoaderSpy()
         let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
         
@@ -74,9 +50,18 @@ class QuizUIIntegrationTests: XCTestCase {
         sut.quizFooterController.loadViewIfNeeded()
         loader.simulateSuccessfulLoad()
         
-        sut.quizFooterController.statusButton.simulateTap()                
+        XCTAssertEqual(sut.quizFooterController.statusButton.title(for: .normal), "start", "Expected start button before game is started")
+        XCTAssertFalse(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled, "Expected insert guess to be disable before game is started")
         
-        XCTAssertTrue(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled)
+        sut.quizFooterController.statusButton.simulateTap()        
+        
+        XCTAssertEqual(sut.quizFooterController.statusButton.title(for: .normal), "reset", "Expected resert button when game is started")
+        XCTAssertTrue(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled, "Expected insert guess to be enable when game is started")
+        
+        sut.quizFooterController.statusButton.simulateTap()
+        
+        XCTAssertEqual(sut.quizFooterController.statusButton.title(for: .normal), "start", "Expected start button when game is reseted")
+        XCTAssertFalse(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled, "Expected insert guess to be disable when game is reseted")
     }
     
     private class LoaderSpy: QuestionLoader {
