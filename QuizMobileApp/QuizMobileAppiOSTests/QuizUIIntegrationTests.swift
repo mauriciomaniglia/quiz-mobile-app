@@ -52,6 +52,18 @@ class QuizUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.quizFooterController.statusButton.titleLabel?.text, "start")
     }
     
+    func test_insertGuess_isNotEnableWhenGameHaveNotStarted() {
+        let loader = LoaderSpy()
+        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        
+        sut.viewDidAppear(false)
+        sut.quizHeaderController.loadViewIfNeeded()
+        sut.quizFooterController.loadViewIfNeeded()
+        loader.simulateSuccessfulLoad()
+        
+        XCTAssertFalse(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled)
+    }
+    
     private class LoaderSpy: QuestionLoader {
         var loadCallCount = 0
         private var completions = [(QuestionLoaderResult) -> Void]()
