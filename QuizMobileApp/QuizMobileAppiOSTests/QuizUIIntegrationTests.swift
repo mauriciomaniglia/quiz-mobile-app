@@ -64,6 +64,21 @@ class QuizUIIntegrationTests: XCTestCase {
         XCTAssertFalse(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled)
     }
     
+    func test_insertGuess_isEnableWhenGameStarted() {
+        let loader = LoaderSpy()
+        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        
+        sut.viewDidAppear(false)
+        sut.quizHeaderController.loadViewIfNeeded()
+        sut.quizAnswerListController.loadViewIfNeeded()
+        sut.quizFooterController.loadViewIfNeeded()
+        loader.simulateSuccessfulLoad()
+        
+        sut.quizFooterController.statusButton.simulateTap()                
+        
+        XCTAssertTrue(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled)
+    }
+    
     private class LoaderSpy: QuestionLoader {
         var loadCallCount = 0
         private var completions = [(QuestionLoaderResult) -> Void]()
@@ -77,5 +92,21 @@ class QuizUIIntegrationTests: XCTestCase {
             let questionItem = QuestionItem(question: "Some question", answer: ["some answer", "another answser"])
             completions[0](.success([questionItem]))
         }
+    }
+}
+
+extension UIControl {
+    func simulate(event: UIControl.Event) {
+        allTargets.forEach { target in
+            actions(forTarget: target, forControlEvent: event)?.forEach {
+                (target as NSObject).perform(Selector($0))
+            }
+        }
+    }
+}
+
+extension UIButton {
+    func simulateTap() {
+        simulate(event: .touchUpInside)
     }
 }
