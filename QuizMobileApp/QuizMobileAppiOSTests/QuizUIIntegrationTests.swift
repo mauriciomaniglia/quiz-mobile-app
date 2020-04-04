@@ -40,11 +40,30 @@ class QuizUIIntegrationTests: XCTestCase {
         XCTAssertEqual(sut.quizFooterController.counterLabel.text, "05:00", "Expected timer label to be set correctly before question is loaded")
     }
     
+    func test_startGame_isVisibleWhenLoadFinish() {
+        let loader = LoaderSpy()
+        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        
+        sut.viewDidAppear(false)
+        sut.quizHeaderController.loadViewIfNeeded()
+        sut.quizFooterController.loadViewIfNeeded()
+        loader.simulateSuccessfulLoad()
+        
+        XCTAssertEqual(sut.quizFooterController.statusButton.titleLabel?.text, "start")
+    }
+    
     private class LoaderSpy: QuestionLoader {
         var loadCallCount = 0
+        private var completions = [(QuestionLoaderResult) -> Void]()
         
         func load(completion: @escaping (QuestionLoaderResult) -> Void) {
             loadCallCount += 1
+            completions.append(completion)
+        }
+        
+        func simulateSuccessfulLoad() {
+            let questionItem = QuestionItem(question: "Some question", answer: ["some answer", "another answser"])
+            completions[0](.success([questionItem]))
         }
     }
 }
