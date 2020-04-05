@@ -64,6 +64,26 @@ class QuizUIIntegrationTests: XCTestCase {
         XCTAssertFalse(sut.quizHeaderController.answerTextfield.isUserInteractionEnabled, "Expected insert guess to be disable when game is reseted")
     }
     
+    func test_addGuess_updateUserGuesses() {
+        let loader = LoaderSpy()
+        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        UIApplication.shared.keyWindow!.rootViewController = sut
+        
+        sut.viewDidAppear(false)
+        sut.quizHeaderController.loadViewIfNeeded()
+        sut.quizAnswerListController.loadViewIfNeeded()
+        sut.quizFooterController.loadViewIfNeeded()
+        
+        loader.simulateSuccessfulLoad()
+        sut.quizFooterController.statusButton.simulateTap()
+        
+        sut.quizHeaderController.answerTextfield.insertText("a guess")
+        _ = sut.quizHeaderController.textFieldShouldReturn(sut.quizHeaderController.answerTextfield)
+                
+        XCTAssertEqual(sut.quizAnswerListController.guessView(at: 0)?.textLabel?.text, "a guess", "Expected last user insertion guess")
+
+    }
+    
     private class LoaderSpy: QuestionLoader {
         var loadCallCount = 0
         private var completions = [(QuestionLoaderResult) -> Void]()
@@ -93,5 +113,17 @@ extension UIControl {
 extension UIButton {
     func simulateTap() {
         simulate(event: .touchUpInside)
+    }
+}
+
+extension QuizAnswerListViewController {
+    func guessView(at row: Int) -> UITableViewCell? {
+        guard tableView.numberOfRows(inSection: 0) > row else {
+            return nil
+        }
+        
+        let ds = tableView.dataSource
+        let index = IndexPath(row: row, section: 0)
+        return ds?.tableView(tableView, cellForRowAt: index)
     }
 }

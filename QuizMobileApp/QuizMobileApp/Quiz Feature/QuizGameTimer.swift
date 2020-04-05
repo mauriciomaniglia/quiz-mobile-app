@@ -40,6 +40,10 @@ public final class QuizGameTimer: QuizCounter {
         delegate?.counterStopped(seconds)
     }
     
+    public func currentSeconds() -> Int {
+        return seconds
+    }
+    
     @objc private func updateSeconds() {
         if seconds > 0 {
             delegate?.counterSeconds(seconds)
