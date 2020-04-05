@@ -16,6 +16,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("AnyAnswer")
         sut.counterSeconds(1)
         
@@ -27,6 +28,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("Answer1")
         sut.addAnswer("Answer2")
         sut.counterSeconds(1)
@@ -39,6 +41,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("Answer")
         sut.addAnswer("Answer")
         sut.counterSeconds(1)
@@ -51,6 +54,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("  Answer ")
         sut.counterSeconds(1)
         
@@ -62,6 +66,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("Answer")
         sut.addAnswer(" Answer ")
         sut.counterSeconds(1)
@@ -74,6 +79,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("  ")
         sut.counterSeconds(1)
         
@@ -85,6 +91,7 @@ class AddAnswerUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.addAnswer("Answer")
         sut.addAnswer("")
         sut.counterSeconds(1)

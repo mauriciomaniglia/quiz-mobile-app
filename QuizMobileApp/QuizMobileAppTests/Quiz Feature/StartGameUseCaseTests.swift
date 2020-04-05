@@ -39,6 +39,7 @@ class StartGameUseCaseTests: XCTestCase {
         let delegate = GameDelegateSpy()
         sut.delegate = delegate
         
+        sut.start()
         sut.counterSeconds(1)
         
         XCTAssertNotNil(delegate.gameStatus)
