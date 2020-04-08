@@ -18,11 +18,11 @@ class QuizUIIntegrationTests: XCTestCase {
         
         XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before view is loaded")
         
-        sut.viewDidAppear(false)
+        sut.loadScreen()
         
         XCTAssertEqual(loader.loadCallCount, 1, "Expected a loading request once view is loaded")
         
-        sut.viewDidAppear(false)
+        sut.loadScreen()
         
         XCTAssertEqual(loader.loadCallCount, 2, "Expected another loading request once view is loaded again")
     }
@@ -31,9 +31,7 @@ class QuizUIIntegrationTests: XCTestCase {
         let loader = LoaderSpy()
         let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
         
-        sut.viewDidAppear(false)
-        sut.quizHeaderController.loadViewIfNeeded()
-        sut.quizFooterController.loadViewIfNeeded()
+        sut.loadScreen()
         
         XCTAssertEqual(sut.quizHeaderController.questionLabel.text, "-", "Expected loading indicator before question is loaded")
         XCTAssertEqual(sut.quizFooterController.answerCountLabel.text, "-", "Expected loading indicator before question is loaded")
@@ -44,10 +42,7 @@ class QuizUIIntegrationTests: XCTestCase {
         let loader = LoaderSpy()
         let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
         
-        sut.viewDidAppear(false)
-        sut.quizHeaderController.loadViewIfNeeded()
-        sut.quizAnswerListController.loadViewIfNeeded()
-        sut.quizFooterController.loadViewIfNeeded()
+        sut.loadScreen()
         loader.simulateSuccessfulLoad()
         
         XCTAssertEqual(sut.quizFooterController.statusButton.title(for: .normal), "start", "Expected start button before game is started")
@@ -69,14 +64,9 @@ class QuizUIIntegrationTests: XCTestCase {
         let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
         UIApplication.shared.keyWindow!.rootViewController = sut
         
-        sut.viewDidAppear(false)
-        sut.quizHeaderController.loadViewIfNeeded()
-        sut.quizAnswerListController.loadViewIfNeeded()
-        sut.quizFooterController.loadViewIfNeeded()
-        
+        sut.loadScreen()
         loader.simulateSuccessfulLoad()
         sut.quizFooterController.statusButton.simulateTap()
-        
         sut.quizHeaderController.answerTextfield.insertText("a guess")
         _ = sut.quizHeaderController.textFieldShouldReturn(sut.quizHeaderController.answerTextfield)
                 
@@ -97,6 +87,15 @@ class QuizUIIntegrationTests: XCTestCase {
             let questionItem = QuestionItem(question: "Some question", answer: ["some answer", "another answser"])
             completions[0](.success([questionItem]))
         }
+    }
+}
+
+extension QuizRootViewController {
+    func loadScreen() {
+        self.viewDidAppear(false)
+        self.quizHeaderController.loadViewIfNeeded()
+        self.quizAnswerListController.loadViewIfNeeded()
+        self.quizFooterController.loadViewIfNeeded()
     }
 }
 
