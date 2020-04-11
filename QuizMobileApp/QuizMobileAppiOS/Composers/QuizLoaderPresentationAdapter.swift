@@ -9,7 +9,7 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizHeaderViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage, QuizGameDelegate {
+final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage, QuizGameDelegate {
     
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
@@ -20,7 +20,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
         return UIApplication.shared.keyWindow!.rootViewController
     }()
         
-    var headerPresenter: QuizHeaderPresenter?
+    var headerComposer: QuizHeaderComposer?
     var answerListPresenter: QuizAnswerListPresenter?
     var footerPresenter: QuizFooterPresenter?
     var messagePresenter: QuizMessagePresenter?
@@ -39,12 +39,13 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
             case let .success(questions):
                 guard let questionItem = questions.first else { return }
                                 
-                self.headerPresenter?.didFinishLoadGame(with: questionItem)
+                self.headerComposer?.headerPresenter?.didFinishLoadGame(with: questionItem)
                 self.footerPresenter?.didFinishLoadGame(with: questionItem)
                 
                 let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
                 self.quizGameEngine = quizGameEngine
                 self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
+                self.headerComposer?.quizGameEngine = quizGameEngine
                 
                 self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
                 self.rootViewController?.dismiss(animated: false, completion: nil)
@@ -54,10 +55,6 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
                 self.messagePresenter?.didFinishLoadGame(with: error)
             }
         }
-    }
-    
-    func didTapNewAnswer(_ answer: String) {
-        quizGameEngine?.addAnswer(answer)
     }
     
     func didClickStatusButton() {
@@ -74,7 +71,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizH
         if gameStatus.isGameFinished {
             messagePresenter?.didFinishGame(gameStatus)
         } else {
-            headerPresenter?.didUpdateGameStatus(gameStatus)
+            headerComposer?.headerPresenter?.didUpdateGameStatus(gameStatus)
             answerListPresenter?.didUpdateGameStatus(gameStatus)
             footerPresenter?.didUpdateGameStatus(gameStatus)
         }
