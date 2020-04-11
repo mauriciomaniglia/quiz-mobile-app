@@ -14,6 +14,8 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     private let counter: QuizCounter
     private let correctAnswers: [String]
     private var savedAnswers = [String]()
+    private var currentSeconds = 0
+    private var isGameStarted = false
     
     public init(counter: QuizCounter, correctAnswers: [String]) {
         self.counter = counter        
@@ -21,15 +23,19 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     }
     
     public func start() {
+        isGameStarted = true
         counter.start()
     }
     
     public func reset() {
         savedAnswers = []
         counter.reset()
+        isGameStarted = false
     }
     
     public func addAnswer(_ answer: String) {
+        guard isGameStarted else { return }
+        
         let answer = removeEmptySpaces(string: answer)
         
         if isValidAnswer(answer) {
@@ -37,12 +43,13 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
         }
                                         
         checkIfGameFinished()
+        updateGameStatus(isGameStarted: isGameStarted, isGameFinished: false, seconds: counter.currentSeconds())
     }
     
     // MARK: Counter delegate
     
     public func counterSeconds(_ seconds: Int) {
-        updateGameStatus(isGameStarted: true, isGameFinished: false, seconds: seconds)
+        updateGameStatus(isGameStarted: isGameStarted, isGameFinished: false, seconds: seconds)
     }
     
     public func counterReseted(_ seconds: Int) {

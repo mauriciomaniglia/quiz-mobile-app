@@ -18,4 +18,5 @@ public protocol QuizCounter {
     func start()
     func reset()
     func stop()
+    func currentSeconds() -> Int
 }

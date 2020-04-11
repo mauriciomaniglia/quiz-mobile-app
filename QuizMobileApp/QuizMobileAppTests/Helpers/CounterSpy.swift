@@ -24,4 +24,8 @@ class CounterSpy: QuizCounter {
     func stop() {
         stoppedCallsCount += 1
     }
+    
+    func currentSeconds() -> Int {
+        return 0
+    }
 }

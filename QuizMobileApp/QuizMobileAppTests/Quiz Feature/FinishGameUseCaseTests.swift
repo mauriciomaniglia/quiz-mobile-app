@@ -15,6 +15,7 @@ class FinishGameUseCaseTests: XCTestCase {
         let counter = CounterSpy()
         let sut = QuizGameEngine(counter: counter, correctAnswers: ["CorrectAnswer1", "CorrectAnswer2"])
         
+        sut.start()
         sut.addAnswer("CorrectAnswer1")
         sut.addAnswer("CorrectAnswer2")
         
