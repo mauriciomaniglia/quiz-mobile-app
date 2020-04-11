@@ -20,13 +20,14 @@ public final class QuizUIComposer {
         
         let quizController = makeQuizViewController(delegate: presentationAdapter)
         let headerComposer = QuizHeaderComposer()
+        let footerComposer = QuizFooterComposer()
         let quizHeaderController = headerComposer.header()
         let quizAnswerListController = makeQuizAnswerListViewController()
-        let quizFooterController = makeQuizFooterViewController(delegate: presentationAdapter)
+        let quizFooterController = footerComposer.footer()
         
         presentationAdapter.headerComposer = headerComposer
         presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: WeakRefVirtualProxy(quizAnswerListController))
-        presentationAdapter.footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(quizFooterController))
+        presentationAdapter.footerComposer = footerComposer
         presentationAdapter.messagePresenter = QuizMessagePresenter(messageView: presentationAdapter)
         
         quizController.quizHeaderController = quizHeaderController
@@ -51,15 +52,6 @@ public final class QuizUIComposer {
         let quizAnswerListController = answerListStoryboard.instantiateInitialViewController() as! QuizAnswerListViewController
         
         return quizAnswerListController
-    }
-    
-    private static func makeQuizFooterViewController(delegate: QuizFooterViewControllerDelegate) -> QuizFooterViewController {
-        let bundle = Bundle(for: QuizFooterViewController.self)
-        let footerStoryboard = UIStoryboard(name: "QuizFooter", bundle: bundle)
-        let quizFooterController = footerStoryboard.instantiateInitialViewController() as! QuizFooterViewController
-        quizFooterController.delegate = delegate
-        
-        return quizFooterController
     }
     
     private static func makeQuizLoadingViewController() -> UIViewController {

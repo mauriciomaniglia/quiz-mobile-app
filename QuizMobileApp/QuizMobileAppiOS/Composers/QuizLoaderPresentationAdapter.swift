@@ -9,12 +9,11 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizFooterViewControllerDelegate, QuizMessage, QuizGameDelegate {
+final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizMessage, QuizGameDelegate {
     
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter: QuizGameTimer
-    private var isPlaying = false
     private var quizLoading: UIViewController
     private lazy var rootViewController: UIViewController? = {
         return UIApplication.shared.keyWindow!.rootViewController
@@ -22,7 +21,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizF
         
     var headerComposer: QuizHeaderComposer?
     var answerListPresenter: QuizAnswerListPresenter?
-    var footerPresenter: QuizFooterPresenter?
+    var footerComposer: QuizFooterComposer?
     var messagePresenter: QuizMessagePresenter?
     
     init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer, quizLoading: UIViewController) {
@@ -40,12 +39,13 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizF
                 guard let questionItem = questions.first else { return }
                                 
                 self.headerComposer?.headerPresenter?.didFinishLoadGame(with: questionItem)
-                self.footerPresenter?.didFinishLoadGame(with: questionItem)
+                self.footerComposer?.presenter?.didFinishLoadGame(with: questionItem)
                 
                 let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
                 self.quizGameEngine = quizGameEngine
                 self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
                 self.headerComposer?.quizGameEngine = quizGameEngine
+                self.footerComposer?.quizGameEngine = quizGameEngine
                 
                 self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
                 self.rootViewController?.dismiss(animated: false, completion: nil)
@@ -57,23 +57,13 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizF
         }
     }
     
-    func didClickStatusButton() {
-        if isPlaying {
-            isPlaying = false
-            quizGameEngine?.reset()
-        } else {
-            isPlaying = true
-            quizGameEngine?.start()
-        }
-    }
-    
     public func gameStatus(_ gameStatus: GameStatus) {
         if gameStatus.isGameFinished {
             messagePresenter?.didFinishGame(gameStatus)
         } else {
             headerComposer?.headerPresenter?.didUpdateGameStatus(gameStatus)
             answerListPresenter?.didUpdateGameStatus(gameStatus)
-            footerPresenter?.didUpdateGameStatus(gameStatus)
+            footerComposer?.presenter?.didUpdateGameStatus(gameStatus)
         }
     }
                     
@@ -86,7 +76,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizF
     }
     
     func displayMessage(_ presentableModel: QuizMessagePresentableModel) {
-        let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in self.didClickStatusButton() })
+        let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in self.footerComposer?.didClickStatusButton() })
         alertWithTitle(presentableModel.title, message: presentableModel.message, action: retryButton)
     }
     
