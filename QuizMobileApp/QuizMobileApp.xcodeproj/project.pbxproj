@@ -24,6 +24,7 @@
 		124E73092426BE9400F48D26 /* FinishGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 124E73082426BE9400F48D26 /* FinishGameUseCaseTests.swift */; };
 		125C020124422FD200DA52AC /* QuizHeaderComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125C020024422FD200DA52AC /* QuizHeaderComposer.swift */; };
 		125C02092442455D00DA52AC /* QuizFooterComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125C02082442455D00DA52AC /* QuizFooterComposer.swift */; };
+		125C020C2442499700DA52AC /* QuizLoadingComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 125C020B2442499600DA52AC /* QuizLoadingComposer.swift */; };
 		128C90AF242DF97E008C5EC9 /* QuizUIIntegrationTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 128C90AE242DF97E008C5EC9 /* QuizUIIntegrationTests.swift */; };
 		129A6F7324219C2600164A4D /* StartGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A6F7224219C2600164A4D /* StartGameUseCaseTests.swift */; };
 		129A6FA32424C17D00164A4D /* ResetGameUseCaseTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 129A6FA22424C17D00164A4D /* ResetGameUseCaseTests.swift */; };
@@ -140,6 +141,7 @@
 		124E730D2428231200F48D26 /* QuizIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizIntegrationTests.swift; sourceTree = "<group>"; };
 		125C020024422FD200DA52AC /* QuizHeaderComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizHeaderComposer.swift; sourceTree = "<group>"; };
 		125C02082442455D00DA52AC /* QuizFooterComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizFooterComposer.swift; sourceTree = "<group>"; };
+		125C020B2442499600DA52AC /* QuizLoadingComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizLoadingComposer.swift; sourceTree = "<group>"; };
 		128C90AE242DF97E008C5EC9 /* QuizUIIntegrationTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizUIIntegrationTests.swift; sourceTree = "<group>"; };
 		129A6F7224219C2600164A4D /* StartGameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = StartGameUseCaseTests.swift; sourceTree = "<group>"; };
 		129A6FA22424C17D00164A4D /* ResetGameUseCaseTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ResetGameUseCaseTests.swift; sourceTree = "<group>"; };
@@ -265,6 +267,14 @@
 			path = Footer;
 			sourceTree = "<group>";
 		};
+		125C020A2442497E00DA52AC /* Loading */ = {
+			isa = PBXGroup;
+			children = (
+				125C020B2442499600DA52AC /* QuizLoadingComposer.swift */,
+			);
+			path = Loading;
+			sourceTree = "<group>";
+		};
 		12D6A82A242B58A400BCF298 /* QuizGameIntegrationTests */ = {
 			isa = PBXGroup;
 			children = (
@@ -337,6 +347,7 @@
 		2B2F494223450EC100D1836B /* Composers */ = {
 			isa = PBXGroup;
 			children = (
+				125C020A2442497E00DA52AC /* Loading */,
 				125C01FD24422E3900DA52AC /* Header */,
 				125C02072442454500DA52AC /* Footer */,
 				2B2F494F23452C6500D1836B /* QuizUIComposer.swift */,
@@ -725,6 +736,7 @@
 				2B2F493F2344FD4000D1836B /* QuizRootViewController.swift in Sources */,
 				2BEB5C59234679E5007D76D1 /* WeakRefVirtualProxy.swift in Sources */,
 				121F2EB924051C5600FE1B29 /* QuizHeaderViewController.swift in Sources */,
+				125C020C2442499700DA52AC /* QuizLoadingComposer.swift in Sources */,
 				121F2EC12406646400FE1B29 /* QuizFooterViewController.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

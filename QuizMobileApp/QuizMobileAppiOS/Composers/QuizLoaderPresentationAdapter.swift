@@ -14,24 +14,22 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizM
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter: QuizGameTimer
-    private var quizLoading: UIViewController
     private lazy var rootViewController: UIViewController? = {
         return UIApplication.shared.keyWindow!.rootViewController
     }()
-        
+            
     var headerComposer: QuizHeaderComposer?
     var answerListPresenter: QuizAnswerListPresenter?
     var footerComposer: QuizFooterComposer?
     var messagePresenter: QuizMessagePresenter?
     
-    init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer, quizLoading: UIViewController) {
+    init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer) {
         self.quizQuestionLoader = quizQuestionLoader
         self.counter = counter
-        self.quizLoading = quizLoading
     }
     
-    func loadGame() {        
-        rootViewController?.present(quizLoading, animated: false)
+    func loadGame() {
+        QuizLoadingComposer.showLoading()
                 
         quizQuestionLoader.load { result in
             switch result {
@@ -48,10 +46,10 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizM
                 self.footerComposer?.quizGameEngine = quizGameEngine
                 
                 self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
-                self.rootViewController?.dismiss(animated: false, completion: nil)
+                QuizLoadingComposer.hideLoading()
                 
-            case let .failure(error):
-                self.rootViewController?.dismiss(animated: false, completion: nil)
+            case let .failure(error):                
+                QuizLoadingComposer.hideLoading()
                 self.messagePresenter?.didFinishLoadGame(with: error)
             }
         }
@@ -70,6 +68,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizM
     func displayErrorMessage(_ presentableModel: QuizMessagePresentableModel) {
         let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in
             self.rootViewController?.dismiss(animated: false, completion: nil)
+            QuizLoadingComposer.hideLoading()
             self.loadGame()
         })
         alertWithTitle(presentableModel.message, message: nil, action: retryButton)

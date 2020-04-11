@@ -13,10 +13,9 @@ public final class QuizUIComposer {
     private init() {}
     
     public static func quizComposedWith(questionLoader: QuestionLoader) -> QuizRootViewController {
-        let quizLoadingController = makeQuizLoadingViewController()
         let counter = QuizGameTimer(withSeconds: 300)
         let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:
-            MainQueueDispatchDecorator(decoratee: questionLoader), counter: counter, quizLoading: quizLoadingController)        
+            MainQueueDispatchDecorator(decoratee: questionLoader), counter: counter)        
         
         let quizController = makeQuizViewController(delegate: presentationAdapter)
         let headerComposer = QuizHeaderComposer()
@@ -52,11 +51,5 @@ public final class QuizUIComposer {
         let quizAnswerListController = answerListStoryboard.instantiateInitialViewController() as! QuizAnswerListViewController
         
         return quizAnswerListController
-    }
-    
-    private static func makeQuizLoadingViewController() -> UIViewController {
-        let storyboard = UIStoryboard(name: "QuizLoading", bundle: nil)
-        let loadingViewController = storyboard.instantiateViewController(withIdentifier: "QuizLoadingViewController")
-        return loadingViewController
     }
 }
