@@ -9,7 +9,7 @@
 import UIKit
 import QuizMobileApp
 
-final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizMessage, QuizGameDelegate {
+final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizGameDelegate {
     
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
@@ -21,11 +21,14 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizM
     var headerComposer: QuizHeaderComposer?
     var answerListPresenter: QuizAnswerListPresenter?
     var footerComposer: QuizFooterComposer?
-    var messagePresenter: QuizMessagePresenter?
+    private let messageComposer: QuizMessageComposer
     
     init(quizQuestionLoader: QuestionLoader, counter: QuizGameTimer) {
         self.quizQuestionLoader = quizQuestionLoader
         self.counter = counter
+        self.messageComposer = QuizMessageComposer()
+        self.messageComposer.loadGame = { self.loadGame() }
+        self.messageComposer.restartGame = { self.footerComposer?.didClickStatusButton() }
     }
     
     func loadGame() {
@@ -50,38 +53,18 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizM
                 
             case let .failure(error):                
                 QuizLoadingComposer.hideLoading()
-                self.messagePresenter?.didFinishLoadGame(with: error)
+                self.messageComposer.showLoadingError(error)
             }
         }
     }
     
     public func gameStatus(_ gameStatus: GameStatus) {
         if gameStatus.isGameFinished {
-            messagePresenter?.didFinishGame(gameStatus)
+            messageComposer.showFinishedGame(gameStatus)
         } else {
             headerComposer?.headerPresenter?.didUpdateGameStatus(gameStatus)
             answerListPresenter?.didUpdateGameStatus(gameStatus)
             footerComposer?.presenter?.didUpdateGameStatus(gameStatus)
         }
-    }
-                    
-    func displayErrorMessage(_ presentableModel: QuizMessagePresentableModel) {
-        let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in
-            self.rootViewController?.dismiss(animated: false, completion: nil)
-            QuizLoadingComposer.hideLoading()
-            self.loadGame()
-        })
-        alertWithTitle(presentableModel.message, message: nil, action: retryButton)
-    }
-    
-    func displayMessage(_ presentableModel: QuizMessagePresentableModel) {
-        let retryButton = UIAlertAction(title: presentableModel.retry, style: .default, handler: { _ in self.footerComposer?.didClickStatusButton() })
-        alertWithTitle(presentableModel.title, message: presentableModel.message, action: retryButton)
-    }
-    
-    private func alertWithTitle(_ title: String?, message: String?, action: UIAlertAction) {
-        let alert = UIAlertController(title: title, message: message, preferredStyle: .alert)
-        alert.addAction(action)
-        rootViewController?.present(alert, animated: true)
-    }
+    }                        
 }

@@ -18,16 +18,17 @@ public final class QuizUIComposer {
             MainQueueDispatchDecorator(decoratee: questionLoader), counter: counter)        
         
         let quizController = makeQuizViewController(delegate: presentationAdapter)
+        
         let headerComposer = QuizHeaderComposer()
-        let footerComposer = QuizFooterComposer()
+        let footerComposer = QuizFooterComposer()        
+        
         let quizHeaderController = headerComposer.header()
         let quizAnswerListController = makeQuizAnswerListViewController()
         let quizFooterController = footerComposer.footer()
         
         presentationAdapter.headerComposer = headerComposer
         presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: WeakRefVirtualProxy(quizAnswerListController))
-        presentationAdapter.footerComposer = footerComposer
-        presentationAdapter.messagePresenter = QuizMessagePresenter(messageView: presentationAdapter)
+        presentationAdapter.footerComposer = footerComposer        
         
         quizController.quizHeaderController = quizHeaderController
         quizController.quizAnswerListController = quizAnswerListController
