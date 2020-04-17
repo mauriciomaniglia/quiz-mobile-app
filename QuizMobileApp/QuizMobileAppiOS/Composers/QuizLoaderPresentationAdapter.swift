@@ -19,7 +19,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizG
     }()
             
     var headerComposer: QuizHeaderComposer?
-    var answerListPresenter: QuizAnswerListPresenter?
+    var listComposer: QuizAnswerListComposer?
     var footerComposer: QuizFooterComposer?
     private let messageComposer: QuizMessageComposer
     
@@ -63,7 +63,7 @@ final class QuizLoaderPresentationAdapter: QuizRootViewControllerDelegate, QuizG
             messageComposer.showFinishedGame(gameStatus)
         } else {
             headerComposer?.headerPresenter?.didUpdateGameStatus(gameStatus)
-            answerListPresenter?.didUpdateGameStatus(gameStatus)
+            listComposer?.updateList(gameStatus)
             footerComposer?.presenter?.didUpdateGameStatus(gameStatus)
         }
     }                        

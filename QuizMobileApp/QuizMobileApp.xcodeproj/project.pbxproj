@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		12064C02244937EE0073196C /* QuizAnswerListComposer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 12064C01244937EE0073196C /* QuizAnswerListComposer.swift */; };
 		121F2EB52405177E00FE1B29 /* QuizHeaderPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2EB42405177E00FE1B29 /* QuizHeaderPresenter.swift */; };
 		121F2EB72405198400FE1B29 /* QuizHeaderPresentableModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2EB62405198400FE1B29 /* QuizHeaderPresentableModel.swift */; };
 		121F2EB924051C5600FE1B29 /* QuizHeaderViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 121F2EB824051C5600FE1B29 /* QuizHeaderViewController.swift */; };
@@ -124,6 +125,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		12064C01244937EE0073196C /* QuizAnswerListComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizAnswerListComposer.swift; sourceTree = "<group>"; };
 		121F2EB42405177E00FE1B29 /* QuizHeaderPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizHeaderPresenter.swift; sourceTree = "<group>"; };
 		121F2EB62405198400FE1B29 /* QuizHeaderPresentableModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizHeaderPresentableModel.swift; sourceTree = "<group>"; };
 		121F2EB824051C5600FE1B29 /* QuizHeaderViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizHeaderViewController.swift; sourceTree = "<group>"; };
@@ -242,6 +244,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		12064C002449378D0073196C /* List */ = {
+			isa = PBXGroup;
+			children = (
+				12064C01244937EE0073196C /* QuizAnswerListComposer.swift */,
+			);
+			path = List;
+			sourceTree = "<group>";
+		};
 		12305AF82446754C00EA0165 /* Message */ = {
 			isa = PBXGroup;
 			children = (
@@ -357,6 +367,7 @@
 		2B2F494223450EC100D1836B /* Composers */ = {
 			isa = PBXGroup;
 			children = (
+				12064C002449378D0073196C /* List */,
 				12305AF82446754C00EA0165 /* Message */,
 				125C020A2442497E00DA52AC /* Loading */,
 				125C01FD24422E3900DA52AC /* Header */,
@@ -742,6 +753,7 @@
 				125C02092442455D00DA52AC /* QuizFooterComposer.swift in Sources */,
 				2B2F494623450FF500D1836B /* QuizLoaderPresentationAdapter.swift in Sources */,
 				2B72C7E12346601300740B73 /* CustomTextField.swift in Sources */,
+				12064C02244937EE0073196C /* QuizAnswerListComposer.swift in Sources */,
 				12305AFA2446758B00EA0165 /* QuizMessageComposer.swift in Sources */,
 				125C020124422FD200DA52AC /* QuizHeaderComposer.swift in Sources */,
 				2B2F491E2344E19400D1836B /* AppDelegate.swift in Sources */,

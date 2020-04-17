@@ -20,14 +20,15 @@ public final class QuizUIComposer {
         let quizController = makeQuizViewController(delegate: presentationAdapter)
         
         let headerComposer = QuizHeaderComposer()
-        let footerComposer = QuizFooterComposer()        
+        let footerComposer = QuizFooterComposer()
+        let listComposer = QuizAnswerListComposer()
         
         let quizHeaderController = headerComposer.header()
-        let quizAnswerListController = makeQuizAnswerListViewController()
+        let quizAnswerListController = listComposer.answerListController()
         let quizFooterController = footerComposer.footer()
         
+        presentationAdapter.listComposer = listComposer
         presentationAdapter.headerComposer = headerComposer
-        presentationAdapter.answerListPresenter = QuizAnswerListPresenter(answerList: WeakRefVirtualProxy(quizAnswerListController))
         presentationAdapter.footerComposer = footerComposer        
         
         quizController.quizHeaderController = quizHeaderController
@@ -44,13 +45,5 @@ public final class QuizUIComposer {
         quizController.delegate = delegate
         
         return quizController
-    }
-    
-    private static func makeQuizAnswerListViewController() -> QuizAnswerListViewController {
-        let bundle = Bundle(for: QuizAnswerListViewController.self)
-        let answerListStoryboard = UIStoryboard(name: "QuizAnswerList", bundle: bundle)
-        let quizAnswerListController = answerListStoryboard.instantiateInitialViewController() as! QuizAnswerListViewController
-        
-        return quizAnswerListController
-    }
+    }        
 }
