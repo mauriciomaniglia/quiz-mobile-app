@@ -48,7 +48,6 @@
 		2B2F492A2344E19700D1836B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 2B2F49282344E19700D1836B /* LaunchScreen.storyboard */; };
 		2B2F493F2344FD4000D1836B /* QuizRootViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F493E2344FD4000D1836B /* QuizRootViewController.swift */; };
 		2B2F494423450ED600D1836B /* MainQueueDispatchDecorator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F494323450ED600D1836B /* MainQueueDispatchDecorator.swift */; };
-		2B2F494623450FF500D1836B /* QuizLoaderPresentationAdapter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F494523450FF500D1836B /* QuizLoaderPresentationAdapter.swift */; };
 		2B2F49482345187700D1836B /* QuizGameTimer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2B2F49472345187700D1836B /* QuizGameTimer.swift */; };
 		2B2F494A23451E1500D1836B /* QuizMobileApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; };
 		2B2F494B23451E1500D1836B /* QuizMobileApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 2B3762392340061800E7CA6F /* QuizMobileApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -169,7 +168,6 @@
 		2B2F49362344E19700D1836B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B2F493E2344FD4000D1836B /* QuizRootViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizRootViewController.swift; sourceTree = "<group>"; };
 		2B2F494323450ED600D1836B /* MainQueueDispatchDecorator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainQueueDispatchDecorator.swift; sourceTree = "<group>"; };
-		2B2F494523450FF500D1836B /* QuizLoaderPresentationAdapter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizLoaderPresentationAdapter.swift; sourceTree = "<group>"; };
 		2B2F49472345187700D1836B /* QuizGameTimer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizGameTimer.swift; sourceTree = "<group>"; };
 		2B2F494F23452C6500D1836B /* QuizUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizUIComposer.swift; sourceTree = "<group>"; };
 		2B3762392340061800E7CA6F /* QuizMobileApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = QuizMobileApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -373,7 +371,6 @@
 				125C01FD24422E3900DA52AC /* Header */,
 				125C02072442454500DA52AC /* Footer */,
 				2B2F494F23452C6500D1836B /* QuizUIComposer.swift */,
-				2B2F494523450FF500D1836B /* QuizLoaderPresentationAdapter.swift */,
 				2B2F494323450ED600D1836B /* MainQueueDispatchDecorator.swift */,
 				2BEB5C58234679E5007D76D1 /* WeakRefVirtualProxy.swift */,
 			);
@@ -751,7 +748,6 @@
 				2B2F494423450ED600D1836B /* MainQueueDispatchDecorator.swift in Sources */,
 				121F2EC92407BAC500FE1B29 /* QuizAnswerListViewController.swift in Sources */,
 				125C02092442455D00DA52AC /* QuizFooterComposer.swift in Sources */,
-				2B2F494623450FF500D1836B /* QuizLoaderPresentationAdapter.swift in Sources */,
 				2B72C7E12346601300740B73 /* CustomTextField.swift in Sources */,
 				12064C02244937EE0073196C /* QuizAnswerListComposer.swift in Sources */,
 				12305AFA2446758B00EA0165 /* QuizMessageComposer.swift in Sources */,

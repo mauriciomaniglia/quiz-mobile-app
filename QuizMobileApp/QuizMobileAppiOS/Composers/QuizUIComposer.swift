@@ -9,40 +9,70 @@
 import UIKit
 import QuizMobileApp
 
-public final class QuizUIComposer {
-    private init() {}
+public final class QuizUIComposer: QuizRootViewControllerDelegate, QuizGameDelegate {
+    private let quizQuestionLoader: QuestionLoader
+    private var quizGameEngine: QuizGameEngine?
+    private var counter = QuizGameTimer(withSeconds: 300)
+    private var headerComposer = QuizHeaderComposer()
+    private var listComposer = QuizAnswerListComposer()
+    private var footerComposer = QuizFooterComposer()
+    private let messageComposer = QuizMessageComposer()
     
-    public static func quizComposedWith(questionLoader: QuestionLoader) -> QuizRootViewController {
-        let counter = QuizGameTimer(withSeconds: 300)
-        let presentationAdapter = QuizLoaderPresentationAdapter(quizQuestionLoader:
-            MainQueueDispatchDecorator(decoratee: questionLoader), counter: counter)        
-        
-        let quizController = makeQuizViewController(delegate: presentationAdapter)
-        
-        let headerComposer = QuizHeaderComposer()
-        let footerComposer = QuizFooterComposer()
-        let listComposer = QuizAnswerListComposer()
-        
-        let quizHeaderController = headerComposer.header()
-        let quizAnswerListController = listComposer.answerListController()
-        let quizFooterController = footerComposer.footer()
-        
-        presentationAdapter.listComposer = listComposer
-        presentationAdapter.headerComposer = headerComposer
-        presentationAdapter.footerComposer = footerComposer        
-        
-        quizController.quizHeaderController = quizHeaderController
-        quizController.quizAnswerListController = quizAnswerListController
-        quizController.quizFooterController = quizFooterController
-        
-        return quizController
+    init(questionLoader: QuestionLoader) {
+        self.quizQuestionLoader = MainQueueDispatchDecorator(decoratee: questionLoader)
     }
     
-    private static func makeQuizViewController(delegate: QuizRootViewControllerDelegate) -> QuizRootViewController {
+    public func loadGame() {
+        QuizLoadingComposer.showLoading()
+                
+        quizQuestionLoader.load { result in
+            switch result {
+            case let .success(questions):
+                guard let questionItem = questions.first else { return }
+                                
+                self.headerComposer.headerPresenter?.didFinishLoadGame(with: questionItem)
+                self.footerComposer.presenter?.didFinishLoadGame(with: questionItem)
+                
+                let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
+                self.quizGameEngine = quizGameEngine
+                self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
+                self.headerComposer.quizGameEngine = quizGameEngine
+                self.footerComposer.quizGameEngine = quizGameEngine
+                
+                self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
+                QuizLoadingComposer.hideLoading()
+                
+            case let .failure(error):
+                QuizLoadingComposer.hideLoading()
+                self.messageComposer.showLoadingError(error)
+            }
+        }
+    }
+    
+    public func gameStatus(_ gameStatus: GameStatus) {
+        if gameStatus.isGameFinished {
+            messageComposer.showFinishedGame(gameStatus)
+        } else {
+            headerComposer.headerPresenter?.didUpdateGameStatus(gameStatus)
+            listComposer.updateList(gameStatus)
+            footerComposer.presenter?.didUpdateGameStatus(gameStatus)
+        }
+    }      
+    
+    public func quizRootViewController() -> QuizRootViewController {
+        let controller = makeQuizViewController()
+        controller.quizHeaderController = headerComposer.header()
+        controller.quizAnswerListController = listComposer.answerListController()
+        controller.quizFooterController = footerComposer.footer()
+        
+        return controller
+    }
+    
+    private func makeQuizViewController() -> QuizRootViewController {
         let bundle = Bundle(for: QuizRootViewController.self)
         let storyboard = UIStoryboard(name: "Main", bundle: bundle)
         let quizController = storyboard.instantiateInitialViewController() as! QuizRootViewController
-        quizController.delegate = delegate
+        quizController.delegate = self
         
         return quizController
     }        
