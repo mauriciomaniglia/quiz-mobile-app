@@ -25,26 +25,21 @@ public final class QuizUIComposer: QuizRootViewControllerDelegate, QuizGameDeleg
     public func loadGame() {
         QuizLoadingComposer.showLoading()
                 
-        quizQuestionLoader.load { result in
+        quizQuestionLoader.load { [weak self] result in
             switch result {
             case let .success(questions):
                 guard let questionItem = questions.first else { return }
                                 
-                self.headerComposer.headerPresenter?.didFinishLoadGame(with: questionItem)
-                self.footerComposer.presenter?.didFinishLoadGame(with: questionItem)
+                self?.headerComposer.headerPresenter?.didFinishLoadGame(with: questionItem)
+                self?.footerComposer.presenter?.didFinishLoadGame(with: questionItem)
                 
-                let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
-                self.quizGameEngine = quizGameEngine
-                self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
-                self.headerComposer.quizGameEngine = quizGameEngine
-                self.footerComposer.quizGameEngine = quizGameEngine
+                self?.startGameEngine(questionItem)
                 
-                self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
                 QuizLoadingComposer.hideLoading()
                 
             case let .failure(error):
                 QuizLoadingComposer.hideLoading()
-                self.messageComposer.showLoadingError(error)
+                self?.messageComposer.showLoadingError(error)
             }
         }
     }
@@ -75,5 +70,15 @@ public final class QuizUIComposer: QuizRootViewControllerDelegate, QuizGameDeleg
         quizController.delegate = self
         
         return quizController
-    }        
+    }
+    
+    private func startGameEngine(_ questionItem: QuestionItem) {
+        let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
+        self.quizGameEngine = quizGameEngine
+        self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
+        self.headerComposer.quizGameEngine = quizGameEngine
+        self.footerComposer.quizGameEngine = quizGameEngine
+        
+        self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
+    }
 }
