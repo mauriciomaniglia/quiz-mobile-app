@@ -77,7 +77,7 @@ public final class QuizGameEngine: QuizGame, QuizCounterDelegate {
     }
     
     private func isValidAnswer(_ answer: String) -> Bool {
-        if answer.isEmpty || savedAnswers.contains(answer) {
+        if answer.isEmpty || savedAnswers.contains(answer) || !correctAnswers.contains(answer) {
             return false
         }
         
