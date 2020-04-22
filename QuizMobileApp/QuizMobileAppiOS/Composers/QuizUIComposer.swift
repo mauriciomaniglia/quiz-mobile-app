@@ -9,7 +9,7 @@
 import UIKit
 import QuizMobileApp
 
-public final class QuizUIComposer: QuizRootViewControllerDelegate, QuizGameDelegate {
+public final class QuizUIComposer {
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter = QuizGameTimer(withSeconds: 300)
@@ -21,38 +21,6 @@ public final class QuizUIComposer: QuizRootViewControllerDelegate, QuizGameDeleg
     init(questionLoader: QuestionLoader) {
         self.quizQuestionLoader = MainQueueDispatchDecorator(decoratee: questionLoader)
     }
-    
-    public func loadGame() {
-        QuizLoadingComposer.showLoading()
-                
-        quizQuestionLoader.load { [weak self] result in
-            switch result {
-            case let .success(questions):
-                guard let questionItem = questions.first else { return }
-                                
-                self?.headerComposer.headerPresenter?.didFinishLoadGame(with: questionItem)
-                self?.footerComposer.presenter?.didFinishLoadGame(with: questionItem)
-                
-                self?.startGameEngine(questionItem)
-                
-                QuizLoadingComposer.hideLoading()
-                
-            case let .failure(error):
-                QuizLoadingComposer.hideLoading()
-                self?.messageComposer.showLoadingError(error)
-            }
-        }
-    }
-    
-    public func gameStatus(_ gameStatus: GameStatus) {
-        if gameStatus.isGameFinished {
-            messageComposer.showFinishedGame(gameStatus)
-        } else {
-            headerComposer.headerPresenter?.didUpdateGameStatus(gameStatus)
-            listComposer.updateList(gameStatus)
-            footerComposer.presenter?.didUpdateGameStatus(gameStatus)
-        }
-    }      
     
     public func quizRootViewController() -> QuizRootViewController {
         let controller = makeQuizViewController()
@@ -80,5 +48,41 @@ public final class QuizUIComposer: QuizRootViewControllerDelegate, QuizGameDeleg
         self.footerComposer.quizGameEngine = quizGameEngine
         
         self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
+    }
+}
+
+extension QuizUIComposer: QuizRootViewControllerDelegate {
+    public func loadGame() {
+        QuizLoadingComposer.showLoading()
+                
+        quizQuestionLoader.load { [weak self] result in
+            switch result {
+            case let .success(questions):
+                guard let questionItem = questions.first else { return }
+                                
+                self?.headerComposer.headerPresenter?.didFinishLoadGame(with: questionItem)
+                self?.footerComposer.presenter?.didFinishLoadGame(with: questionItem)
+                
+                self?.startGameEngine(questionItem)
+                
+                QuizLoadingComposer.hideLoading()
+                
+            case let .failure(error):
+                QuizLoadingComposer.hideLoading()
+                self?.messageComposer.showLoadingError(error)
+            }
+        }
+    }
+}
+
+extension QuizUIComposer: QuizGameDelegate {
+    public func gameStatus(_ gameStatus: GameStatus) {
+        if gameStatus.isGameFinished {
+            messageComposer.showFinishedGame(gameStatus)
+        } else {
+            headerComposer.headerPresenter?.didUpdateGameStatus(gameStatus)
+            listComposer.updateList(gameStatus)
+            footerComposer.presenter?.didUpdateGameStatus(gameStatus)
+        }
     }
 }
