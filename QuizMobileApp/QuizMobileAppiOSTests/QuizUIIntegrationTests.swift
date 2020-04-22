@@ -14,7 +14,7 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_loadActions_requestQuizFromLoader() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
         
         XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before view is loaded")
         
@@ -29,7 +29,7 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_loadingQuestionComponents_areVisibleWhileLoadingQuiz() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
         
         sut.loadScreen()
         
@@ -40,7 +40,7 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_startGame_changeGameStateCorrectly() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
         
         sut.loadScreen()
         loader.simulateSuccessfulLoad()
@@ -61,16 +61,16 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_addGuess_updateUserGuesses() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer.quizComposedWith(questionLoader: loader)
+        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
         UIApplication.shared.keyWindow!.rootViewController = sut
         
         sut.loadScreen()
         loader.simulateSuccessfulLoad()
         sut.quizFooterController.statusButton.simulateTap()
-        sut.quizHeaderController.answerTextfield.insertText("a guess")
+        sut.quizHeaderController.answerTextfield.insertText("some answer")
         _ = sut.quizHeaderController.textFieldShouldReturn(sut.quizHeaderController.answerTextfield)
                 
-        XCTAssertEqual(sut.quizAnswerListController.guessView(at: 0)?.textLabel?.text, "a guess", "Expected last user insertion guess")
+        XCTAssertEqual(sut.quizAnswerListController.guessView(at: 0)?.textLabel?.text, "some answer", "Expected last user insertion guess")
 
     }
     

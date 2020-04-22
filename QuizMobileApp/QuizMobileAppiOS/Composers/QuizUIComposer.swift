@@ -18,7 +18,7 @@ public final class QuizUIComposer {
     private var footerComposer = QuizFooterComposer()
     private let messageComposer = QuizMessageComposer()
     
-    init(questionLoader: QuestionLoader) {
+    public init(questionLoader: QuestionLoader) {
         self.quizQuestionLoader = MainQueueDispatchDecorator(decoratee: questionLoader)
     }
     
