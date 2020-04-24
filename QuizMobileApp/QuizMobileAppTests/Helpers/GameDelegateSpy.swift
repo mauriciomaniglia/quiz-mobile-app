@@ -6,7 +6,7 @@
 //  Copyright © 2020 Mauricio Cesar Maniglia Junior. All rights reserved.
 //
 
-import QuizMobileApp
+import Quiz
 
 class GameDelegateSpy: QuizGameDelegate, QuizCounterDelegate {
     var gameStatus: GameStatus?

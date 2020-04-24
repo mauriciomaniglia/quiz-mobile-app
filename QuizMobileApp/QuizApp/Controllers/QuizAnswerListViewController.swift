@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import QuizMobileApp
+import Quiz
 
 public final class QuizAnswerListViewController: UIViewController, UITableViewDataSource, QuizAnswerList {
     @IBOutlet private(set) public var tableView: UITableView!

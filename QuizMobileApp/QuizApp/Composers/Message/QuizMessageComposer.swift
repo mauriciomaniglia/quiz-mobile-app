@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import QuizMobileApp
+import Quiz
 
 final class QuizMessageComposer {
     var loadGame: (() -> Void)?

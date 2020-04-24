@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import QuizMobileApp
+import Quiz
 
 public final class QuizUIComposer {
     private let quizQuestionLoader: QuestionLoader

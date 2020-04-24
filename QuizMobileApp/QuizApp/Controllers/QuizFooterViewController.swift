@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import QuizMobileApp
+import Quiz
 
 public protocol QuizFooterViewControllerDelegate {
     func didClickStatusButton()

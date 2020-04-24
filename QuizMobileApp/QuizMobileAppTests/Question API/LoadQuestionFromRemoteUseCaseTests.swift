@@ -7,7 +7,7 @@
 //
 
 import XCTest
-import QuizMobileApp
+import Quiz
 
 class LoadQuestionFromRemoteUseCaseTests: XCTestCase {
 

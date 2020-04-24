@@ -7,7 +7,7 @@
 //
 
 import UIKit
-import QuizMobileApp
+import Quiz
 
 public protocol QuizHeaderViewControllerDelegate {
     func didTapNewAnswer(_ answer: String)

@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "2B3762382340061800E7CA6F"
-               BuildableName = "QuizMobileApp.framework"
-               BlueprintName = "QuizMobileApp"
+               BuildableName = "Quiz.framework"
+               BlueprintName = "Quiz"
                ReferencedContainer = "container:QuizMobileApp.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -61,8 +61,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "2B3762382340061800E7CA6F"
-            BuildableName = "QuizMobileApp.framework"
-            BlueprintName = "QuizMobileApp"
+            BuildableName = "Quiz.framework"
+            BlueprintName = "Quiz"
             ReferencedContainer = "container:QuizMobileApp.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

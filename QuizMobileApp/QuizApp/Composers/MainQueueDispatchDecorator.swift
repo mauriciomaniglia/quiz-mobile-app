@@ -7,7 +7,7 @@
 //
 
 import Foundation
-import QuizMobileApp
+import Quiz
 
 final class MainQueueDispatchDecorator<T> {
     private let decoratee: T
