@@ -8,7 +8,7 @@
 
 import XCTest
 import QuizMobileApp
-import QuizMobileAppiOS
+import QuizApp
 
 class QuizUIIntegrationTests: XCTestCase {
     
