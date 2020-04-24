@@ -157,7 +157,7 @@
 		2B2F494F23452C6500D1836B /* QuizUIComposer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuizUIComposer.swift; sourceTree = "<group>"; };
 		2B3762392340061800E7CA6F /* Quiz.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Quiz.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B37623D2340061800E7CA6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		2B3762422340061800E7CA6F /* QuizMobileAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizMobileAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		2B3762422340061800E7CA6F /* QuizTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = QuizTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		2B3762492340061800E7CA6F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		2B376253234006F500E7CA6F /* QuestionItem.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionItem.swift; sourceTree = "<group>"; };
 		2B3762552340087000E7CA6F /* QuestionLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = QuestionLoader.swift; sourceTree = "<group>"; };
@@ -355,7 +355,7 @@
 			isa = PBXGroup;
 			children = (
 				2B37623B2340061800E7CA6F /* Quiz */,
-				2B3762462340061800E7CA6F /* QuizMobileAppTests */,
+				2B3762462340061800E7CA6F /* QuizTests */,
 				12D6A83A242B59E100BCF298 /* QuizAPIEndToEndTests */,
 				2B2F491C2344E19400D1836B /* QuizApp */,
 				2B2F49332344E19700D1836B /* QuizAppTests */,
@@ -368,7 +368,7 @@
 			isa = PBXGroup;
 			children = (
 				2B3762392340061800E7CA6F /* Quiz.framework */,
-				2B3762422340061800E7CA6F /* QuizMobileAppTests.xctest */,
+				2B3762422340061800E7CA6F /* QuizTests.xctest */,
 				2B2F491B2344E19400D1836B /* QuizApp.app */,
 				2B2F49302344E19700D1836B /* QuizAppTests.xctest */,
 				12D6A839242B59E100BCF298 /* QuizAPIEndToEndTests.xctest */,
@@ -387,7 +387,7 @@
 			path = Quiz;
 			sourceTree = "<group>";
 		};
-		2B3762462340061800E7CA6F /* QuizMobileAppTests */ = {
+		2B3762462340061800E7CA6F /* QuizTests */ = {
 			isa = PBXGroup;
 			children = (
 				2B37626723412EE400E7CA6F /* Helpers */,
@@ -395,7 +395,7 @@
 				124E730A2428212B00F48D26 /* Quiz Feature */,
 				2B3762492340061800E7CA6F /* Info.plist */,
 			);
-			path = QuizMobileAppTests;
+			path = QuizTests;
 			sourceTree = "<group>";
 		};
 		2B37625E234120C000E7CA6F /* Question API */ = {
@@ -541,9 +541,9 @@
 			productReference = 2B3762392340061800E7CA6F /* Quiz.framework */;
 			productType = "com.apple.product-type.framework";
 		};
-		2B3762412340061800E7CA6F /* QuizMobileAppTests */ = {
+		2B3762412340061800E7CA6F /* QuizTests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 2B3762502340061800E7CA6F /* Build configuration list for PBXNativeTarget "QuizMobileAppTests" */;
+			buildConfigurationList = 2B3762502340061800E7CA6F /* Build configuration list for PBXNativeTarget "QuizTests" */;
 			buildPhases = (
 				2B37623E2340061800E7CA6F /* Sources */,
 				2B37623F2340061800E7CA6F /* Frameworks */,
@@ -554,9 +554,9 @@
 			dependencies = (
 				2B3762452340061800E7CA6F /* PBXTargetDependency */,
 			);
-			name = QuizMobileAppTests;
+			name = QuizTests;
 			productName = QuizMobileAppTests;
-			productReference = 2B3762422340061800E7CA6F /* QuizMobileAppTests.xctest */;
+			productReference = 2B3762422340061800E7CA6F /* QuizTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -603,7 +603,7 @@
 			projectRoot = "";
 			targets = (
 				2B3762382340061800E7CA6F /* Quiz */,
-				2B3762412340061800E7CA6F /* QuizMobileAppTests */,
+				2B3762412340061800E7CA6F /* QuizTests */,
 				2B2F491A2344E19400D1836B /* QuizApp */,
 				2B2F492F2344E19700D1836B /* QuizAppTests */,
 				12D6A838242B59E100BCF298 /* QuizAPIEndToEndTests */,
@@ -1090,7 +1090,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = QuizMobileAppTests/Info.plist;
+				INFOPLIST_FILE = QuizTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1113,7 +1113,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				COMBINE_HIDPI_IMAGES = YES;
 				DEVELOPMENT_TEAM = "";
-				INFOPLIST_FILE = QuizMobileAppTests/Info.plist;
+				INFOPLIST_FILE = QuizTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1175,7 +1175,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		2B3762502340061800E7CA6F /* Build configuration list for PBXNativeTarget "QuizMobileAppTests" */ = {
+		2B3762502340061800E7CA6F /* Build configuration list for PBXNativeTarget "QuizTests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				2B3762512340061800E7CA6F /* Debug */,
