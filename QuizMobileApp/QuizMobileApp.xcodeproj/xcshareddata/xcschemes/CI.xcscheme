@@ -50,17 +50,6 @@
                ReferencedContainer = "container:QuizMobileApp.xcodeproj">
             </BuildableReference>
          </TestableReference>
-         <TestableReference
-            skipped = "NO"
-            testExecutionOrdering = "random">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "12D6A828242B58A400BCF298"
-               BuildableName = "QuizGameIntegrationTests.xctest"
-               BlueprintName = "QuizGameIntegrationTests"
-               ReferencedContainer = "container:QuizMobileApp.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
