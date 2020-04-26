@@ -8,6 +8,7 @@
 
 import UIKit
 import Quiz
+import QuiziOS
 
 final class QuizAnswerListComposer {
     private var presenter: QuizAnswerListPresenter?

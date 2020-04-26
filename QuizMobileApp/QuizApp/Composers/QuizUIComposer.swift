@@ -8,6 +8,7 @@
 
 import UIKit
 import Quiz
+import QuiziOS
 
 public final class QuizUIComposer {
     private let quizQuestionLoader: QuestionLoader
@@ -33,7 +34,7 @@ public final class QuizUIComposer {
     
     private func makeQuizViewController() -> QuizRootViewController {
         let bundle = Bundle(for: QuizRootViewController.self)
-        let storyboard = UIStoryboard(name: "Main", bundle: bundle)
+        let storyboard = UIStoryboard(name: "QuizRoot", bundle: bundle)
         let quizController = storyboard.instantiateInitialViewController() as! QuizRootViewController
         quizController.delegate = self
         

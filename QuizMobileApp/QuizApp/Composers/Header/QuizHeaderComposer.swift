@@ -8,6 +8,7 @@
 
 import UIKit
 import Quiz
+import QuiziOS
 
 final class QuizHeaderComposer {
     var quizGameEngine: QuizGameEngine?

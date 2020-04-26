@@ -14,7 +14,7 @@ public protocol QuizRootViewControllerDelegate {
 }
 
 public class QuizRootViewController: UIViewController {
-    var delegate: QuizRootViewControllerDelegate?
+    public var delegate: QuizRootViewControllerDelegate?
     public var quizHeaderController: QuizHeaderViewController!
     public var quizAnswerListController: QuizAnswerListViewController!
     public var quizFooterController: QuizFooterViewController!

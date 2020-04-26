@@ -14,7 +14,7 @@ public protocol QuizHeaderViewControllerDelegate {
 }
 
 public final class QuizHeaderViewController: UIViewController, QuizHeader, UITextFieldDelegate {
-    var delegate: QuizHeaderViewControllerDelegate?
+    public var delegate: QuizHeaderViewControllerDelegate?
     
     @IBOutlet private(set) public var questionLabel: UILabel!
     @IBOutlet private(set) public var answerTextfield: UITextField!    

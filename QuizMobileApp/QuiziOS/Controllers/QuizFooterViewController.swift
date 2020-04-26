@@ -14,7 +14,7 @@ public protocol QuizFooterViewControllerDelegate {
 }
 
 public final class QuizFooterViewController: UIViewController, QuizFooter {
-    var delegate: QuizFooterViewControllerDelegate?
+    public var delegate: QuizFooterViewControllerDelegate?
     
     @IBOutlet private(set) public var statusButton: UIButton!
     @IBOutlet private(set) public var counterLabel: UILabel!
