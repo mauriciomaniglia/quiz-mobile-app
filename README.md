@@ -177,6 +177,18 @@ Given the customer has already requested to start the game
 
 ![Quiz Game Feature](quiz_diagram.jpg)
 
+## Presenter components
+
+![Quiz Game Feature](Quiz_Presenters.jpg)
+
+## ViewControllers components
+
+![Quiz Game Feature](Quiz_UIKit_View_Controllers.jpg)
+
+## Storyboards components
+
+![Quiz Game Feature](Quiz_UIKit_Storyboards.jpg)
+
 
 ### Payload contract
 
