@@ -360,7 +360,7 @@
 		2B2F491C2344E19400D1836B /* QuizApp */ = {
 			isa = PBXGroup;
 			children = (
-				2B2F494223450EC100D1836B /* Composers */,
+				2B2F494223450EC100D1836B /* Composition */,
 				2B2F491D2344E19400D1836B /* AppDelegate.swift */,
 				2B2F49262344E19700D1836B /* Assets.xcassets */,
 				2B2F49282344E19700D1836B /* LaunchScreen.storyboard */,
@@ -390,7 +390,7 @@
 			path = Controllers;
 			sourceTree = "<group>";
 		};
-		2B2F494223450EC100D1836B /* Composers */ = {
+		2B2F494223450EC100D1836B /* Composition */ = {
 			isa = PBXGroup;
 			children = (
 				12305AF82446754C00EA0165 /* Message */,
@@ -400,7 +400,7 @@
 				2B2F494323450ED600D1836B /* MainQueueDispatchDecorator.swift */,
 				2BEB5C58234679E5007D76D1 /* WeakRefVirtualProxy.swift */,
 			);
-			path = Composers;
+			path = Composition;
 			sourceTree = "<group>";
 		};
 		2B2F494923451E1500D1836B /* Frameworks */ = {
