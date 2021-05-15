@@ -18,8 +18,6 @@ public class QuizRootViewController: UIViewController {
     public var quizHeaderController: QuizHeaderViewController!
     public var quizAnswerListController: QuizAnswerListViewController!
     public var quizFooterController: QuizFooterViewController!
-    
-    private var footerContainerBottomConstraintInitialValue = CGFloat.init()
         
     @IBOutlet weak var headerContainer: UIView!
     @IBOutlet weak var answerListContainer: UIView!
@@ -31,18 +29,11 @@ public class QuizRootViewController: UIViewController {
         addContentForViewController(quizHeaderController, insideContainer: headerContainer)
         addContentForViewController(quizAnswerListController, insideContainer: answerListContainer)
         addContentForViewController(quizFooterController, insideContainer: footerContainer)
-        
-        registerKeyboardObservers()
-        saveFooterContainerBottomConstraintInitialValue()
     }
     
     public override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         delegate?.loadGame()
-    }
-    
-    deinit {
-        unregisterKeyboardObservers()
     }
     
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
@@ -66,39 +57,5 @@ public class QuizRootViewController: UIViewController {
         ])
 
         viewController.didMove(toParent: self)
-    }
-    
-    private func saveFooterContainerBottomConstraintInitialValue() {
-        footerContainerBottomConstraintInitialValue = footerContainerBottomConstraint.constant
-    }
-    
-    private func registerKeyboardObservers() {
-        NotificationCenter.default.addObserver(self, selector: #selector(QuizRootViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(QuizRootViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.addObserver(self, selector: #selector(QuizRootViewController.keyboardWillChangeFrame), name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    }
-    
-    private func unregisterKeyboardObservers() {
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillShowNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillHideNotification, object: nil)
-        NotificationCenter.default.removeObserver(self, name: UIResponder.keyboardWillChangeFrameNotification, object: nil)
-    }
-    
-    private func animateFooterForKeyboardNotification(_ notification: NSNotification) {
-        guard let keyboardFrame: NSValue = notification.userInfo?[UIResponder.keyboardFrameEndUserInfoKey] as? NSValue else { return }
-        view?.layoutIfNeeded()
-        
-        UIView.animate(withDuration: 1.0) {
-            if notification.name == UIResponder.keyboardWillShowNotification {
-                self.footerContainerBottomConstraint.constant = keyboardFrame.cgRectValue.height + self.footerContainerBottomConstraintInitialValue
-            } else {
-                self.footerContainerBottomConstraint.constant = self.footerContainerBottomConstraintInitialValue
-            }
-            self.view?.layoutIfNeeded()
-        }
-    }
-    
-    @objc private func keyboardWillChangeFrame(notification:NSNotification) {
-        animateFooterForKeyboardNotification(notification)
     }
 }
