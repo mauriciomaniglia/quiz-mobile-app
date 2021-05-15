@@ -13,16 +13,11 @@ import QuiziOS
 public final class QuizComposer {
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
-    private var counter = QuizGameTimer(withSeconds: 300)    
-    private let messageComposer = QuizMessageComposer()
-    private var isPlaying = false
-
-    var headerPresenter: QuizHeaderPresenter?
-    var listPresenter: QuizAnswerListPresenter?
-    var footerPresenter: QuizFooterPresenter?
+    private let adapter: QuizAdapter
     
     public init(questionLoader: QuestionLoader) {
         self.quizQuestionLoader = MainQueueDispatchDecorator(decoratee: questionLoader)
+        self.adapter = QuizAdapter(questionLoader: self.quizQuestionLoader)
     }
     
     public func quizRootViewController() -> QuizRootViewController {
@@ -38,21 +33,14 @@ public final class QuizComposer {
         let bundle = Bundle(for: QuizRootViewController.self)
         let storyboard = UIStoryboard(name: "QuizRoot", bundle: bundle)
         let quizController = storyboard.instantiateInitialViewController() as! QuizRootViewController
-        quizController.delegate = self
+        quizController.delegate = adapter
         
         return quizController
-    }
-    
-    private func startGameEngine(_ questionItem: QuestionItem) {
-        let quizGameEngine = QuizGameEngine(counter: self.counter, correctAnswers: questionItem.answer)
-        self.quizGameEngine = quizGameEngine
-        self.quizGameEngine?.delegate = WeakRefVirtualProxy(self)
-        self.counter.delegate = WeakRefVirtualProxy(quizGameEngine)
     }
 
     func header() -> QuizHeaderViewController {
         let controller = makeQuizHeaderViewController()
-        headerPresenter = QuizHeaderPresenter(quizHeader: WeakRefVirtualProxy(controller))
+        adapter.headerPresenter = QuizHeaderPresenter(quizHeader: WeakRefVirtualProxy(controller))
 
         return controller
     }
@@ -61,14 +49,14 @@ public final class QuizComposer {
         let bundle = Bundle(for: QuizRootViewController.self)
         let headerStoryboard = UIStoryboard(name: "QuizHeader", bundle: bundle)
         let quizHeaderController = headerStoryboard.instantiateInitialViewController() as! QuizHeaderViewController
-        quizHeaderController.delegate = self
+        quizHeaderController.delegate = adapter
 
         return quizHeaderController
     }
 
     func answerListController() -> QuizAnswerListViewController {
         let controller = makeQuizAnswerListViewController()
-        listPresenter = QuizAnswerListPresenter(answerList: controller)
+        adapter.listPresenter = QuizAnswerListPresenter(answerList: controller)
         return controller
     }
 
@@ -82,7 +70,7 @@ public final class QuizComposer {
 
     func footer() -> QuizFooterViewController {
         let controller = makeQuizFooterViewController()
-        footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(controller))
+        adapter.footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(controller))
 
         return controller
     }
@@ -91,63 +79,8 @@ public final class QuizComposer {
         let bundle = Bundle(for: QuizFooterViewController.self)
         let footerStoryboard = UIStoryboard(name: "QuizFooter", bundle: bundle)
         let quizFooterController = footerStoryboard.instantiateInitialViewController() as! QuizFooterViewController
-        quizFooterController.delegate = self
+        quizFooterController.delegate = adapter
 
         return quizFooterController
-    }
-}
-
-extension QuizComposer: QuizHeaderViewControllerDelegate {
-    public func didTapNewAnswer(_ answer: String) {
-        quizGameEngine?.addAnswer(answer)
-    }
-}
-
-extension QuizComposer: QuizFooterViewControllerDelegate {
-    public func didClickStatusButton() {
-        if isPlaying {
-            isPlaying = false
-            quizGameEngine?.reset()
-        } else {
-            isPlaying = true
-            quizGameEngine?.start()
-        }
-    }
-}
-
-extension QuizComposer: QuizRootViewControllerDelegate {
-    public func loadGame() {
-        QuizLoadingComposer.showLoading()
-                
-        quizQuestionLoader.load { [weak self] result in
-            switch result {
-            case let .success(questions):
-                guard let questionItem = questions.first else { return }
-
-                self?.headerPresenter?.didFinishLoadGame(with: questionItem)
-
-                self?.footerPresenter?.didFinishLoadGame(with: questionItem)
-                
-                self?.startGameEngine(questionItem)
-                
-                QuizLoadingComposer.hideLoading()
-                
-            case let .failure(error):
-                QuizLoadingComposer.hideLoading()
-                self?.messageComposer.showLoadingError(error)
-            }
-        }
-    }
-}
-
-extension QuizComposer: QuizGameDelegate {
-    public func gameStatus(_ gameStatus: GameStatus) {
-        if gameStatus.isGameFinished {
-            messageComposer.showFinishedGame(gameStatus)
-        } else {
-            headerPresenter?.didUpdateGameStatus(gameStatus)
-            listPresenter?.didUpdateGameStatus(gameStatus)
-            footerPresenter?.didUpdateGameStatus(gameStatus)
-        }
     }
 }
