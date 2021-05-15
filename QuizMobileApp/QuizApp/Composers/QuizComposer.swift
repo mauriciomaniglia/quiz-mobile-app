@@ -20,12 +20,16 @@ public final class QuizComposer {
         self.adapter = QuizAdapter(questionLoader: self.quizQuestionLoader)
     }
     
-    public func quizRootViewController() -> QuizRootViewController {
+    public func quizGame() -> QuizRootViewController {
         let controller = makeQuizViewController()
-        controller.quizHeaderController = header()
-        controller.quizAnswerListController = answerListController()
-        controller.quizFooterController = footer()
-        
+        controller.quizHeaderController = makeQuizHeaderViewController()
+        controller.quizAnswerListController = makeQuizAnswerListViewController()
+        controller.quizFooterController = makeQuizFooterViewController()
+
+        adapter.headerPresenter = QuizHeaderPresenter(quizHeader: WeakRefVirtualProxy(controller.quizHeaderController))
+        adapter.listPresenter = QuizAnswerListPresenter(answerList: controller.quizAnswerListController)
+        adapter.footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(controller.quizFooterController))
+
         return controller
     }
     
@@ -38,13 +42,6 @@ public final class QuizComposer {
         return quizController
     }
 
-    func header() -> QuizHeaderViewController {
-        let controller = makeQuizHeaderViewController()
-        adapter.headerPresenter = QuizHeaderPresenter(quizHeader: WeakRefVirtualProxy(controller))
-
-        return controller
-    }
-
     private func makeQuizHeaderViewController() -> QuizHeaderViewController {
         let bundle = Bundle(for: QuizRootViewController.self)
         let headerStoryboard = UIStoryboard(name: "QuizHeader", bundle: bundle)
@@ -54,25 +51,12 @@ public final class QuizComposer {
         return quizHeaderController
     }
 
-    func answerListController() -> QuizAnswerListViewController {
-        let controller = makeQuizAnswerListViewController()
-        adapter.listPresenter = QuizAnswerListPresenter(answerList: controller)
-        return controller
-    }
-
     private func makeQuizAnswerListViewController() -> QuizAnswerListViewController {
         let bundle = Bundle(for: QuizAnswerListViewController.self)
         let answerListStoryboard = UIStoryboard(name: "QuizAnswerList", bundle: bundle)
         let quizAnswerListController = answerListStoryboard.instantiateInitialViewController() as! QuizAnswerListViewController
 
         return quizAnswerListController
-    }
-
-    func footer() -> QuizFooterViewController {
-        let controller = makeQuizFooterViewController()
-        adapter.footerPresenter = QuizFooterPresenter(quizFooter: WeakRefVirtualProxy(controller))
-
-        return controller
     }
 
     private func makeQuizFooterViewController() -> QuizFooterViewController {
