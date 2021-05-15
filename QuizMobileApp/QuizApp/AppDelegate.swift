@@ -19,7 +19,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         let client = URLSessionHTTPClient(session: URLSession(configuration: .default))
         let url = URL(string: "https://raw.githubusercontent.com/mauriciomaniglia/quiz-mobile-app/master/quiz.api")!
         let questionLoader = RemoteQuestionLoader(url: url, client: client)
-        let initialViewController = QuizUIComposer(questionLoader: questionLoader).quizRootViewController()
+        let initialViewController = QuizComposer(questionLoader: questionLoader).quizRootViewController()
 
         self.window?.rootViewController = initialViewController
         self.window?.makeKeyAndVisible()

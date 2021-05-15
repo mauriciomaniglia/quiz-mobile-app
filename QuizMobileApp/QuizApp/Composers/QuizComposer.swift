@@ -10,7 +10,7 @@ import UIKit
 import Quiz
 import QuiziOS
 
-public final class QuizUIComposer {
+public final class QuizComposer {
     private let quizQuestionLoader: QuestionLoader
     private var quizGameEngine: QuizGameEngine?
     private var counter = QuizGameTimer(withSeconds: 300)
@@ -52,7 +52,7 @@ public final class QuizUIComposer {
     }
 }
 
-extension QuizUIComposer: QuizRootViewControllerDelegate {
+extension QuizComposer: QuizRootViewControllerDelegate {
     public func loadGame() {
         QuizLoadingComposer.showLoading()
                 
@@ -76,7 +76,7 @@ extension QuizUIComposer: QuizRootViewControllerDelegate {
     }
 }
 
-extension QuizUIComposer: QuizGameDelegate {
+extension QuizComposer: QuizGameDelegate {
     public func gameStatus(_ gameStatus: GameStatus) {
         if gameStatus.isGameFinished {
             messageComposer.showFinishedGame(gameStatus)

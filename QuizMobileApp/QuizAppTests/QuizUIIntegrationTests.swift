@@ -11,11 +11,11 @@ import Quiz
 import QuiziOS
 import QuizApp
 
-class QuizUIIntegrationTests: XCTestCase {
+class QuizIntegrationTests: XCTestCase {
     
     func test_loadActions_requestQuizFromLoader() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
+        let sut = QuizComposer(questionLoader: loader).quizRootViewController()
         
         XCTAssertEqual(loader.loadCallCount, 0, "Expected no loading requests before view is loaded")
         
@@ -30,7 +30,7 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_loadingQuestionComponents_areVisibleWhileLoadingQuiz() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
+        let sut = QuizComposer(questionLoader: loader).quizRootViewController()
         
         sut.loadScreen()
         
@@ -41,7 +41,7 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_startGame_changeGameStateCorrectly() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
+        let sut = QuizComposer(questionLoader: loader).quizRootViewController()
         
         sut.loadScreen()
         loader.simulateSuccessfulLoad()
@@ -62,7 +62,7 @@ class QuizUIIntegrationTests: XCTestCase {
     
     func test_addGuess_updateUserGuesses() {
         let loader = LoaderSpy()
-        let sut = QuizUIComposer(questionLoader: loader).quizRootViewController()
+        let sut = QuizComposer(questionLoader: loader).quizRootViewController()
         UIApplication.shared.keyWindow!.rootViewController = sut
         
         sut.loadScreen()
